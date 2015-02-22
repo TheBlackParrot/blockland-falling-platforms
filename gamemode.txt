@@ -32,7 +32,7 @@ ADDON Bot_Shark
 ADDON Bot_Zombie
 
 //ADDON Script_CustomMS
-//ADDON Script_Eval
+ADDON Script_Eval
 
 ADDON Player_No_Jet
 

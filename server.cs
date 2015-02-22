@@ -1,6 +1,8 @@
 exec("./db_functions.cs");
 exec("./platform_functions.cs");
 exec("./system.cs");
+exec("./saving.cs");
+exec("./commands.cs");
 
 datablock AudioProfile(fall1)
 {
@@ -26,6 +28,21 @@ AudioMusicLooping3d.is3d = 0;
 AudioMusicLooping3d.referenceDistance = 999999;
 AudioMusicLooping3d.maxDistance = 999999;
 
+$Platforms::Colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange 27 cyan 24 pink 7 gray 42 brown";
+function getPlatformColorTypes(%type) {
+	switch$(%type) {
+		case "numbers":
+			for(%i=0;%i<getWordCount($Platforms::Colors);%i+=2) {
+				%colors = %colors SPC getWord($Platforms::Colors,%i);
+			}
+		case "names":
+			for(%i=1;%i<getWordCount($Platforms::Colors);%i+=2) {
+				%colors = %colors SPC getWord($Platforms::Colors,%i);
+			}
+	}
+	return getSubStr(%colors,1,strLen(%colors));
+}
+
 function initFPMusic() {
 	%path = "Add-Ons/Music/";
 	%file_s = findFirstFile(%path @ "*.ogg");
@@ -38,7 +55,7 @@ function initFPMusic() {
 		%blacklist = "After_School_Special.ogg Ambient_Deep.ogg Bass_1.ogg Bass_2.ogg Bass_3.ogg Creepy.ogg Distort.ogg Drums.ogg Factory.ogg Icy.ogg Jungle.ogg Paprika_-_Byakko_no.ogg Peaceful.ogg Piano_Bass.ogg Rock.ogg Stress_.ogg Vartan_-_Death.ogg";
 		if(stripos(%blacklist,fileName(%file_s)) == -1) {
 			// ugh, i hate using eval
-			eval("datablock AudioProfile(musicData_FP" @ $Platforms::MusicDataCount @ ") {fileName = \"" @ %file_s @ "\"; description = \"AudioMusicLooping3d\"; preload = 1; uiName = \"" @ %str @ "\";};");
+			eval("datablock AudioProfile(musicData_FP" @ $Platforms::MusicDataCount @ ") {fileName = \"" @ %file_s @ "\"; description = \"AudioMusicLooping3d\"; preload = 1; uiName = \"" @ strReplace(fileBase(%file_s),"_"," ") @ "\";};");
 			$Platforms::MusicData[$Platforms::MusicDataCount] = %str;
 			$Platforms::MusicDataCount++;
 		} else {
@@ -55,7 +72,7 @@ function initFPMusic() {
 		profile = "musicData_FP" @ getRandom(0,$Platforms::MusicDataCount);
 		referenceDistance = 999999;
 		maxDistance = 999999;
-		volume = 0.5;
+		volume = 0.6;
 	};
 }
 initFPMusic();
@@ -87,6 +104,34 @@ function RGBToHex(%rgb) {
 	return %hexstr;
 }
 
+function GameConnection::doBottomStats(%this) {
+	cancel(%this.bottomStatLoop);
+	%this.bottomStatLoop = %this.schedule(1000,doBottomStats);
+
+	%score = %this.score;
+	%totalscore = %this.totalscore;
+	%rounds = PlatformAI.rounds;
+	%highest[amount] = $Platforms::HighestRound[amount] || 0;
+	%highest[name] = $Platforms::HighestRound[name];
+	if(PlatformAI.roundInitTime == -1) {
+		%time = getTimeString(0);
+	} else {
+		%time = getTimeString(mFloor((getSimTime() - PlatformAI.roundInitTime)/1000));
+	}
+	if(%highest[name] $= "") {
+		%highest[name] = "N/A";
+	}
+
+	//%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "  \c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]  \c3Game Time:\c6" SPC %time,2,1);
+	%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Game Time:\c6" SPC %time @ "<just:right>\c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
+}
+
+function MinigameSO::playSound(%this,%data) {
+	for(%i=0;%i<%this.numMembers;%i++) {
+		%this.member[%i].play2D(%data);
+	}
+}
+
 package FallingPlatformsPackage {
 	function fxDTSBrick::onAdd(%this) {
 		%this.enableTouch = 1;
@@ -108,13 +153,17 @@ package FallingPlatformsPackage {
 		}
 
 		if(%this.getName() $= "_spawn_teleport") {
-			echo("TELEPORT");
 			if(%this.canTeleport) {
 				%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
 				%player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
 				%player.setVelocity("0 0 0");
 			}
 		}
+	}
+
+	function GameConnection::autoAdminCheck(%this) {
+		%this.doBottomStats();
+		return parent::autoAdminCheck(%this);
 	}
 
 	function ServerLoadSaveFile_End() {
@@ -137,5 +186,9 @@ package FallingPlatformsPackage {
 
 		return parent::onServerDestroyed();
 	}
+	// exploits
+	function MinigameSO::messageAll(%this) {}
+	function MinigameSO::centerPrintAll(%this) {}
+	function MinigameSO::bottomPrintAll(%this) {}
 };
 activatePackage(FallingPlatformsPackage);

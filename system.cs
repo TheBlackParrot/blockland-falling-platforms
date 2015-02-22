@@ -10,23 +10,26 @@ if(!isObject(PlatformAI)) {
 
 function PlatformAI::getColorAmount(%this) {
 	%amount = mCeil(%this.rounds/5)+1;
-	if(%amount > 8) {
-		%amount = 8;
+	%count = getWordCount(getPlatformColorTypes("numbers"));
+	if(%amount > %count) {
+		%amount = %count;
 	}
 	return %amount;
 }
 
 function PlatformAI::getDelayReduction(%this) {
-	%amount = (%this.rounds-1)*75;
-	if(%amount > 4000) {
-		%amount = 4000;
+	%amount = (%this.rounds-1)*150;
+	if(%amount > 3000) {
+		%amount = 3000;
 	}
 	return %amount;
 }
 
 function PlatformAI::gameLoop(%this) {
 	cancel(%this.gameSchedule);
-	%this.gameSchedule = %this.schedule(15000-%this.getDelayReduction()*1.6,gameLoop);
+	%this.gameSchedule = %this.schedule(16500-(%this.getDelayReduction()*2),gameLoop);
+
+	%this.specialRound = 0;
 
 	if(isEventPending(%this.pregameSchedule)) {
 		cancel(%this.pregameSchedule);
@@ -42,12 +45,22 @@ function PlatformAI::gameLoop(%this) {
 			}
 			if(%player.inGame) {
 				%count++;
+				%last_player = %player.client;
+				%player.client.score += %this.rounds;
+				%player.client.totalscore += %this.rounds;
+				%player.client.savePlatformsGame();
 			}
 		}
 	}
 	if(!%count) {
 		%this.stopGame();
 		return;
+	}
+	if(%count == 1 && !%this.hasAwardedBonus) {
+		%last_player.score += 100;
+		%last_player.totalscore += 100;
+		%this.hasAwardedBonus = 1;
+		messageAll('',"\c4AI: \c6Congratulations to" SPC %last_player.name SPC "for being the last person standing! They receive a 100 point bonus!");
 	}
 
 	%this.inProgress = 1;
@@ -58,17 +71,84 @@ function PlatformAI::gameLoop(%this) {
 	}
 	randomizePlatformBricks(%color_amount);
 	%chosen_color = getRandom(0,%color_amount-1);
+	if(!getRandom(0,6)) {
+		%this.specialRound = 1;
+		%this.doSpecialRound(1);
+	}
+	if(!getRandom(0,6) && %this.rounds >= 15 && !%this.specialRound) {
+		%this.inverseFall = 1;
+	} else {
+		%this.inverseFall = 0;
+	}
 
-	%this.warnSchedule = schedule(1000-%this.getDelayReduction()/9,0,warnPlatforms,%chosen_color);
-	%this.breakSchedule = schedule(5000-%this.getDelayReduction(),0,breakPlatforms,%chosen_color);
+	//if(!getRandom(0,12)) {
+	//	%this.specialRound = 1;
+	//	for(%i=0;%i<PlatformBricks.getCount();%i++) {
+	//		%brick = 
+	//	}
+	//}
+
+	if(%this.rounds > $Platforms::HighestRound[amount]) {
+		$Platforms::HighestRound[amount] = %this.rounds;
+		for(%i=0;%i<ClientGroup.getCount();%i++) {
+			%player = ClientGroup.getObject(%i).player;
+			if(isObject(%player)) {
+				if(%player.inGame) {
+					$Platforms::HighestRound[name] = %player.client.name;
+				}
+			}
+		}
+	}
 
 	%this.rounds++;
 	%this.oldColorAmount = %color_amount;
+
+	if(!%this.specialRound) {
+		%this.warnSchedule = schedule(1500-%this.getDelayReduction()/9,0,warnPlatforms,%chosen_color);
+		%this.breakSchedule = schedule(5500-%this.getDelayReduction(),0,breakPlatforms,%chosen_color);
+	}
+}
+
+function PlatformAI::doSpecialRound(%this,%type) {
+	for(%i=0;%i<PlatformBricks.getCount();%i++) {
+		%brick = PlatformBricks.getObject(%i);
+		%brick.selected = 0;
+	}
+	cancel(%this.warnSchedule);
+	cancel(%this.breakSchedule);
+	cancel(%this.gameSchedule);
+	messageAll("\c4AI: \c6Ooooh, a special round!");
+
+	switch(%type) {
+		case 1:
+			centerPrintAll("<font:Impact:36>\c6Pay attention! Avoid the selected bricks!",5);
+			%amount = getRandom(4,8)*%this.rounds;
+			if(%amount > 230) {
+				%amount = 230;
+			}
+			for(%i=0;%i<%amount;%i++) {
+				%brick = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1));
+				while(%brick.selected) {
+					%brick = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1));
+				}
+				%brick.selected = 1;
+
+				%brick = %brick.brick;
+				%brick.schedule(%i*50,playSound,brickPlantSound);
+
+				%brick.schedule(%i*50,setColorFX,4);
+				%brick.schedule(2000+(%amount*50),fakeKillBrick,getRandom(-20,20) SPC getRandom(-20,20) SPC getRandom(-20,20),6-mFloor(PlatformAI.getDelayReduction()/1000));
+				%brick.schedule(2000+(%amount*50),setColorFX,0);
+			}
+			$DefaultMinigame.schedule(2000+(%amount*50),playSound,"fall" @ getRandom(1,13));
+			%this.specialEndSchedule = %this.schedule(8000+(%i*50)+(%amount*50)-PlatformAI.getDelayReduction(),gameLoop);
+	}
 }
 
 function PlatformAI::stopGame(%this) {
 	if(isEventPending(%this.gameSchedule)) {
 		cancel(%this.gameSchedule);
+		cancel(%this.specialEndSchedule);
 		// make sure all players still in-game are kicked out
 		messageAll('',"\c4AI: \c6Good game!");
 		%this.resetSchedule = %this.schedule(2000,reset);
@@ -82,6 +162,7 @@ function PlatformAI::reset(%this) {
 	%this.roundInitTime = -1;
 	%this.inProgress = 0;
 	%this.oldColorAmount = 0;
+	%this.hasAwardedBonus = 0;
 
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
 		%player = ClientGroup.getObject(%i).player;
@@ -122,7 +203,6 @@ function PlatformAI::readyGame(%this) {
 		return;
 	}
 	%this.roundInitTime = getSimTime();
-	%this.inProgress = 1;
 	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
 		%brick = BrickGroup_888888.getObject(%i);
 		if(%brick.getName() $= "_spawn_teleport") {
@@ -140,5 +220,5 @@ function PlatformAI::pregameLoop(%this) {
 	cancel(%this.pregameSchedule);
 	%this.pregameSchedule = %this.schedule(2000,pregameLoop);
 
-	randomizePlatformBricks(getRandom(2,8));
+	randomizePlatformBricks(getRandom(2,getWordCount(getPlatformColorTypes("numbers"))));
 }

@@ -26,10 +26,10 @@ function gatherPlatformBricks() {
 }
 
 function randomizePlatformBricks(%amount) { 
-	if(%amount > 8) {
-		%amount = 8;
+	%colors = getPlatformColorTypes("numbers");
+	if(%amount > getWordCount(%colors)) {
+		%amount = getWordCount(%colors);
 	}
-	%colors = "0 3 1 2 8 4 17 14";
 	%count = PlatformBricks.getCount();
 	%per_brick = mFloor(%count / %amount);
 	%remainder = %count - (%per_brick*%amount);
