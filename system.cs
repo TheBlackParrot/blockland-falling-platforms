@@ -27,7 +27,7 @@ function PlatformAI::getDelayReduction(%this) {
 
 function PlatformAI::gameLoop(%this) {
 	cancel(%this.gameSchedule);
-	%this.gameSchedule = %this.schedule(16500-(%this.getDelayReduction()*2),gameLoop);
+	%this.gameSchedule = %this.schedule(14500-(%this.getDelayReduction()*2),gameLoop);
 
 	%this.specialRound = 0;
 
@@ -35,6 +35,7 @@ function PlatformAI::gameLoop(%this) {
 		cancel(%this.pregameSchedule);
 	}
 
+	%count = 0;
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
 		%player = ClientGroup.getObject(%i).player;
 		if(isObject(%player)) {
@@ -44,11 +45,11 @@ function PlatformAI::gameLoop(%this) {
 				%player.kill();
 			}
 			if(%player.inGame) {
-				%count++;
-				%last_player = %player.client;
+				%player[%count] = %player.client;
 				%player.client.score += %this.rounds;
 				%player.client.totalscore += %this.rounds;
 				%player.client.savePlatformsGame();
+				%count++;
 			}
 		}
 	}
@@ -56,20 +57,31 @@ function PlatformAI::gameLoop(%this) {
 		%this.stopGame();
 		return;
 	}
-	if(%count == 1 && !%this.hasAwardedBonus) {
-		%last_player.score += 100;
-		%last_player.totalscore += 100;
-		%this.hasAwardedBonus = 1;
-		messageAll('',"\c4AI: \c6Congratulations to" SPC %last_player.name SPC "for being the last person standing! They receive a 100 point bonus!");
+	if(%this.old_count != %count) {
+		switch(%count) {
+			case 1:
+				if(%this.rounds > 7) {
+					%player[0].score += 100;
+					%player[0].totalscore += 100;
+					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a 100 point bonus!");
+				}
+			case 2:
+				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "and" SPC %player[1].name @ "! Who will win?");
+		}
 	}
+	%this.old_count = %count;
 
 	%this.inProgress = 1;
 
 	%color_amount = %this.getColorAmount();
 	if(%color_amount != %this.oldColorAmount && %this.oldColorAmount) {
 		messageAll('',"\c4AI: \c6Throwing in another color!");
+		randomizePlatformBricks(%color_amount);
+		%did_shuffle = 1;
 	}
-	randomizePlatformBricks(%color_amount);
+	if(%this.rounds % 2 && !%did_shuffle) {
+		randomizePlatformBricks(%color_amount);
+	}
 	%chosen_color = getRandom(0,%color_amount-1);
 	if(!getRandom(0,6)) {
 		%this.specialRound = 1;

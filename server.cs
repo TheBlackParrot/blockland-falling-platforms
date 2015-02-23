@@ -145,9 +145,13 @@ package FallingPlatformsPackage {
 		if(%this.getName() $= "_falling_plate") {
 			%player.lastTouch = getSimTime();
 			if(!PlatformAI.inProgress) {
-				if(!%player.inGame) {
+				if(!%player.inGame && %player.client.minigame) {
 					%player.inGame = 1;
-					messageAll('',"\c3" @ %player.client.name SPC "\c6has joined the game!");
+					messageAll('',"\c3" @ %player.client.name SPC "\c5has joined the game!");
+				}
+			} else {
+				if(!%player.inGame || !%player.client.minigame) {
+					%player.kill();
 				}
 			}
 		}
@@ -157,6 +161,9 @@ package FallingPlatformsPackage {
 				%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
 				%player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
 				%player.setVelocity("0 0 0");
+				%player.setPlayerScale("1 1 1");
+			} else {
+				%player.client.centerPrint("\c6This is a teleporter to join the game, however it is not currently active.<br>Wait for the current game to finish first!",3);
 			}
 		}
 	}

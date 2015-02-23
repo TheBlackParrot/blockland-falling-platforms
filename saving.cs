@@ -44,5 +44,13 @@ package PlatformsSavingPackage {
 
 		return parent::autoAdminCheck(%this);
 	}
+
+	function GameConnection::spawnPlayer(%this) {
+		if(isFile($Platforms::SaveDir @ "/" @ sha1(%this.bl_id))) {
+			%this.loadPlatformsSave();
+		}
+
+		return parent::spawnPlayer(%this);
+	}
 };
 activatePackage(PlatformsSavingPackage);

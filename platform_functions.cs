@@ -34,11 +34,11 @@ function breakPlatforms(%color) {
 		%row.brick.setColorFX(0);
 		if(!PlatformAI.inverseFall) {
 			if(%row.color != %color) {
-				%row.brick.fakeKillBrick(getRandom(-20,20) SPC getRandom(-20,20) SPC getRandom(-20,20),6-mFloor(PlatformAI.getDelayReduction()/1000));
+				%row.brick.fakeKillBrick("0 0 0",6-mFloor(PlatformAI.getDelayReduction()/1000));
 			}
 		} else {
 			if(%row.color == %color) {
-				%row.brick.fakeKillBrick(getRandom(-20,20) SPC getRandom(-20,20) SPC getRandom(-20,20),6-mFloor(PlatformAI.getDelayReduction()/1000));
+				%row.brick.fakeKillBrick("0 0 0",6-mFloor(PlatformAI.getDelayReduction()/1000));
 			}
 		}
 	}
