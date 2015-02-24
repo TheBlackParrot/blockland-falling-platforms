@@ -11,6 +11,8 @@ function warnPlatforms(%color) {
 			%row.brick.schedule(450,setColorFX,3);
 			%row.brick.schedule(600,setColorFX,0);
 		}
+		%row.brick.setColorFX(4);
+		%row.brick.setColorFX(0);
 	}
 	$DefaultMinigame.schedule(150,playSound,brickPlantSound);
 	$DefaultMinigame.schedule(450,playSound,brickPlantSound);

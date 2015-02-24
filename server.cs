@@ -132,6 +132,52 @@ function MinigameSO::playSound(%this,%data) {
 	}
 }
 
+function checkOnDeath() {
+	%count = 0;
+	%ai = PlatformAI;
+	if(!%ai.inProgress) {
+		return;
+	}
+	for(%i=0;%i<ClientGroup.getCount();%i++) {
+		%player = ClientGroup.getObject(%i).player;
+		if(isObject(%player)) {
+			if(%player.inGame) {
+				%player[%count] = %player.client;
+				%count++;
+			}
+		}
+	}
+	if($Platforms::OldCount != %count) {
+		messageAll('',"\c4AI: \c6" @ %count SPC "players remain!");
+		switch(%count) {
+			case 1:
+				if(%ai.rounds > 7) {
+					%player[0].score += 100;
+					%player[0].totalscore += 100;
+					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a 100 ticket bonus!");
+					%ai.canBet = 0;
+					%ai.doBets(%player[0].player);
+				}
+			case 2:
+				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "(" @ %player[0].bl_id @ ") and" SPC %player[1].name SPC "(" @ %player[1].bl_id @ ")! Who will win?");
+				messageAll('',"\c4AI: \c6Place your bets! See /help for syntax on /bet, and be sure to use BL_ID's!");
+				%ai.canBet = 1;
+				%count_b = 0;
+				for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+					%player_b = $DefaultMinigame.member[%i].player;
+					if(isObject(%player_b)) {
+						if(%player_b.inGame) {
+							%ai.pot[%count_b,player] = %player_b;
+							%ai.pot[%count_b,amount] = 0;
+							%count_b++;
+						}
+					}
+				}
+		}
+	}
+	$Platforms::OldCount = %count;
+}
+
 package FallingPlatformsPackage {
 	function fxDTSBrick::onAdd(%this) {
 		%this.enableTouch = 1;
@@ -194,6 +240,17 @@ package FallingPlatformsPackage {
 
 		return parent::onServerDestroyed();
 	}
+
+	function GameConnection::onDeath(%this,%obj,%killer,%type,%area) {
+		parent::onDeath(%this,%obj,%killer,%type,%area);
+		checkOnDeath();
+	}
+	function GameConnection::onClientLeaveGame(%this) {
+		%r = parent::onClientLeaveGame(%this);
+		checkOnDeath();
+		return %r;
+	}
+
 	// exploits
 	function MinigameSO::messageAll(%this) {}
 	function MinigameSO::centerPrintAll(%this) {}

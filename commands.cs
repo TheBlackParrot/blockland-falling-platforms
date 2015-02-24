@@ -1,14 +1,36 @@
 function serverCmdHelp(%this) {
 	messageClient(%this,'',"\c3/changeMusic \c5[num] \c6-- Changes the music on the server, leave it blank to see a list. \c7[250 tickets]");
+	messageClient(%this,'',"\c3/bet \c5[amount] [player] \c6-- Bet on a player.");
+	messageClient(%this,'',"\c3/camera \c6-- Watch the game from, well, anywhere! Use the command again to regain control of your player.");
 }
 
-function serverCmdBet(%this,%target_ask,%amount) {
+function serverCmdBet(%this,%amount,%target_ask) {
 	%ai = PlatformAI;
 	%mini = $DefaultMinigame;
 	%amount = mFloor(%amount);
 
-	if(%this.bl_id != getNumKeyID()) {
+	if(%amount $= "" && %target_ask $= "") {
+		for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+			%client = $DefaultMinigame.member[%i];
+			if(isObject(%client.player)) {
+				if(%client.player.inGame) {
+					messageClient(%this,'',"\c3" @ %client.bl_id @ ": \c6" @ %this.name);
+				}
+			}
+		}
+		messageClient(%this,'',"\c5Use BL_IDs to bet on players, see the list above.");
 		return;
+	}
+
+	if(%this.bl_id == %target_ask) {
+		messageClient(%this,'',"\c6You cannot bet on yourself.");
+		return;
+	}
+	if(isObject(%this.player)) {
+		if(%this.player.inGame) {
+			messageClient(%this,'',"\c6You cannot bet while in-game.");
+			return;
+		}
 	}
 
 	if(%this.betContributed[player] !$= "") {
@@ -29,13 +51,9 @@ function serverCmdBet(%this,%target_ask,%amount) {
 		return;
 	}
 
-	if(!mFloor(%target_ask)) {
-		%target = findClientByName(%target_ask);
-	} else {
-		%target = findClientByBL_ID(%target_ask);
-	}
+	%target = findClientByBL_ID(%target_ask);
 	if(!isObject(%target)) {
-		messageClient(%this,'',"\c6This player doesn't exist. If they have strange characters in their name, yell at them and try again with their BL_ID.");
+		messageClient(%this,'',"\c6This player doesn't exist. Be sure to use their BL_ID.");
 		return;
 	}
 
@@ -58,16 +76,19 @@ function serverCmdBet(%this,%target_ask,%amount) {
 		return;
 	}
 
-	if(%ai.pot[0,name] $= %selected_player.client.name) {
+	if(%ai.pot[0,player] == %selected_player) {
 		%ai.pot[0,amount] += %amount;
 	}
-	if(%ai.pot[1,name] $= %selected_player.client.name) {
+	if(%ai.pot[1,player] == %selected_player) {
 		%ai.pot[1,amount] += %amount;
 	}
-	
+
 	messageAll('',"\c3" @ %this.name SPC "\c5has bet\c3" SPC %amount SPC "tickets \c5on\c3" SPC %selected_player.client.name @ "\c5.");
 	%this.betContributed[amount] = %amount;
 	%this.betContributed[player] = %selected_player;
+
+	%this.score -= %amount;
+	%this.savePlatformsGame();
 }
 
 function serverCmdChangeMusic(%this,%which) {
@@ -109,3 +130,18 @@ function serverCmdChangeMusic(%this,%which) {
 	};
 }
 
+function serverCmdCamera(%this) {
+	if(%this.getControlObject().getClassName() $= "Player") {
+		%camera = %this.Camera;
+		%camera.setFlyMode();
+		%camera.mode = "Observer";
+		%this.setControlObject(%camera);
+		return;
+	}
+	if(%this.getControlObject().getClassName() $= "Camera") {
+		if(!isObject(%this.player)) {
+			%this.spawnPlayer();
+		}
+		%this.player.instantRespawn();
+	}
+}

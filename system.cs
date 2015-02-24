@@ -57,33 +57,6 @@ function PlatformAI::gameLoop(%this) {
 		%this.stopGame();
 		return;
 	}
-	if(%this.old_count != %count) {
-		switch(%count) {
-			case 1:
-				if(%this.rounds > 7) {
-					%player[0].score += 100;
-					%player[0].totalscore += 100;
-					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a 100 ticket bonus!");
-					%this.canBet = 0;
-					%this.doBets(%player[0]);
-				}
-			case 2:
-				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "and" SPC %player[1].name @ "! Who will win?");
-				%this.canBet = 1;
-				%count_b = 0;
-				for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
-					%player_b = $DefaultMinigame.member[%i].player;
-					if(isObject(%player_b)) {
-						if(%player_b.inGame) {
-							%this.pot[%count_b,player] = %player_b;
-							%this.pot[%count_b,amount] = 0;
-							talk(%this.pot[%count_b,player] SPC %player_b);
-							%count_b++;
-						}
-					}
-				}
-		}
-	}
 	%this.old_count = %count;
 
 	%this.inProgress = 1;
@@ -140,6 +113,8 @@ function PlatformAI::doSpecialRound(%this,%type) {
 	for(%i=0;%i<PlatformBricks.getCount();%i++) {
 		%brick = PlatformBricks.getObject(%i);
 		%brick.selected = 0;
+		%brick.brick.setColorFX(4);
+		%brick.brick.setColorFX(0);
 	}
 	cancel(%this.warnSchedule);
 	cancel(%this.breakSchedule);
@@ -163,9 +138,10 @@ function PlatformAI::doSpecialRound(%this,%type) {
 				%brick = %brick.brick;
 				%brick.schedule(%i*50,playSound,brickPlantSound);
 
-				%brick.schedule(%i*50,setColorFX,4);
+				%old_color = %brick.colorID;
+				%brick.schedule(%i*50,setColor,59);
 				%brick.schedule(2000+(%amount*50),fakeKillBrick,getRandom(-20,20) SPC getRandom(-20,20) SPC getRandom(-20,20),6-mFloor(PlatformAI.getDelayReduction()/1000));
-				%brick.schedule(2000+(%amount*50),setColorFX,0);
+				%brick.schedule(2000+(%amount*50),setColor,%old_color);
 			}
 			$DefaultMinigame.schedule(2000+(%amount*50),playSound,"fall" @ getRandom(1,13));
 			%this.specialEndSchedule = %this.schedule(8000+(%i*50)+(%amount*50)-PlatformAI.getDelayReduction(),gameLoop);
@@ -266,30 +242,35 @@ function PlatformAI::doBets(%this,%winner) {
 		%winning_pot = 1;
 	}
 
-	talk("WINNING POT:" SPC %winning_pot);
-	talk("LOSING POT:" SPC %losing_pot);
-
 	for(%i=0;%i<%mini.numMembers;%i++) {
 		%client = %mini.member[%i];
 		if(%client.betContributed[player] !$= "") {
-			talk(%client.name SPC "CONTRIBUTED" SPC %client.betContributed[amount]);
 			if(%winner == %client.betContributed[player]) {
 				%old_score = %client.score;
+				// ALL THE REVISIONS
 				//%client.score += mCeil(%client.betContributed[amount]/%this.pot[%losing_pot,amount]);
-				%client.score += mCeil((%this.pot[%losing_pot,amount]/%this.pot[%winning_pot,amount])*%client.betContributed[amount]);
+				//%client.score += mCeil((%this.pot[%losing_pot,amount]/%this.pot[%winning_pot,amount])*%client.betContributed[amount]);
+				//%client.score += mFloor((%client.betContributed[amount]/%this.pot[%losing_pot,amount])*%this.pot[%losing_pot,amount]);
+				//%client.score += (%client.betContributed[amount]/(%this.pot[%losing_pot,amount]+%this.pot[%winning_pot,amount]))*(%this.pot[%losing_pot,amount]+%this.pot[%winning_pot,amount]);
+				%client.score += mFloor((%client.betContributed[amount]/%this.pot[%winning_pot,amount])*(%this.pot[%losing_pot,amount]));
 				%client.score += %client.betContributed[amount];
 				messageClient(%client,'',"\c6You have won\c3" SPC %client.score - %old_score SPC "tickets!");
 			}
 		}
-		%client.betContributed[amount] = 0;
-		%client.betContributed[player] = "";
 	}
+
+	%client.betContributed[amount] = 0;
+	%client.betContributed[player] = "";
 
 	%this.didBets = 1;
 	%this.pot[0,amount] = 0;
 	%this.pot[0,player] = "";
 	%this.pot[1,amount] = 0;
 	%this.pot[1,player] = "";
+}
+
+function testBetPayout(%lpot,%wpot,%contrib) {
+	talk((%contrib/%wpot)*(%lpot));
 }
 
 function PlatformAI::pregameLoop(%this) {
