@@ -63,10 +63,25 @@ function PlatformAI::gameLoop(%this) {
 				if(%this.rounds > 7) {
 					%player[0].score += 100;
 					%player[0].totalscore += 100;
-					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a 100 point bonus!");
+					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a 100 ticket bonus!");
+					%this.canBet = 0;
+					%this.doBets(%player[0]);
 				}
 			case 2:
 				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "and" SPC %player[1].name @ "! Who will win?");
+				%this.canBet = 1;
+				%count_b = 0;
+				for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+					%player_b = $DefaultMinigame.member[%i].player;
+					if(isObject(%player_b)) {
+						if(%player_b.inGame) {
+							%this.pot[%count_b,player] = %player_b;
+							%this.pot[%count_b,amount] = 0;
+							talk(%this.pot[%count_b,player] SPC %player_b);
+							%count_b++;
+						}
+					}
+				}
 		}
 	}
 	%this.old_count = %count;
@@ -163,6 +178,7 @@ function PlatformAI::stopGame(%this) {
 		cancel(%this.specialEndSchedule);
 		// make sure all players still in-game are kicked out
 		messageAll('',"\c4AI: \c6Good game!");
+		%this.canBet = 0;
 		%this.resetSchedule = %this.schedule(2000,reset);
 	} else {
 		messageAll('',"\c4AI: \c6There's not a game in progress. This appears to be a bug...");
@@ -175,14 +191,23 @@ function PlatformAI::reset(%this) {
 	%this.inProgress = 0;
 	%this.oldColorAmount = 0;
 	%this.hasAwardedBonus = 0;
+	%this.canBet = 0;
+	%this.didBets = 0;
+	%this.pot[0,amount] = 0;
+	%this.pot[0,player] = "";
+	%this.pot[1,amount] = 0;
+	%this.pot[1,player] = "";
 
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
-		%player = ClientGroup.getObject(%i).player;
+		%client = ClientGroup.getObject(%i);
+		%player = %client.player;
 		if(isObject(%player)) {
 			if(%player.inGame) {
 				%player.client.instantRespawn();
 			}
 		}
+		%client.betContributed[amount] = 0;
+		%client.betContributed[player] = "";
 	}
 
 	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
@@ -226,6 +251,45 @@ function PlatformAI::readyGame(%this) {
 	}
 	messageAll('',"\c4AI: \c6Let's begin!");
 	%this.startSchedule = %this.schedule(5000,gameLoop);
+}
+
+function PlatformAI::doBets(%this,%winner) {
+	%this.canBet = 0;
+	%mini = $DefaultMinigame;
+
+	if(%this.pot[0,player] == %winner) {
+		%losing_pot = 1;
+		%winning_pot = 0;
+	}
+	if(%this.pot[1,player] == %winner) {
+		%losing_pot = 0;
+		%winning_pot = 1;
+	}
+
+	talk("WINNING POT:" SPC %winning_pot);
+	talk("LOSING POT:" SPC %losing_pot);
+
+	for(%i=0;%i<%mini.numMembers;%i++) {
+		%client = %mini.member[%i];
+		if(%client.betContributed[player] !$= "") {
+			talk(%client.name SPC "CONTRIBUTED" SPC %client.betContributed[amount]);
+			if(%winner == %client.betContributed[player]) {
+				%old_score = %client.score;
+				//%client.score += mCeil(%client.betContributed[amount]/%this.pot[%losing_pot,amount]);
+				%client.score += mCeil((%this.pot[%losing_pot,amount]/%this.pot[%winning_pot,amount])*%client.betContributed[amount]);
+				%client.score += %client.betContributed[amount];
+				messageClient(%client,'',"\c6You have won\c3" SPC %client.score - %old_score SPC "tickets!");
+			}
+		}
+		%client.betContributed[amount] = 0;
+		%client.betContributed[player] = "";
+	}
+
+	%this.didBets = 1;
+	%this.pot[0,amount] = 0;
+	%this.pot[0,player] = "";
+	%this.pot[1,amount] = 0;
+	%this.pot[1,player] = "";
 }
 
 function PlatformAI::pregameLoop(%this) {

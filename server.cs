@@ -123,7 +123,7 @@ function GameConnection::doBottomStats(%this) {
 	}
 
 	//%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "  \c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]  \c3Game Time:\c6" SPC %time,2,1);
-	%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Game Time:\c6" SPC %time @ "<just:right>\c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
+	%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Game Time:\c6" SPC %time @ "<just:right>\c3Tickets:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
 }
 
 function MinigameSO::playSound(%this,%data) {
@@ -162,6 +162,7 @@ package FallingPlatformsPackage {
 				%player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
 				%player.setVelocity("0 0 0");
 				%player.setPlayerScale("1 1 1");
+				%player.clearTools();
 			} else {
 				%player.client.centerPrint("\c6This is a teleporter to join the game, however it is not currently active.<br>Wait for the current game to finish first!",3);
 			}
