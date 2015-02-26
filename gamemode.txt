@@ -1,9 +1,15 @@
 //add-ons to load
 ADDON Brick_Large_Cubes
+ADDON Brick_Arch
+ADDON Brick_Doors
+ADDON Brick_Teledoor
+ADDON Brick_V15
 ADDON Emote_Alarm
 ADDON Emote_Confusion
 ADDON Emote_Hate
 ADDON Emote_Love
+ADDON Item_Skis
+ADDON Item_Sports
 ADDON Light_Animated
 ADDON Light_Basic
 ADDON Particle_Basic
@@ -11,19 +17,30 @@ ADDON Particle_FX_Cans
 ADDON Particle_Grass
 ADDON Particle_Player
 ADDON Particle_Tools
+ADDON Print_Letters_Default
+ADDON Print_1x2f_Default
+ADDON Print_2x2f_Default
+ADDON Print_2x2r_Default
+ADDON Projectile_GravityRocket
+ADDON Projectile_Pong
+ADDON Projectile_Radio_Wave
 ADDON Sound_Synth4
 ADDON Sound_Beeps
 ADDON Sound_Phone
+ADDON Support_Doors
+ADDON Tool_Duplicator
 ADDON Weapon_Bow
 ADDON Weapon_Gun
 ADDON Weapon_Guns_Akimbo
 ADDON Weapon_Push_Broom
+ADDON Weapon_Rocket_Launcher
 ADDON Weapon_Spear
 ADDON Weapon_Sword
 
 ADDON Vehicle_Horse
 
 ADDON Gamemode_Falling_Platforms
+ADDON Server_HatMod
 
 ADDON Bot_Hole
 ADDON Bot_Blockhead

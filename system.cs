@@ -1,7 +1,7 @@
 if(!isObject(PlatformAI)) {
 	new ScriptObject(PlatformAI) {
 		initTime = getSimTime();
-		rounds = 1;
+		rounds = 0;
 		roundInitTime = -1;
 		inProgress = 0;
 		oldColorAmount = 0;
@@ -9,7 +9,7 @@ if(!isObject(PlatformAI)) {
 }
 
 function PlatformAI::getColorAmount(%this) {
-	%amount = mCeil(%this.rounds/5)+1;
+	%amount = mCeil(%this.rounds/3)+1;
 	%count = getWordCount(getPlatformColorTypes("numbers"));
 	if(%amount > %count) {
 		%amount = %count;
@@ -19,17 +19,18 @@ function PlatformAI::getColorAmount(%this) {
 
 function PlatformAI::getDelayReduction(%this) {
 	%amount = (%this.rounds-1)*150;
-	if(%amount > 3000) {
-		%amount = 3000;
+	if(%amount > 3150) {
+		%amount = 3150;
 	}
 	return %amount;
 }
 
 function PlatformAI::gameLoop(%this) {
 	cancel(%this.gameSchedule);
-	%this.gameSchedule = %this.schedule(14500-(%this.getDelayReduction()*2),gameLoop);
+	%this.gameSchedule = %this.schedule(14200-(%this.getDelayReduction()*2),gameLoop);
 
 	%this.specialRound = 0;
+	%this.rounds++;
 
 	if(isEventPending(%this.pregameSchedule)) {
 		cancel(%this.pregameSchedule);
@@ -43,13 +44,17 @@ function PlatformAI::gameLoop(%this) {
 			if(getSimTime() - %player.lastTouch >= 30000 && %player.inGame) {
 				%player.inGame = 0;
 				%player.kill();
+				messageClient(%player.client,'',"\c6You were killed via cheat prevention. Please make sure you touch a plate at least every 30 seconds.");
 			}
 			if(%player.inGame) {
 				%player[%count] = %player.client;
-				%player.client.score += %this.rounds;
+				%player.client.score += (%this.rounds * (%this.players - (%this.activePlayers-1)));
 				%player.client.totalscore += %this.rounds;
 				%player.client.savePlatformsGame();
 				%count++;
+				if(PlatformAI.rounds > %player.client.personalRecord) {
+					%player.client.personalRecord = PlatformAI.rounds;
+				}
 			}
 		}
 	}
@@ -73,9 +78,9 @@ function PlatformAI::gameLoop(%this) {
 	%chosen_color = getRandom(0,%color_amount-1);
 	if(!getRandom(0,6)) {
 		%this.specialRound = 1;
-		%this.doSpecialRound(1);
+		%this.doSpecialRound(getRandom(1,2));
 	}
-	if(!getRandom(0,6) && %this.rounds >= 15 && !%this.specialRound) {
+	if(!getRandom(0,6) && %this.getColorAmount() >= 3 && %this.getColorAmount() <= 6 && !%this.specialRound) {
 		%this.inverseFall = 1;
 	} else {
 		%this.inverseFall = 0;
@@ -100,7 +105,6 @@ function PlatformAI::gameLoop(%this) {
 		}
 	}
 
-	%this.rounds++;
 	%this.oldColorAmount = %color_amount;
 
 	if(!%this.specialRound) {
@@ -119,14 +123,17 @@ function PlatformAI::doSpecialRound(%this,%type) {
 	cancel(%this.warnSchedule);
 	cancel(%this.breakSchedule);
 	cancel(%this.gameSchedule);
-	messageAll("\c4AI: \c6Ooooh, a special round!");
+	messageAll('',"\c4AI: \c6Ooooh, a special round!");
 
 	switch(%type) {
 		case 1:
 			centerPrintAll("<font:Impact:36>\c6Pay attention! Avoid the selected bricks!",5);
 			%amount = getRandom(4,8)*%this.rounds;
-			if(%amount > 230) {
-				%amount = 230;
+			if(%amount > 240) {
+				%amount = 240;
+			}
+			if(%amount < 128) {
+				%amount = 128;
 			}
 			for(%i=0;%i<%amount;%i++) {
 				%brick = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1));
@@ -140,11 +147,19 @@ function PlatformAI::doSpecialRound(%this,%type) {
 
 				%old_color = %brick.colorID;
 				%brick.schedule(%i*50,setColor,59);
-				%brick.schedule(2000+(%amount*50),fakeKillBrick,getRandom(-20,20) SPC getRandom(-20,20) SPC getRandom(-20,20),6-mFloor(PlatformAI.getDelayReduction()/1000));
+				%brick.schedule(2000+(%amount*50),fakeKillBrick,"0 0 0",2);
 				%brick.schedule(2000+(%amount*50),setColor,%old_color);
 			}
 			$DefaultMinigame.schedule(2000+(%amount*50),playSound,"fall" @ getRandom(1,13));
-			%this.specialEndSchedule = %this.schedule(8000+(%i*50)+(%amount*50)-PlatformAI.getDelayReduction(),gameLoop);
+			%this.specialEndSchedule = %this.schedule(8000+(%i*50)+(%amount*50)-((6-mFloor(PlatformAI.getDelayReduction()/1000))*1000),gameLoop);
+		case 2:
+			centerPrintAll("<font:Impact:36>\c6Look out!",5);
+			%amount = mCeil(%this.rounds/4);
+			for(%i=0;%i<%amount;%i++) {
+				%rand = getRandom(1,4);
+				schedule((1000*%i)-(PlatformAI.getDelayReduction()/15),0,fireProjectiles,%rand);
+			}
+			%this.specialEndSchedule = %this.schedule(2000+(1000*%i)-(PlatformAI.getDelayReduction()/20),gameLoop);
 	}
 }
 
@@ -162,13 +177,15 @@ function PlatformAI::stopGame(%this) {
 }
 
 function PlatformAI::reset(%this) {
-	%this.rounds = 1;
+	%this.rounds = 0;
 	%this.roundInitTime = -1;
 	%this.inProgress = 0;
 	%this.oldColorAmount = 0;
 	%this.hasAwardedBonus = 0;
 	%this.canBet = 0;
 	%this.didBets = 0;
+	%this.players = 0;
+	%this.activePlayers = 0;
 	%this.pot[0,amount] = 0;
 	%this.pot[0,player] = "";
 	%this.pot[1,amount] = 0;
@@ -216,6 +233,7 @@ function PlatformAI::readyGame(%this) {
 		return;
 	}
 	%this.roundInitTime = getSimTime();
+	%this.players = %this.activePlayers = %count;
 	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
 		%brick = BrickGroup_888888.getObject(%i);
 		if(%brick.getName() $= "_spawn_teleport") {
@@ -225,8 +243,44 @@ function PlatformAI::readyGame(%this) {
 			%brick.setEmitter(0);
 		}
 	}
-	messageAll('',"\c4AI: \c6Let's begin!");
+	%percentage = mCeil((%count/$DefaultMinigame.numMembers)*1000)/10;
+	messageAll('',"\c4AI: \c6Let's begin! Apporximately" SPC %percentage @ "% of the server is playing.");
 	%this.startSchedule = %this.schedule(5000,gameLoop);
+}
+
+$Platforms::BetPercentageThreshold = 12;
+function PlatformAI::checkCurrentBets(%this,%ignore) {
+	if(!%this.canBet) {
+		return;
+	}
+	%mini = $DefaultMinigame;
+
+	for(%i=0;%i<%mini.numMembers;%i++) {
+		%client = %mini.member[%i];
+		if(%client.betContributed[player] $= "" || %client == %ignore) {
+			continue;
+		}
+
+		if(%this.pot[0,player] == %client.betContributed[player]) {
+			%losing_pot = 1;
+			%winning_pot = 0;
+		}
+		if(%this.pot[1,player] == %client.betContributed[player]) {
+			%losing_pot = 0;
+			%winning_pot = 1;
+		}
+
+		%percent = (%client.betContributed[amount]/%this.pot[%winning_pot,amount])*100;
+		%limit = mCeil(%this.pot[%winning_pot,amount]*(%percent/100));
+		if(%percent < $Platforms::BetPercentageThreshold) {
+			messageClient(%client,'',"\c6Your bet has become too small. The limit is now\c3" SPC %limit SPC "tickets.");
+			messageClient(%client,'',"\c6You have been refunded\c3" SPC %client.betContributed[amount] SPC "tickets.");
+			%client.score += %client.betContributed[amount];
+			%client.betContributed[amount] = 0;
+			%client.betContributed[player] = 0;
+			%client.savePlatformsGame();
+		}
+	}
 }
 
 function PlatformAI::doBets(%this,%winner) {
@@ -247,14 +301,18 @@ function PlatformAI::doBets(%this,%winner) {
 		if(%client.betContributed[player] !$= "") {
 			if(%winner == %client.betContributed[player]) {
 				%old_score = %client.score;
-				// ALL THE REVISIONS
-				//%client.score += mCeil(%client.betContributed[amount]/%this.pot[%losing_pot,amount]);
-				//%client.score += mCeil((%this.pot[%losing_pot,amount]/%this.pot[%winning_pot,amount])*%client.betContributed[amount]);
-				//%client.score += mFloor((%client.betContributed[amount]/%this.pot[%losing_pot,amount])*%this.pot[%losing_pot,amount]);
-				//%client.score += (%client.betContributed[amount]/(%this.pot[%losing_pot,amount]+%this.pot[%winning_pot,amount]))*(%this.pot[%losing_pot,amount]+%this.pot[%winning_pot,amount]);
+				//shouldn't have to worry about this anymore since we're checking everyone each time a valid bet command is done
+				//%percent = (%client.betContributed[amount]/%this.pot[%winning_pot,amount])*100;
+				//if(%percent < 15) {
+				//	messageClient(%client,'',"\c6You did not contribute to at least 15% of the winning pot.");
+				//	messageClient(%client,'',"\c6You have been refunded\c3" SPC %client.betContributed[amount] SPC "tickets.");
+				//	%client.score += %client.betContributed[amount];
+				//	continue;
+				//}
 				%client.score += mFloor((%client.betContributed[amount]/%this.pot[%winning_pot,amount])*(%this.pot[%losing_pot,amount]));
 				%client.score += %client.betContributed[amount];
 				messageClient(%client,'',"\c6You have won\c3" SPC %client.score - %old_score SPC "tickets!");
+				%client.savePlatformsGame();
 			}
 		}
 	}
@@ -271,6 +329,33 @@ function PlatformAI::doBets(%this,%winner) {
 
 function testBetPayout(%lpot,%wpot,%contrib) {
 	talk((%contrib/%wpot)*(%lpot));
+}
+
+function fireProjectiles(%which) {
+	for(%i=0;%i<ProjectileBricks.getCount();%i++) {
+		%row = ProjectileBricks.getObject(%i);
+		%brick = %row.brick;
+		if(%row.side == %which) {
+			%vel = getRandom(23,25);
+			switch(%which) {
+				case 1:
+					//%vec = -1*%vel SPC "0 0";
+					%vec = "0" SPC -1*%vel SPC "0";
+				case 2:
+					//%vec = "0" SPC %vel SPC "0";
+					%vec = %vel SPC "0 0";
+				case 3:
+					//%vec = %vel SPC "0 0";
+					%vec = "0" SPC %vel SPC "0";
+				case 4:
+					//%vec = "0" SPC -1*%vel SPC "0";
+					%vec = -1*%vel SPC "0 0";
+			}
+			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",2,"0 0 0",-1);
+			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",2,"0 0 0",-1);
+			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",2,"0 0 0",-1);
+		}
+	}
 }
 
 function PlatformAI::pregameLoop(%this) {

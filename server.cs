@@ -3,6 +3,7 @@ exec("./platform_functions.cs");
 exec("./system.cs");
 exec("./saving.cs");
 exec("./commands.cs");
+exec("./shop.cs");
 
 datablock AudioProfile(fall1)
 {
@@ -29,6 +30,8 @@ AudioMusicLooping3d.referenceDistance = 999999;
 AudioMusicLooping3d.maxDistance = 999999;
 
 $Platforms::Colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange 27 cyan 24 pink 7 gray 42 brown";
+$Platforms::KnownBotUsers = "39943";
+
 function getPlatformColorTypes(%type) {
 	switch$(%type) {
 		case "numbers":
@@ -113,6 +116,7 @@ function GameConnection::doBottomStats(%this) {
 	%rounds = PlatformAI.rounds;
 	%highest[amount] = $Platforms::HighestRound[amount] || 0;
 	%highest[name] = $Platforms::HighestRound[name];
+	%record = %this.personalRecord || 0;
 	if(PlatformAI.roundInitTime == -1) {
 		%time = getTimeString(0);
 	} else {
@@ -123,7 +127,7 @@ function GameConnection::doBottomStats(%this) {
 	}
 
 	//%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "  \c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]  \c3Game Time:\c6" SPC %time,2,1);
-	%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Game Time:\c6" SPC %time @ "<just:right>\c3Tickets:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
+	%this.bottomPrint("<font:Arial Bold:14>\c3Round:\c6" SPC %rounds @ "  \c3Time:\c6" SPC %time @ "<just:right>\c3Your Record:\c6" SPC %record SPC " \c3Tickets:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
 }
 
 function MinigameSO::playSound(%this,%data) {
@@ -223,8 +227,13 @@ package FallingPlatformsPackage {
 	function ServerLoadSaveFile_End() {
 		parent::ServerLoadSaveFile_End();
 
-		gatherPlatformBricks();
-		PlatformAI.reset();
+		if(!$Platforms::HasInit) {
+			gatherPlatformBricks();
+			gatherProjectileBricks();
+			PlatformAI.reset();
+		}
+
+		$Platforms::HasInit = 1;
 	}
 
 	function onServerDestroyed() {
@@ -242,11 +251,50 @@ package FallingPlatformsPackage {
 	}
 
 	function GameConnection::onDeath(%this,%obj,%killer,%type,%area) {
+		if(isObject(%this.player)) {
+			if(%this.player.inGame) {
+				PlatformAI.activePlayers--;
+				if(PlatformAI.rounds > %this.personalRecord) {
+					%this.personalRecord = PlatformAI.rounds;
+				}
+			}
+		}
+		%this.savePlatformsGame();
+
+		// checking for bot users
+		if(PlatformAI.inProgress) {
+			%count = 0;
+			for(%i=0;%i<ClientGroup.getCount();%i++) {
+				%player = ClientGroup.getObject(%i).player;
+				if(isObject(%player)) {
+					if(%player.inGame) {
+						%player[%count] = %player.client;
+						%count++;
+					}
+				}
+			}
+			if(%count == 4) {
+				for(%i=0;%i<3;%i++) {
+					if(stripos($Platforms::KnownBotUsers,%player[%i].bl_id) != -1 && !%player[%i].player.isBotKilled) {
+						%player[%i].player.kill();
+						%player[%i].player.isBotKilled = 1;
+						messageAll('',"\c4AI: \c6" @ %player[%i].name SPC "has been known to have used a bot before, preventing them from winning...");
+					}
+				}
+			}
+		}
+
 		parent::onDeath(%this,%obj,%killer,%type,%area);
 		checkOnDeath();
 	}
 	function GameConnection::onClientLeaveGame(%this) {
 		%r = parent::onClientLeaveGame(%this);
+		if(isObject(%this.player)) {
+			if(%this.player.inGame) {
+				PlatformAI.activePlayers--;
+				PlatformAI.players--;
+			}
+		}
 		checkOnDeath();
 		return %r;
 	}
@@ -255,5 +303,18 @@ package FallingPlatformsPackage {
 	function MinigameSO::messageAll(%this) {}
 	function MinigameSO::centerPrintAll(%this) {}
 	function MinigameSO::bottomPrintAll(%this) {}
+
+	function GunProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal) {
+		if(%col.getClassName() $= "Player") {
+			if(%col.inGame) {
+				%col.addHealth(-20);
+			} else {
+				%col.setDamageLevel(0);
+				//%obj.player.clearTools();
+				%obj.client.player.clearTools();
+			}
+		}
+		return parent::onCollision(%this,%obj,%col,%fade,%pos,%normal);
+	}
 };
 activatePackage(FallingPlatformsPackage);

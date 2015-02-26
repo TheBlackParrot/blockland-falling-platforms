@@ -25,6 +25,50 @@ function gatherPlatformBricks() {
 	talk("Gathered" SPC PlatformBricks.getCount() SPC "platform bricks.");
 }
 
+function gatherProjectileBricks() {
+	if(isObject(ProjectileBricks)) {
+		for(%i=0;%i<ProjectileBricks.getCount();%i++) {
+			ProjectileBricks.getObject(%i).delete();
+		}
+		ProjectileBricks.initTime = getSimTime();
+	} else {
+		new SimSet(ProjectileBricks) {
+			initTime = getSimTime();
+		};
+	}
+
+	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
+		%brick = BrickGroup_888888.getObject(%i);
+		if(%brick.getName() $= "_proj_1") {
+			%obj = new ScriptObject(ProjectileBrick) {
+				brick = %brick;
+				side = 1;
+			};
+		}
+		if(%brick.getName() $= "_proj_2") {
+			%obj = new ScriptObject(ProjectileBrick) {
+				brick = %brick;
+				side = 2;
+			};
+		}
+		if(%brick.getName() $= "_proj_3") {
+			%obj = new ScriptObject(ProjectileBrick) {
+				brick = %brick;
+				side = 3;
+			};
+		}
+		if(%brick.getName() $= "_proj_4") {
+			%obj = new ScriptObject(ProjectileBrick) {
+				brick = %brick;
+				side = 4;
+			};
+		}
+		ProjectileBricks.add(%obj);
+	}
+
+	talk("Gathered" SPC ProjectileBricks.getCount() SPC "projectile bricks.");
+}
+
 function randomizePlatformBricks(%amount) { 
 	%colors = getPlatformColorTypes("numbers");
 	if(%amount > getWordCount(%colors)) {

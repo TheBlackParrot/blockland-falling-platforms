@@ -19,6 +19,7 @@ function warnPlatforms(%color) {
 	//%str = getWord(%colors,1+%color*2);
 	%str = getWord(%colors[name],%color);
 	if(!PlatformAI.inverseFall) {
+		//"<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ ">
 		centerPrintAll("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str,5);
 	} else {
 		centerPrintAll("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str @ "<br><color:ff0000><just:left>NOT<just:center>NOT<just:right>NOT",5);

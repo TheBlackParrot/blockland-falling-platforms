@@ -29,6 +29,7 @@ function GameConnection::savePlatformsGame(%this) {
 
 	%file.writeLine("general" TAB "score" TAB %this.score);
 	%file.writeLine("general" TAB "totalscore" TAB %this.totalscore);
+	%file.writeLine("general" TAB "personalRecord" TAB %this.personalRecord);
 
 	%file.writeLine("date" TAB getDateTime());
 

@@ -46,8 +46,8 @@ function serverCmdBet(%this,%amount,%target_ask) {
 		messageClient(%this,'',"\c6You're trying to bet more tickets than you have!");
 		return;
 	}
-	if(%amount <= 0) {
-		messageClient(%this,'',"\c6You're trying to bet an invalid amount of tickets!");
+	if(%amount < 100) {
+		messageClient(%this,'',"\c6You must bet at least 100 tickets.");
 		return;
 	}
 
@@ -76,11 +76,17 @@ function serverCmdBet(%this,%amount,%target_ask) {
 		return;
 	}
 
-	if(%ai.pot[0,player] == %selected_player) {
-		%ai.pot[0,amount] += %amount;
-	}
-	if(%ai.pot[1,player] == %selected_player) {
-		%ai.pot[1,amount] += %amount;
+	for(%i=0;%i<2;%i++) {
+		if(%ai.pot[%i,player] == %selected_player) {
+			%percent = (%this.betContributed[amount]/%ai.pot[%i,amount])*100;
+			%limit = mCeil(%ai.pot[%i,amount]*(%percent/100));
+			if(%amount >= %limit) {
+				%ai.pot[%i,amount] += %amount;
+			} else {
+				messageClient(%this,'',"\c6The current bet limit for this player is\c3" SPC %limit SPC "tickets.");
+				return;
+			}
+		}
 	}
 
 	messageAll('',"\c3" @ %this.name SPC "\c5has bet\c3" SPC %amount SPC "tickets \c5on\c3" SPC %selected_player.client.name @ "\c5.");
@@ -89,6 +95,8 @@ function serverCmdBet(%this,%amount,%target_ask) {
 
 	%this.score -= %amount;
 	%this.savePlatformsGame();
+
+	PlatformAI.checkCurrentBets(%this);
 }
 
 function serverCmdChangeMusic(%this,%which) {
@@ -104,7 +112,7 @@ function serverCmdChangeMusic(%this,%which) {
 		return;
 	}
 	if(getSimTime() - $Platforms::LastMusicChange < 120000) {
-		messageClient(%this,'',"\c6The music can only be changed once every 2 minutes. Please wait another\c3" SPC mFloor((getSimTime() - $Platforms::LastMusicChange)/1000) SPC "second(s).");
+		messageClient(%this,'',"\c6The music can only be changed once every 2 minutes. Please wait another\c3" SPC mFloor((($Platforms::LastMusicChange+120000)-getSimTime())/1000) SPC "second(s).");
 		return;
 	}
 
