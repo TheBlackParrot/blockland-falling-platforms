@@ -4,6 +4,8 @@ exec("./system.cs");
 exec("./saving.cs");
 exec("./commands.cs");
 exec("./shop.cs");
+exec("./support.cs");
+exec("./leaderboard.cs");
 
 datablock AudioProfile(fall1)
 {
@@ -30,7 +32,6 @@ AudioMusicLooping3d.referenceDistance = 999999;
 AudioMusicLooping3d.maxDistance = 999999;
 
 $Platforms::Colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange 27 cyan 24 pink 7 gray 42 brown";
-$Platforms::KnownBotUsers = "39943";
 
 function getPlatformColorTypes(%type) {
 	switch$(%type) {
@@ -182,10 +183,52 @@ function checkOnDeath() {
 	$Platforms::OldCount = %count;
 }
 
+function Player::getLookingAt(%this,%distance)
+{
+	if(!%distance) {
+		%distance = 5;
+	}
+
+	%eye = vectorScale(%this.getEyeVector(),%distance);
+	%pos = %this.getEyePoint();
+	%mask = $TypeMasks::FxBrickObjectType;
+	%hit = firstWord(containerRaycast(%pos, vectorAdd(%pos, %eye), %mask, %this));
+		
+	if(!isObject(%hit)) {
+		return;
+	}
+		
+	if(%hit.getClassName() $= "fxDTSBrick") {
+		return %hit;
+	}
+}
+
 package FallingPlatformsPackage {
 	function fxDTSBrick::onAdd(%this) {
 		%this.enableTouch = 1;
 		return parent::onAdd(%this);
+	}
+
+	function armor::onTrigger(%db,%obj,%slot,%val) {
+		if(%obj.getClassName() $= "Player") {
+			if(!%obj.inGame || !%obj.canSpleefPlates) {
+				return Parent::onTrigger(%db,%obj,%slot,%val);
+			}
+			if(%val == 1) {
+				%brick = %obj.getLookingAt();
+				if(isObject(%brick)) {
+					if(!isEventPending(%brick.breakBrickSched[1])) {
+						%brick.setColorFX(3);
+						%brick.playSound(brickPlantSound);
+						%brick.breakBrickSched[1] = %brick.schedule(500,fakeKillBrick,"0 0 0",3);
+						%brick.breakBrickSched[2] = %brick.schedule(500,playSound,brickBreakSound);
+						%brick.breakBrickSched[3] = %brick.schedule(600,setColorFX,0);
+					}
+				}
+			}
+		}
+
+		return Parent::onTrigger(%db,%obj,%slot,%val);
 	}
 
 	function fxDTSBrick::onPlayerTouch(%this,%player) {
@@ -203,7 +246,24 @@ package FallingPlatformsPackage {
 				if(!%player.inGame || !%player.client.minigame) {
 					%player.kill();
 				}
+				if(%player.canBreakPlates && %player.inGame) {
+					if(!isEventPending(%this.breakBrickSched[1])) {
+						%this.setColorFX(3);
+						%this.breakBrickSched[1] = %this.schedule(200,fakeKillBrick,"0 0 0",3);
+						%this.breakBrickSched[2] = %this.schedule(200,playSound,brickBreakSound);
+						%this.breakBrickSched[3] = %this.schedule(300,setColorFX,0);
+					}
+				}
 			}
+		}
+
+		if(%this.getName() $= "_dm_room_floor") {
+			%player.addNewItem("Sword");
+			%player.addNewItem("Gun");
+			%player.canBeKilled = 1;
+		}
+		if(%this.getName() $= "_dm_room_outside") {
+			%player.canBeKilled = 0;
 		}
 
 		if(%this.getName() $= "_spawn_teleport") {
@@ -261,29 +321,6 @@ package FallingPlatformsPackage {
 		}
 		%this.savePlatformsGame();
 
-		// checking for bot users
-		if(PlatformAI.inProgress) {
-			%count = 0;
-			for(%i=0;%i<ClientGroup.getCount();%i++) {
-				%player = ClientGroup.getObject(%i).player;
-				if(isObject(%player)) {
-					if(%player.inGame) {
-						%player[%count] = %player.client;
-						%count++;
-					}
-				}
-			}
-			if(%count == 4) {
-				for(%i=0;%i<3;%i++) {
-					if(stripos($Platforms::KnownBotUsers,%player[%i].bl_id) != -1 && !%player[%i].player.isBotKilled) {
-						%player[%i].player.kill();
-						%player[%i].player.isBotKilled = 1;
-						messageAll('',"\c4AI: \c6" @ %player[%i].name SPC "has been known to have used a bot before, preventing them from winning...");
-					}
-				}
-			}
-		}
-
 		parent::onDeath(%this,%obj,%killer,%type,%area);
 		checkOnDeath();
 	}
@@ -309,9 +346,10 @@ package FallingPlatformsPackage {
 			if(%col.inGame) {
 				%col.addHealth(-20);
 			} else {
-				%col.setDamageLevel(0);
-				//%obj.player.clearTools();
-				%obj.client.player.clearTools();
+				if(!%col.canBeKilled) {
+					%col.setDamageLevel(0);
+					%obj.client.player.clearTools();
+				}
 			}
 		}
 		return parent::onCollision(%this,%obj,%col,%fade,%pos,%normal);

@@ -48,7 +48,7 @@ function PlatformAI::gameLoop(%this) {
 			}
 			if(%player.inGame) {
 				%player[%count] = %player.client;
-				%player.client.score += (%this.rounds * (%this.players - (%this.activePlayers-1)));
+				%player.client.score += %this.rounds * mPow((%this.players - (%this.activePlayers-1)),2);
 				%player.client.totalscore += %this.rounds;
 				%player.client.savePlatformsGame();
 				%count++;
@@ -78,7 +78,11 @@ function PlatformAI::gameLoop(%this) {
 	%chosen_color = getRandom(0,%color_amount-1);
 	if(!getRandom(0,6)) {
 		%this.specialRound = 1;
-		%this.doSpecialRound(getRandom(1,2));
+		if(%this.activePlayers > 1) {
+			%this.doSpecialRound(getRandom(1,4));
+		} else {
+			%this.doSpecialRound(getRandom(1,3));
+		}
 	}
 	if(!getRandom(0,6) && %this.getColorAmount() >= 3 && %this.getColorAmount() <= 6 && !%this.specialRound) {
 		%this.inverseFall = 1;
@@ -160,7 +164,42 @@ function PlatformAI::doSpecialRound(%this,%type) {
 				schedule((1000*%i)-(PlatformAI.getDelayReduction()/15),0,fireProjectiles,%rand);
 			}
 			%this.specialEndSchedule = %this.schedule(2000+(1000*%i)-(PlatformAI.getDelayReduction()/20),gameLoop);
+		case 3:
+			centerPrintAll("<font:Impact:36>\c6Jump!",5);
+			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+				%client = $DefaultMinigame.member[%i];
+				if(isObject(%client.player)) {
+					if(%client.player.inGame) {
+						%client.player.schedule(2000,startBreakMG);
+						%client.player.schedule(17000,endBreakMG);
+					}
+				}
+			}
+			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
+		case 4:
+			centerPrintAll("<font:Impact:36>\c6Click the bricks, break the plates from under your foes!",3);
+			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+				%client = $DefaultMinigame.member[%i];
+				if(isObject(%client.player)) {
+					if(%client.player.inGame) {
+						%client.player.canSpleefPlates = 1;
+						%client.player.schedule(17000,endSpleefMG);
+					}
+				}
+			}
+			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
 	}
+}
+function Player::startBreakMG(%this) {
+	%this.canBreakPlates = 1;
+}
+
+function Player::endBreakMG(%this) {
+	%this.canBreakPlates = 0;
+}
+
+function Player::endSpleefMG(%this) {
+	%this.canSpleefPlates = 0;
 }
 
 function PlatformAI::stopGame(%this) {
@@ -244,7 +283,7 @@ function PlatformAI::readyGame(%this) {
 		}
 	}
 	%percentage = mCeil((%count/$DefaultMinigame.numMembers)*1000)/10;
-	messageAll('',"\c4AI: \c6Let's begin! Apporximately" SPC %percentage @ "% of the server is playing.");
+	messageAll('',"\c4AI: \c6Let's begin! Approximately" SPC %percentage @ "% of the server is playing.");
 	%this.startSchedule = %this.schedule(5000,gameLoop);
 }
 

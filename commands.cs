@@ -2,6 +2,10 @@ function serverCmdHelp(%this) {
 	messageClient(%this,'',"\c3/changeMusic \c5[num] \c6-- Changes the music on the server, leave it blank to see a list. \c7[250 tickets]");
 	messageClient(%this,'',"\c3/bet \c5[amount] [player] \c6-- Bet on a player.");
 	messageClient(%this,'',"\c3/camera \c6-- Watch the game from, well, anywhere! Use the command again to regain control of your player.");
+	messageClient(%this,'',"\c3/donate \c5[player] [amount] \c6-- Donate some tickets to a player.");
+	messageClient(%this,'',"\c3/dmroom \c6-- Teleport to the DM Room.");
+	messageClient(%this,'',"\c3/leaderboard \c6-- Teleport to the Leaderboard.");
+	messageClient(%this,'',"\c3/join \c6-- Join the game quickly, although teleporters are radical.");
 }
 
 function serverCmdBet(%this,%amount,%target_ask) {
@@ -152,4 +156,71 @@ function serverCmdCamera(%this) {
 		}
 		%this.player.instantRespawn();
 	}
+}
+
+function serverCmdDonate(%this,%target,%amount) {
+	if(%amount > %this.score) {
+		messageClient(%this,'',"\c6You can't donate more tickets than you have!");
+		return;
+	}
+	if(%amount <= 0) {
+		messageClient(%this,'',"\c6You must donate at least something.");
+		return;
+	}
+	%target = findClientByName(%target);
+	if(!isObject(%target)) {
+		messageClient(%this,'',"\c3" @ %target SPC "\c6doesn't exist!");
+		return;
+	}
+
+	%target.score += %amount;
+	messageClient(%target,'',"\c3" @ %this.name SPC "\c6has donated\c3" SPC %amount SPC "tickets \c6to you");
+	%this.score -= %amount;
+	messageClient(%this,'',"\c6You have donated\c3" SPC %amount SPC "tickets \c6to\c3" SPC %target.name);
+
+	%this.savePlatformsGame();
+	%target.savePlatformsGame();
+}
+
+function serverCmdDMRoom(%this) {
+	if(!isObject(%this.player)) {
+		return;
+	}
+	if(%this.player.inGame) {
+		return;
+	}
+	%brick = "_dm_room_outside";
+	%this.player.setTransform(%brick.getPosition());
+}
+function serverCmdLeaderboard(%this) {
+	if(!isObject(%this.player)) {
+		return;
+	}
+	if(%this.player.inGame) {
+		return;
+	}
+	%brick = "_leaderboard_spot";
+	%this.player.setTransform(%brick.getPosition());
+	for(%i=1;%i<=26;%i++) {
+		if(%this.name $= $Platforms::Leaderboard[%i,name]) {
+			messageClient(%this,'',"\c6You are in\c3" SPC getPositionString(%i) SPC "place.");
+			break;
+		}
+	}
+}
+function serverCmdJoin(%this) {
+	if(!isObject(%this.player)) {
+		return;
+	}
+	if(%this.player.inGame) {
+		return;
+	}
+	if(PlatformAI.inProgress) {
+		return;
+	}
+	%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
+	%this.player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
+	%this.player.setVelocity("0 0 0");
+	%this.player.setPlayerScale("1 1 1");
+	%this.player.clearTools();
 }
