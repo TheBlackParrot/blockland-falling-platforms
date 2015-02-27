@@ -11,6 +11,9 @@ function GameConnection::loadPlatformsSave(%this) {
 		%arg2 = getField(%line,2);
 		switch$(%type) {
 			case "general":
+				if(%arg2 $= "") {
+					return;
+				}
 				eval("%this." @ %arg1 @ " = " @ %arg2 @ ";");
 			case "date":
 				%date = %arg1;
@@ -30,6 +33,8 @@ function GameConnection::savePlatformsGame(%this) {
 	%file.writeLine("general" TAB "score" TAB %this.score);
 	%file.writeLine("general" TAB "totalscore" TAB %this.totalscore);
 	%file.writeLine("general" TAB "personalRecord" TAB %this.personalRecord);
+	%file.writeLine("general" TAB "wins" TAB %this.wins);
+	%file.writeLine("general" TAB "losses" TAB %this.losses);
 
 	%file.writeLine("date" TAB getDateTime());
 

@@ -3,7 +3,9 @@ function serverCmdHelp(%this) {
 	messageClient(%this,'',"\c3/bet \c5[amount] [player] \c6-- Bet on a player.");
 	messageClient(%this,'',"\c3/camera \c6-- Watch the game from, well, anywhere! Use the command again to regain control of your player.");
 	messageClient(%this,'',"\c3/donate \c5[player] [amount] \c6-- Donate some tickets to a player.");
+	messageClient(%this,'',"\c3/alive \c6-- See who's still alive at a quick glance.");
 	messageClient(%this,'',"\c3/dmroom \c6-- Teleport to the DM Room.");
+	messageClient(%this,'',"\c3/shop \c6-- Teleport to the Shop.");
 	messageClient(%this,'',"\c3/leaderboard \c6-- Teleport to the Leaderboard.");
 	messageClient(%this,'',"\c3/join \c6-- Join the game quickly, although teleporters are radical.");
 }
@@ -100,7 +102,7 @@ function serverCmdBet(%this,%amount,%target_ask) {
 	%this.score -= %amount;
 	%this.savePlatformsGame();
 
-	PlatformAI.checkCurrentBets(%this);
+	//PlatformAI.checkCurrentBets(%this);
 }
 
 function serverCmdChangeMusic(%this,%which) {
@@ -192,6 +194,16 @@ function serverCmdDMRoom(%this) {
 	%brick = "_dm_room_outside";
 	%this.player.setTransform(%brick.getPosition());
 }
+function serverCmdShop(%this) {
+	if(!isObject(%this.player)) {
+		return;
+	}
+	if(%this.player.inGame) {
+		return;
+	}
+	%brick = "_hat_shop_spot";
+	%this.player.setTransform(%brick.getPosition());
+}
 function serverCmdLeaderboard(%this) {
 	if(!isObject(%this.player)) {
 		return;
@@ -205,6 +217,22 @@ function serverCmdLeaderboard(%this) {
 		if(%this.name $= $Platforms::Leaderboard[%i,name]) {
 			messageClient(%this,'',"\c6You are in\c3" SPC getPositionString(%i) SPC "place.");
 			break;
+		}
+	}
+}
+function serverCmdAlive(%this) {
+	if(getSimTime() - %this.lastalivecmd <= 1000) {
+		return;
+	}
+	%this.lastalivecmd = getSimTime();
+
+	for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+		%client = $DefaultMinigame.member[%i];
+		if(isObject(%client.player)) {
+			if(%client.player.inGame) {
+				%count++;
+				messageClient(%this,'',"\c3" @ %count @ ".\c6" SPC %client.name);
+			}
 		}
 	}
 }

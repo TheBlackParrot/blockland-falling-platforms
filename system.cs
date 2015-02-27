@@ -225,9 +225,9 @@ function PlatformAI::reset(%this) {
 	%this.didBets = 0;
 	%this.players = 0;
 	%this.activePlayers = 0;
-	%this.pot[0,amount] = 0;
+	%this.pot[0,amount] = 500;
 	%this.pot[0,player] = "";
-	%this.pot[1,amount] = 0;
+	%this.pot[1,amount] = 500;
 	%this.pot[1,player] = "";
 
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
@@ -288,39 +288,39 @@ function PlatformAI::readyGame(%this) {
 }
 
 $Platforms::BetPercentageThreshold = 12;
-function PlatformAI::checkCurrentBets(%this,%ignore) {
-	if(!%this.canBet) {
-		return;
-	}
-	%mini = $DefaultMinigame;
-
-	for(%i=0;%i<%mini.numMembers;%i++) {
-		%client = %mini.member[%i];
-		if(%client.betContributed[player] $= "" || %client == %ignore) {
-			continue;
-		}
-
-		if(%this.pot[0,player] == %client.betContributed[player]) {
-			%losing_pot = 1;
-			%winning_pot = 0;
-		}
-		if(%this.pot[1,player] == %client.betContributed[player]) {
-			%losing_pot = 0;
-			%winning_pot = 1;
-		}
-
-		%percent = (%client.betContributed[amount]/%this.pot[%winning_pot,amount])*100;
-		%limit = mCeil(%this.pot[%winning_pot,amount]*(%percent/100));
-		if(%percent < $Platforms::BetPercentageThreshold) {
-			messageClient(%client,'',"\c6Your bet has become too small. The limit is now\c3" SPC %limit SPC "tickets.");
-			messageClient(%client,'',"\c6You have been refunded\c3" SPC %client.betContributed[amount] SPC "tickets.");
-			%client.score += %client.betContributed[amount];
-			%client.betContributed[amount] = 0;
-			%client.betContributed[player] = 0;
-			%client.savePlatformsGame();
-		}
-	}
-}
+//function PlatformAI::checkCurrentBets(%this,%ignore) {
+//	if(!%this.canBet) {
+//		return;
+//	}
+//	%mini = $DefaultMinigame;
+//
+//	for(%i=0;%i<%mini.numMembers;%i++) {
+//		%client = %mini.member[%i];
+//		if(%client.betContributed[player] $= "" || %client == %ignore) {
+//			continue;
+//		}
+//
+//		if(%this.pot[0,player] == %client.betContributed[player]) {
+//			%losing_pot = 1;
+//			%winning_pot = 0;
+//		}
+//		if(%this.pot[1,player] == %client.betContributed[player]) {
+//			%losing_pot = 0;
+//			%winning_pot = 1;
+//		}
+//
+//		%percent = (%client.betContributed[amount]/%this.pot[%winning_pot,amount])*100;
+//		%limit = mCeil(%this.pot[%winning_pot,amount]*($Platforms::BetPercentageThreshold/100));
+//		if(%percent < $Platforms::BetPercentageThreshold) {
+//			messageClient(%client,'',"\c6Your bet has become too small. The limit is now\c3" SPC %limit SPC "tickets.");
+//			messageClient(%client,'',"\c6You have been refunded\c3" SPC %client.betContributed[amount] SPC "tickets.");
+//			%client.score += %client.betContributed[amount];
+//			%client.betContributed[amount] = 0;
+//			%client.betContributed[player] = "";
+//			%client.savePlatformsGame();
+//		}
+//	}
+//}
 
 function PlatformAI::doBets(%this,%winner) {
 	%this.canBet = 0;
@@ -348,7 +348,13 @@ function PlatformAI::doBets(%this,%winner) {
 				//	%client.score += %client.betContributed[amount];
 				//	continue;
 				//}
-				%client.score += mFloor((%client.betContributed[amount]/%this.pot[%winning_pot,amount])*(%this.pot[%losing_pot,amount]));
+				%percent = (%client.betContributed[amount]/%this.pot[%winning_pot,amount])*100;
+				if(%percent < $Platforms::BetPercentageThreshold) {
+					%client.score += %client.betContributed[amount]*2;
+					messageClient(%client,'',"Your bet fell under the percentage threshold of 12%, your winnings were maxxed out at 2x.");
+				} else {
+					%client.score += mFloor((%client.betContributed[amount]/%this.pot[%winning_pot,amount])*(%this.pot[%losing_pot,amount]));
+				}
 				%client.score += %client.betContributed[amount];
 				messageClient(%client,'',"\c6You have won\c3" SPC %client.score - %old_score SPC "tickets!");
 				%client.savePlatformsGame();
@@ -360,9 +366,9 @@ function PlatformAI::doBets(%this,%winner) {
 	%client.betContributed[player] = "";
 
 	%this.didBets = 1;
-	%this.pot[0,amount] = 0;
+	%this.pot[0,amount] = 500;
 	%this.pot[0,player] = "";
-	%this.pot[1,amount] = 0;
+	%this.pot[1,amount] = 500;
 	%this.pot[1,player] = "";
 }
 
@@ -390,9 +396,9 @@ function fireProjectiles(%which) {
 					//%vec = "0" SPC -1*%vel SPC "0";
 					%vec = -1*%vel SPC "0 0";
 			}
-			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",2,"0 0 0",-1);
-			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",2,"0 0 0",-1);
-			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",2,"0 0 0",-1);
+			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",1,"0 0 0",-1);
+			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",1,"0 0 0",-1);
+			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",1,"0 0 0",-1);
 		}
 	}
 }

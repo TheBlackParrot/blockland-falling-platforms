@@ -126,9 +126,10 @@ function GameConnection::doBottomStats(%this) {
 	if(%highest[name] $= "") {
 		%highest[name] = "N/A";
 	}
+	%winloss = (%this.wins || 0) @ ":" @ (%this.losses || 0);
 
 	//%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "  \c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]  \c3Game Time:\c6" SPC %time,2,1);
-	%this.bottomPrint("<font:Arial Bold:14>\c3Round:\c6" SPC %rounds @ "  \c3Time:\c6" SPC %time @ "<just:right>\c3Your Record:\c6" SPC %record SPC " \c3Tickets:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
+	%this.bottomPrint("<font:Arial Bold:14>\c3Round:\c6" SPC %rounds @ "  \c3Time:\c6" SPC %time @ "<just:right>\c3W/L:\c6" SPC %winloss @ "  \c3Your Record:\c6" SPC %record SPC " \c3Tickets:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
 }
 
 function MinigameSO::playSound(%this,%data) {
@@ -165,7 +166,7 @@ function checkOnDeath() {
 				}
 			case 2:
 				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "(" @ %player[0].bl_id @ ") and" SPC %player[1].name SPC "(" @ %player[1].bl_id @ ")! Who will win?");
-				messageAll('',"\c4AI: \c6Place your bets! See /help for syntax on /bet, and be sure to use BL_ID's!");
+				messageAll('',"\c4AI: \c6Place your bets! See /help for syntax on /bet, and be sure to use BL_ID's! 500 tickets has been placed on the house.");
 				%ai.canBet = 1;
 				%count_b = 0;
 				for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
@@ -233,29 +234,6 @@ package FallingPlatformsPackage {
 
 	function fxDTSBrick::onPlayerTouch(%this,%player) {
 		parent::onPlayerTouch(%this,%player);
-		
-		// cheat prevention
-		if(%this.getName() $= "_falling_plate") {
-			%player.lastTouch = getSimTime();
-			if(!PlatformAI.inProgress) {
-				if(!%player.inGame && %player.client.minigame) {
-					%player.inGame = 1;
-					messageAll('',"\c3" @ %player.client.name SPC "\c5has joined the game!");
-				}
-			} else {
-				if(!%player.inGame || !%player.client.minigame) {
-					%player.kill();
-				}
-				if(%player.canBreakPlates && %player.inGame) {
-					if(!isEventPending(%this.breakBrickSched[1])) {
-						%this.setColorFX(3);
-						%this.breakBrickSched[1] = %this.schedule(200,fakeKillBrick,"0 0 0",3);
-						%this.breakBrickSched[2] = %this.schedule(200,playSound,brickBreakSound);
-						%this.breakBrickSched[3] = %this.schedule(300,setColorFX,0);
-					}
-				}
-			}
-		}
 
 		if(%this.getName() $= "_dm_room_floor") {
 			%player.addNewItem("Sword");
@@ -277,10 +255,39 @@ package FallingPlatformsPackage {
 				%player.client.centerPrint("\c6This is a teleporter to join the game, however it is not currently active.<br>Wait for the current game to finish first!",3);
 			}
 		}
+
+		if(!%player.inGame && PlatformAI.inProgress) {
+			return;
+		}
+		
+		if(%this.getName() $= "_falling_plate") {
+			%player.lastTouch = getSimTime();
+			if(!PlatformAI.inProgress) {
+				if(!%player.inGame && %player.client.minigame) {
+					%player.inGame = 1;
+					messageAll('',"\c3" @ %player.client.name SPC "\c5has joined the game!");
+				}
+			} else {
+				if(!%player.inGame || !%player.client.minigame) {
+					%player.kill();
+				}
+				if(%player.canBreakPlates && %player.inGame) {
+					if(!isEventPending(%this.breakBrickSched[1])) {
+						%this.setColorFX(3);
+						%this.breakBrickSched[1] = %this.schedule(200,fakeKillBrick,"0 0 0",3);
+						%this.breakBrickSched[2] = %this.schedule(200,playSound,brickBreakSound);
+						%this.breakBrickSched[3] = %this.schedule(300,setColorFX,0);
+					}
+				}
+			}
+		}
 	}
 
 	function GameConnection::autoAdminCheck(%this) {
 		%this.doBottomStats();
+		if(%this.original_prefix $= "") {
+			%this.original_prefix = %this.clanPrefix;
+		}
 		return parent::autoAdminCheck(%this);
 	}
 
@@ -316,6 +323,11 @@ package FallingPlatformsPackage {
 				PlatformAI.activePlayers--;
 				if(PlatformAI.rounds > %this.personalRecord) {
 					%this.personalRecord = PlatformAI.rounds;
+					if(PlatformAI.activePlayers < 2) {
+						%this.wins++;
+					} else {
+						%this.losses++;
+					}
 				}
 			}
 		}

@@ -44,14 +44,11 @@ function addToLeaderboard(%client) {
 		$Platforms::Leaderboard[%i,amount] = %highest[%i,amount];
 		$Platforms::Leaderboard[%i,name] = %highest[%i,name];
 		if(%i<27) {
-			%spaces = "...................................................";
+			%spaces = "..........................";
 			%brick = "_leaderboard_" @ %i;
 
 			%potential_target = findclientbyname($Platforms::Leaderboard[%i,name]);
 			if(isObject(%potential_target)) {
-				if(%potential_target.original_prefix !$= "") {
-					%potential_target.original_prefix = %potential_target.clanPrefix;
-				}
 				%potential_target.clanPosition = "\c7[\c2" @ getPositionString(%i)  @ "\c7]";
 				%potential_target.clanPrefix = %potential_target.clanPosition SPC %potential_target.original_prefix;
 			}
@@ -61,15 +58,12 @@ function addToLeaderboard(%client) {
 			} else {
 				%pos = %i;
 			}
-			%name = getSubStr($Platforms::Leaderboard[%i,name],0,51);
+			%name = getSubStr($Platforms::Leaderboard[%i,name],0,26);
 			%score = getSubStr(%spaces,0,strLen(%spaces)-strLen(%name)) @ getSubStr("..........",0,10-strLen($Platforms::Leaderboard[%i,amount])) @ $Platforms::Leaderboard[%i,amount];
 			%brick.setPrintText(%pos SPC %name @ %score,1);
 		} else {
 			%potential_target = findclientbyname($Platforms::Leaderboard[27,name]);
 			if(isObject(%potential_target)) {
-				if(!%potential_target.original_prefix) {
-					%potential_target.original_prefix = %potential_target.clanPrefix;
-				}
 				%potential_target.clanPrefix = %potential_target.original_prefix;
 			}
 		}
