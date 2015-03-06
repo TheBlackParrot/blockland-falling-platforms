@@ -39,6 +39,23 @@ function PlatformAI::gameLoop(%this) {
 		cancel(%this.pregameSchedule);
 	}
 
+	if(%this.players >= 10 && %this.activePlayers <= 1) {
+		for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
+			%player = $DefaultMinigame.member[%i].player;
+			if(isObject(%player)) {
+				if(%player.inGame) {
+					messageClient(%player.client,'',"\c6You were killed to keep the game moving. You can try to beat the record if 10 or less players are playing.");
+					%this.stopGame();
+					if(PlatformAI.rounds > %player.client.personalRecord) {
+						%player.client.personalRecord = PlatformAI.rounds;
+					}
+					%player.kill();
+					return;
+				}
+			}
+		}
+	}
+
 	%count = 0;
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
 		%player = ClientGroup.getObject(%i).player;

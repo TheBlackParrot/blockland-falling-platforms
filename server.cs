@@ -276,20 +276,16 @@ package FallingPlatformsPackage {
 				%player.client.centerPrint("\c6This is a teleporter to join the game, however it is not currently active.<br>Wait for the current game to finish first!",3);
 			}
 		}
-
-		if(!%player.inGame && PlatformAI.inProgress) {
-			return;
-		}
 		
 		if(%this.getName() $= "_falling_plate") {
 			%player.lastTouch = getSimTime();
 			if(!PlatformAI.inProgress) {
-				if(!%player.inGame && %player.client.minigame) {
+				if(!%player.inGame && isObject(%player.client.minigame)) {
 					%player.inGame = 1;
 					messageAll('',"\c3" @ %player.client.name SPC "\c5has joined the game!");
 				}
 			} else {
-				if(!%player.inGame || !%player.client.minigame) {
+				if(!%player.inGame) {
 					%player.kill();
 				}
 				if(%player.canBreakPlates && %player.inGame) {
