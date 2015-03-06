@@ -1,0 +1,920 @@
+This is a Blockland save file.  You probably shouldn't modify it cause you'll screw it up.
+1
+
+0.854902 0.109804 0.031373 1.000000
+0.956863 0.886275 0.137255 1.000000
+0.000000 0.482353 0.156863 1.000000
+0.129412 0.313726 0.909804 1.000000
+0.882353 0.882353 0.882353 1.000000
+0.737255 0.729412 0.721569 1.000000
+0.584314 0.568627 0.529412 1.000000
+0.337255 0.329412 0.301961 1.000000
+0.137255 0.137255 0.137255 1.000000
+0.000000 0.141176 0.254902 1.000000
+0.129412 0.266667 0.266667 1.000000
+0.000000 0.203922 0.082353 1.000000
+0.584314 0.721569 0.043137 1.000000
+0.956863 0.603922 0.000000 1.000000
+0.901961 0.384314 0.090196 1.000000
+0.564706 0.137255 0.137255 1.000000
+0.439216 0.031373 0.101961 1.000000
+0.611765 0.000000 0.419608 1.000000
+1.000000 0.603922 0.419608 1.000000
+1.000000 0.784314 0.247059 1.000000
+0.713726 0.768627 0.439216 1.000000
+0.784314 0.921569 0.486275 1.000000
+0.874510 0.964706 0.556863 1.000000
+0.984314 0.776471 0.709804 1.000000
+0.929412 0.611765 0.764706 1.000000
+0.701961 0.584314 0.792157 1.000000
+0.501961 0.439216 0.854902 1.000000
+0.274510 0.603922 0.764706 1.000000
+0.439216 0.811765 0.921569 1.000000
+0.364706 0.454902 0.549020 1.000000
+0.549020 0.647059 0.776471 1.000000
+0.600000 0.741176 0.921569 1.000000
+0.827451 0.949020 0.913725 1.000000
+0.537255 0.694118 0.549020 1.000000
+0.976471 0.956863 0.729412 1.000000
+0.839216 0.447059 0.247059 1.000000
+0.956863 0.874510 0.784314 1.000000
+0.847059 0.729412 0.482353 1.000000
+0.666667 0.486275 0.329412 1.000000
+0.549020 0.454902 0.321569 1.000000
+0.666667 0.494118 0.176471 1.000000
+0.619608 0.294118 0.129412 1.000000
+0.447059 0.231373 0.121569 1.000000
+0.356863 0.109804 0.043137 1.000000
+0.184314 0.054902 0.019608 1.000000
+0.854902 0.109804 0.031373 0.694118
+0.901961 0.384314 0.090196 0.694118
+0.992157 0.764706 0.000000 0.694118
+0.000000 0.482353 0.156863 0.694118
+0.137255 0.247059 0.666667 0.694118
+0.274510 0.603922 0.764706 0.694118
+0.956863 0.956863 0.956863 0.694118
+0.584314 0.568627 0.529412 0.694118
+0.137255 0.137255 0.137255 0.694118
+1.000000 1.000000 1.000000 1.000000
+0.549020 0.576471 0.584314 1.000000
+0.494118 0.466667 0.458824 1.000000
+0.294118 0.313726 0.337255 1.000000
+1.000000 1.000000 1.000000 0.447059
+0.003922 0.003922 0.003922 1.000000
+0.192157 1.000000 1.000000 0.694118
+0.866667 0.211765 0.541176 0.694118
+1.000000 0.847059 0.000000 0.694118
+1.000000 0.000000 1.000000 0.000000
+Linecount 496
+64x64 Base" 24.5 -15.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -103.5 48.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -103.5 80.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -71.5 80.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -71.5 -47.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -71.5 112.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -103.5 112.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -103.5 -47.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" 24.5 48.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" 24.5 80.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -7.5 -15.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -7.5 16.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -39.5 16.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -39.5 -15.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" 24.5 112.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -7.5 112.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -39.5 112.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -71.5 -15.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -103.5 -15.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -103.5 16.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -135.5 16.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -135.5 -15.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -71.5 16.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -135.5 -47.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" 24.5 16.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" 24.5 -47.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -7.5 -47.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -39.5 -47.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -7.5 80.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -39.5 80.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -135.5 112.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -39.5 48.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -7.5 48.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -135.5 48.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -135.5 80.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+64x64 Base" -71.5 48.5 0.1 0 1 56  0 0 1 1 1
++-OWNER 999999
+1x2F" 3.5 -28.25 0.3 1 0 0  0 0 0 0 0
+1x1F" 4.25 -27.75 0.3 1 0 0  0 0 0 0 0
+1x2F" 5.25 -26.5 0.3 2 0 0  0 0 0 0 0
+32x Cube" -95.5 56.5 8.2 0 0 8  0 0 1 0 0
+1x4F" 6.25 -24 0.3 2 0 0  0 0 0 0 0
+1x4F" 6.75 -22 0.3 2 0 0  0 0 0 0 0
+1x2F" 2.5 -28.75 0.3 1 0 0  0 0 0 0 0
+1x4F" 1 -29.25 0.3 1 0 0  0 0 0 0 0
+1x4F" -1 -29.75 0.3 1 0 0  0 0 0 0 0
+1x8F" -4 -30.25 0.3 1 0 0  0 0 0 0 0
+1x8F" 7.25 -19 0.3 2 0 0  0 0 0 0 0
+1x6F" -7.5 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -13 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -21 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" 7.75 -13 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 -5 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 3 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 11 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 19 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 27 0.3 2 0 0  0 0 0 0 0
+1x16F" -29 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -37 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -45 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -53 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -61 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -69 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" 7.75 35 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 43 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 51 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 59 0.3 2 0 0  0 0 0 0 0
+1x16F" -77 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" 7.75 67 0.3 2 0 0  0 0 0 0 0
+1x16F" 7.75 75 0.3 2 0 0  0 0 0 0 0
+1x4F" 7.75 80 0.3 2 0 0  0 0 0 0 0
+1x1F" 4.75 -27.25 0.3 1 0 0  0 0 0 0 0
+1x16F" -85 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -93 -30.75 0.3 1 0 0  0 0 0 0 0
+1x16F" -101 -30.75 0.3 1 0 0  0 0 0 0 0
+1x8F" -107 -30.25 0.3 1 0 0  0 0 0 0 0
+1x4F" -110 -29.75 0.3 1 0 0  0 0 0 0 0
+1x4F" -112 -29.25 0.3 1 0 0  0 0 0 0 0
+1x2F" -113.5 -28.75 0.3 1 0 0  0 0 0 0 0
+1x2F" -114.5 -28.25 0.3 1 0 0  0 0 0 0 0
+1x1F" -115.25 -27.75 0.3 0 0 0  0 0 0 0 0
+1x1F" -115.75 -27.25 0.3 0 0 0  0 0 0 0 0
+1x2F" -116.25 -26.5 0.3 0 0 0  0 0 0 0 0
+1x2F" -116.75 -25.5 0.3 0 0 0  0 0 0 0 0
+1x4F" -117.25 -24 0.3 0 0 0  0 0 0 0 0
+1x4F" -117.75 -22 0.3 0 0 0  0 0 0 0 0
+1x8F" -118.25 -19 0.3 0 0 0  0 0 0 0 0
+1x6F" -118.75 -15.5 0.3 0 0 0  0 0 0 0 0
+32x Cube" -31.5 24.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -15.5 8.5 8.2 0 0 4  0 0 1 0 0
+32x Cube" -31.5 -7.5 8.2 0 0 4  0 0 1 0 0
+32x Cube" -31.5 40.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -31.5 56.5 8.2 0 0 61  0 0 0 0 0
+1x2F" 5.75 -25.5 0.3 2 0 0  0 0 0 0 0
+1x16F" -118.75 -2 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 6 0.3 0 0 0  0 0 0 0 0
+32x Cube" -47.5 -7.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -63.5 -7.5 8.2 0 0 4  0 0 1 0 0
+1x16F" -118.75 14 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 22 0.3 0 0 0  0 0 0 0 0
+32x Cube" -47.5 56.5 8.2 0 0 61  0 0 0 0 0
+1x16F" -118.75 30 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 38 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 46 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 54 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 62 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 70 0.3 0 0 0  0 0 0 0 0
+1x16F" -118.75 78 0.3 0 0 0  0 0 0 0 0
+1x8F" -118.25 84 0.3 0 0 0  0 0 0 0 0
+1x4F" -117.75 87 0.3 0 0 0  0 0 0 0 0
+1x4F" -117.25 89 0.3 0 0 0  0 0 0 0 0
+1x2F" -116.75 90.5 0.3 0 0 0  0 0 0 0 0
+1x2F" -116.25 91.5 0.3 0 0 0  0 0 0 0 0
+1x1F" -115.75 92.25 0.3 3 0 0  0 0 0 0 0
+1x1F" -115.25 92.75 0.3 3 0 0  0 0 0 0 0
+1x2F" -114.5 93.25 0.3 3 0 0  0 0 0 0 0
+1x2F" -113.5 93.75 0.3 3 0 0  0 0 0 0 0
+1x4F" -112 94.25 0.3 3 0 0  0 0 0 0 0
+1x4F" -110 94.75 0.3 3 0 0  0 0 0 0 0
+1x8F" -107 95.25 0.3 3 0 0  0 0 0 0 0
+1x6F" -103.5 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -98 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -90 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -82 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -74 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -66 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -58 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -50 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -42 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -34 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -26 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -18 95.75 0.3 3 0 0  0 0 0 0 0
+1x16F" -10 95.75 0.3 3 0 0  0 0 0 0 0
+1x8F" -4 95.25 0.3 3 0 0  0 0 0 0 0
+1x4F" -1 94.75 0.3 3 0 0  0 0 0 0 0
+1x4F" 1 94.25 0.3 3 0 0  0 0 0 0 0
+1x2F" 2.5 93.75 0.3 3 0 0  0 0 0 0 0
+1x2F" 3.5 93.25 0.3 3 0 0  0 0 0 0 0
+1x1F" 4.25 92.75 0.3 2 0 0  0 0 0 0 0
+1x1F" 4.75 92.25 0.3 2 0 0  0 0 0 0 0
+1x2F" 5.25 91.5 0.3 2 0 0  0 0 0 0 0
+1x2F" 5.75 90.5 0.3 2 0 0  0 0 0 0 0
+1x4F" 6.25 89 0.3 2 0 0  0 0 0 0 0
+1x4F" 6.75 87 0.3 2 0 0  0 0 0 0 0
+1x8F" 7.25 84 0.3 2 0 0  0 0 0 0 0
+1x1F" 7.75 81.75 0.3 2 0 0  0 0 0 0 0
+32x Cube" -95.5 40.5 8.2 0 0 4  0 0 1 0 0
+32x Cube" -63.5 72.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -47.5 72.5 8.2 0 0 4  0 0 1 0 0
+32x Cube" -47.5 40.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -15.5 24.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -15.5 40.5 8.2 0 0 4  0 0 1 0 0
+32x Cube" -47.5 24.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -47.5 8.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -31.5 72.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -15.5 56.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -79.5 8.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -95.5 24.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -95.5 8.5 8.2 0 0 4  0 0 1 0 0
+32x Cube" -79.5 -7.5 8.2 0 0 8  0 0 1 0 0
+32x Cube" -63.5 8.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -63.5 24.5 8.2 0 0 61  0 0 0 0 0
+1x1F" 7.75 81.25 0.3 2 0 0  0 0 0 0 0
+32x Cube" -63.5 40.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -63.5 56.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -79.5 56.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -79.5 40.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -79.5 24.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -31.5 8.5 8.2 0 0 61  0 0 0 0 0
+32x Cube" -79.5 72.5 8.2 0 0 4  0 0 1 0 0
+1x16F" -118.75 -10 0.3 0 0 0  0 0 0 0 0
+8x8F" -37.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 14.5 16.5 0 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -37.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 2.5 16.5 0 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -69.5 0.25 16.5 1 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -33.5 64.75 16.5 1 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -23.25 10.5 16.5 0 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -49.5 64.75 16.5 1 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -29.5 0.25 16.5 1 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -87.75 38.5 16.5 0 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -33.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 42.5 16.5 0 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -87.75 22.5 16.5 0 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -87.75 58.5 16.5 0 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -33.5 0.25 16.5 1 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+8x8F" -29.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 26.5 16.5 0 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -87.75 18.5 16.5 0 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -85.5 64.75 16.5 1 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -37.5 64.75 16.5 1 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+8x8F" -73.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 62.5 16.5 0 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -77.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 26.5 16.5 0 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -25.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -57.5 64.75 16.5 1 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -37.5 0.25 16.5 1 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -23.25 18.5 16.5 0 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -23.25 6.5 16.5 0 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -41.5 64.75 16.5 1 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -73.5 0.25 16.5 1 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -23.25 30.5 16.5 0 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -87.75 30.5 16.5 0 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -53.5 64.75 16.5 1 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -73.5 64.75 16.5 1 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -23.25 54.5 16.5 0 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -53.5 0.25 16.5 1 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -87.75 6.5 16.5 0 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -81.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -77.5 0.25 16.5 1 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -25.5 0.25 16.5 1 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+8x8F" -81.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -61.5 0.25 16.5 1 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -85.5 0.25 16.5 1 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -41.5 0.25 16.5 1 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -23.25 46.5 16.5 0 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -73.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -69.5 64.75 16.5 1 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -87.75 34.5 16.5 0 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -77.5 64.75 16.5 1 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -45.5 64.75 16.5 1 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -81.5 0.25 16.5 1 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -87.75 62.5 16.5 0 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+1x8" -29.5 64.75 16.5 1 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+1x8" -23.25 58.5 16.5 0 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -49.5 0.25 16.5 1 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -45.5 0.25 16.5 1 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+8x8F" -85.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 14.5 16.5 0 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -81.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 10.5 16.5 0 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -85.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -65.5 0.25 16.5 1 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+1x8" -25.5 64.75 16.5 1 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+8x8F" -77.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 38.5 16.5 0 0 42  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+1x8" -87.75 54.5 16.5 0 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -77.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 2.5 16.5 0 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -85.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -81.5 64.75 16.5 1 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+8x8F" -85.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -73.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -81.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -85.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 34.5 16.5 0 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -69.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 50.5 16.5 0 0 2  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -69.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x1x5" 7.75 81.75 1.9 2 0 0  0 0 0 0 0
+8x8F" -69.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -77.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -57.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -61.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -65.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -69.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 50.5 16.5 0 0 0  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -53.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 14.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 10.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 6.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 2.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 42.5 16.5 0 0 24  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -53.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 22.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -87.75 46.5 16.5 0 0 17  0 0 1 0 0
++-NTOBJECTNAME _proj_2
+8x8F" -53.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -61.5 64.75 16.5 1 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+8x8F" -53.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -41.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -45.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -49.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -53.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -23.25 22.5 16.5 0 0 3  0 0 1 0 0
++-NTOBJECTNAME _proj_4
+8x8F" -37.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 62.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 58.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 54.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 50.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -65.5 64.75 16.5 1 0 1  0 0 1 0 0
++-NTOBJECTNAME _proj_1
+8x8F" -37.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 46.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 42.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 38.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -37.5 34.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x8" -57.5 0.25 16.5 1 0 28  0 0 1 0 0
++-NTOBJECTNAME _proj_3
+8x8F" -37.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 30.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -29.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -33.5 26.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+8x8F" -25.5 18.5 16.3 1 0 0  0 0 1 1 1
++-NTOBJECTNAME _falling_plate
+1x1x5" 7.75 81.75 4.9 2 0 0  0 0 0 0 0
+1x1x5" 7.75 81.75 7.9 2 0 0  0 0 0 0 0
+1x1" 7.75 81.75 9.7 2 0 0  0 0 0 0 0
+1x1F" 7.75 81.75 10.1 2 0 0  0 0 0 0 0
+1x1F" 7.75 81.75 10.3 2 0 0  0 0 0 0 0

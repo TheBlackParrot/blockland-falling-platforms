@@ -1,17 +1,18 @@
 function gatherPlatformBricks() {
 	if(isObject(PlatformBricks)) {
-		for(%i=0;%i<PlatformBricks.getCount();%i++) {
-			PlatformBricks.getObject(%i).delete();
-		}
-		PlatformBricks.initTime = getSimTime();
+		PlatformBricks.clear();
 	} else {
 		new SimSet(PlatformBricks) {
 			initTime = getSimTime();
 		};
 	}
 
-	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
-		%brick = BrickGroup_888888.getObject(%i);
+	if(!BrickGroup_Platforms.getCount()) {
+		return;
+	}
+
+	for(%i=0;%i<BrickGroup_Platforms.getCount();%i++) {
+		%brick = BrickGroup_Platforms.getObject(%i);
 		if(%brick.getName() $= "_falling_plate") {
 			%brick.isPlatform = 1;
 			%obj = new ScriptObject(PlatformBrick) {
@@ -27,43 +28,46 @@ function gatherPlatformBricks() {
 
 function gatherProjectileBricks() {
 	if(isObject(ProjectileBricks)) {
-		for(%i=0;%i<ProjectileBricks.getCount();%i++) {
-			ProjectileBricks.getObject(%i).delete();
-		}
-		ProjectileBricks.initTime = getSimTime();
+		ProjectileBricks.clear();
 	} else {
 		new SimSet(ProjectileBricks) {
 			initTime = getSimTime();
 		};
 	}
 
-	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
-		%brick = BrickGroup_888888.getObject(%i);
-		if(%brick.getName() $= "_proj_1") {
-			%obj = new ScriptObject(ProjectileBrick) {
-				brick = %brick;
-				side = 1;
-			};
+	for(%i=0;%i<BrickGroup_Platforms.getCount();%i++) {
+		%brick = BrickGroup_Platforms.getObject(%i);
+		if(isObject(%brick)) {
+			if(%brick.getName() $= "_proj_1") {
+				%obj = new ScriptObject(ProjectileBrick) {
+					brick = %brick;
+					side = 1;
+				};
+			}
+			if(%brick.getName() $= "_proj_2") {
+				%obj = new ScriptObject(ProjectileBrick) {
+					brick = %brick;
+					side = 2;
+				};
+			}
+			if(%brick.getName() $= "_proj_3") {
+				%obj = new ScriptObject(ProjectileBrick) {
+					brick = %brick;
+					side = 3;
+				};
+			}
+			if(%brick.getName() $= "_proj_4") {
+				%obj = new ScriptObject(ProjectileBrick) {
+					brick = %brick;
+					side = 4;
+				};
+			}
+		} else {
+			echo("...why exactly does this else statement fix this?");
 		}
-		if(%brick.getName() $= "_proj_2") {
-			%obj = new ScriptObject(ProjectileBrick) {
-				brick = %brick;
-				side = 2;
-			};
+		if(isObject(%obj)) {
+			ProjectileBricks.add(%obj);
 		}
-		if(%brick.getName() $= "_proj_3") {
-			%obj = new ScriptObject(ProjectileBrick) {
-				brick = %brick;
-				side = 3;
-			};
-		}
-		if(%brick.getName() $= "_proj_4") {
-			%obj = new ScriptObject(ProjectileBrick) {
-				brick = %brick;
-				side = 4;
-			};
-		}
-		ProjectileBricks.add(%obj);
 	}
 
 	talk("Gathered" SPC ProjectileBricks.getCount() SPC "projectile bricks.");
@@ -101,4 +105,50 @@ function randomizePlatformBricks(%amount) {
 	}
 
 	//talk("Using" SPC %amount SPC "colors with" SPC %count SPC "platform bricks returns" SPC %per_brick SPC "bricks per color." SPC %remainder SPC "were left over.");
+}
+
+function gatherLayouts() {
+	if(isObject(PlatformLayouts)) {
+		PlatformLayouts.clear();
+	} else {
+		new SimSet(PlatformLayouts) {
+			initTime = getSimTime();
+			class = PlatformLayoutsSet;
+		};
+	}
+
+	%path = $Platforms::LayoutDir;
+	for(%file = findFirstFile(%path @ "*.bls");%file !$= "";%file = findNextFile(%path @ "*.bls")) {
+		if(fileExt(%file) !$= ".bls") {
+			continue;
+		}
+		%row = new ScriptObject(PlatformLayout) {
+			file = %file;
+			plays = 0;
+			lastLoaded = "";
+		};
+		PlatformLayouts.add(%row);
+	}
+}
+
+function gatherTipBotLines() {
+	%file = new FileObject();
+	%filename = "config/server/Platforms/tips.txt";
+	if(!isFile(%filename)) {
+		%filename = "Add-Ons/Gamemode_Falling_Platforms/tips.txt";
+	}
+	%file.openForRead(%filename);
+
+	%line_count = 0;
+	while(!%file.isEOF()) {
+		%line = %file.readLine();
+		if(getSubStr(%line,0,2) $= "//") {
+			continue;
+		}
+		$Platforms::Tip[%line_count] = %line;
+		%line_count++;
+	}
+
+	%file.close();
+	%file.delete();
 }

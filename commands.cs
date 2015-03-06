@@ -141,6 +141,7 @@ function serverCmdChangeMusic(%this,%which) {
 		referenceDistance = 999999;
 		maxDistance = 999999;
 		volume = 0.6;
+		position = $loadOffset;
 	};
 }
 
@@ -251,4 +252,5 @@ function serverCmdJoin(%this) {
 	%this.player.setVelocity("0 0 0");
 	%this.player.setPlayerScale("1 1 1");
 	%this.player.clearTools();
+	%this.player.changeDatablock(PlayerPlatforms);
 }

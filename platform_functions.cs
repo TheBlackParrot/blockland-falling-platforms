@@ -2,6 +2,7 @@ function warnPlatforms(%color) {
 	//%colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange";
 	%colors[num] = getPlatformColorTypes("numbers");
 	%colors[name] = getPlatformColorTypes("names");
+	%color_brick = getWord(%colors[num],%color-1);
 	%count = PlatformBricks.getCount();
 	for(%i=0;%i<%count;%i++) {
 		%row = PlatformBricks.getObject(%i);

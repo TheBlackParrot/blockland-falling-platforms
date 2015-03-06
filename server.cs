@@ -1,4 +1,23 @@
+$Platforms::LayoutDir = "Add-Ons/Gamemode_Falling_Platforms/layouts/";
+
+datablock PlayerData(PlayerPlatforms : PlayerStandardArmor) {
+	airControl = 0.2;
+	jumpForce = 1280;
+	maxForwardSpeed = 10;
+	maxSideSpeed = 10;
+	maxBackwardSpeed = 10;
+	runForce = 8000;
+	groundImpactShakeAmp = "0.5 0.5 0.5";
+	groundImpactMinSpeed = 13;
+	minJetEnergy = 0;
+	jetEnergyDrain = 0;
+	canJet = 0;
+	uiName = "Platforms Player";
+	showEnergyBar = false;
+};
+
 exec("./db_functions.cs");
+exec("./layouts.cs");
 exec("./platform_functions.cs");
 exec("./system.cs");
 exec("./saving.cs");
@@ -6,6 +25,12 @@ exec("./commands.cs");
 exec("./shop.cs");
 exec("./support.cs");
 exec("./leaderboard.cs");
+
+// might throw off bots initially
+if(!$Platforms::ChangedLoadOffset) {
+	$loadOffset = getRandom(-1000,1000) SPC getRandom(-1000,1000) SPC 0;
+}
+$Platforms::ChangedLoadOffset = 1;
 
 datablock AudioProfile(fall1)
 {
@@ -31,7 +56,7 @@ AudioMusicLooping3d.is3d = 0;
 AudioMusicLooping3d.referenceDistance = 999999;
 AudioMusicLooping3d.maxDistance = 999999;
 
-$Platforms::Colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange 27 cyan 24 pink 7 gray 42 brown";
+$Platforms::Colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange 28 cyan 24 pink 7 gray 43 brown 10 teal 26 lavender 38 tan 12 lime";
 
 function getPlatformColorTypes(%type) {
 	switch$(%type) {
@@ -77,36 +102,10 @@ function initFPMusic() {
 		referenceDistance = 999999;
 		maxDistance = 999999;
 		volume = 0.6;
+		position = $loadOffset;
 	};
 }
 initFPMusic();
-
-function RGBToHex(%rgb) {
-	%rgb = getWords(%rgb,0,2);
-	for(%i=0;%i<getWordCount(%rgb);%i++) {
-		%dec = mFloor(getWord(%rgb,%i)*255);
-		%str = "0123456789ABCDEF";
-		%hex = "";
-
-		while(%dec != 0) {
-			%hexn = %dec % 16;
-			%dec = mFloor(%dec / 16);
-			%hex = getSubStr(%str,%hexn,1) @ %hex;    
-		}
-
-		if(strLen(%hex) == 1)
-			%hex = "0" @ %hex;
-		if(!strLen(%hex))
-			%hex = "00";
-
-		%hexstr = %hexstr @ %hex;
-	}
-
-	if(%hexstr $= "") {
-		%hexstr = "FF00FF";
-	}
-	return %hexstr;
-}
 
 function GameConnection::doBottomStats(%this) {
 	cancel(%this.bottomStatLoop);
@@ -158,9 +157,9 @@ function checkOnDeath() {
 		switch(%count) {
 			case 1:
 				if(%ai.rounds > 7) {
-					%player[0].score += 100;
-					%player[0].totalscore += 100;
-					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a 100 ticket bonus!");
+					%player[0].score += 1000+mPow(PlatformAI.players,3);
+					%player[0].totalscore += 100+(PlatformAI.players*2);
+					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a" SPC 1000+mPow(PlatformAI.players,3) SPC "ticket bonus!");
 					%ai.canBet = 0;
 					%ai.doBets(%player[0].player);
 				}
@@ -174,7 +173,7 @@ function checkOnDeath() {
 					if(isObject(%player_b)) {
 						if(%player_b.inGame) {
 							%ai.pot[%count_b,player] = %player_b;
-							%ai.pot[%count_b,amount] = 0;
+							%ai.pot[%count_b,amount] = 500;
 							%count_b++;
 						}
 					}
@@ -186,6 +185,10 @@ function checkOnDeath() {
 
 function Player::getLookingAt(%this,%distance)
 {
+	if(!%this.inGame) {
+		return;
+	}
+
 	if(!%distance) {
 		%distance = 5;
 	}
@@ -204,6 +207,23 @@ function Player::getLookingAt(%this,%distance)
 	}
 }
 
+function TipBotLoop(%line) {
+	if($Platforms::Tip[0] $= "") {
+		gatherTipBotLines();
+	}
+	if($Platforms::Tip[%line] $= "") {
+		%line = 0;
+	}
+
+	cancel($Platforms::TipBotSched);
+	$Platforms::TipBotSched = schedule(45000,0,TipBotLoop,%line+1);
+
+	messageAll('',"\c1Tip:\c6" SPC $Platforms::Tip[%line]);
+}
+if(!$Platforms::TipBotSched) {
+	TipBotLoop(0);
+}
+
 package FallingPlatformsPackage {
 	function fxDTSBrick::onAdd(%this) {
 		%this.enableTouch = 1;
@@ -215,7 +235,7 @@ package FallingPlatformsPackage {
 			if(!%obj.inGame || !%obj.canSpleefPlates) {
 				return Parent::onTrigger(%db,%obj,%slot,%val);
 			}
-			if(%val == 1) {
+			if(%val == 1 && !%slot) {
 				%brick = %obj.getLookingAt();
 				if(isObject(%brick)) {
 					if(!isEventPending(%brick.breakBrickSched[1])) {
@@ -251,6 +271,7 @@ package FallingPlatformsPackage {
 				%player.setVelocity("0 0 0");
 				%player.setPlayerScale("1 1 1");
 				%player.clearTools();
+				%player.changeDatablock(PlayerPlatforms);
 			} else {
 				%player.client.centerPrint("\c6This is a teleporter to join the game, however it is not currently active.<br>Wait for the current game to finish first!",3);
 			}
@@ -291,18 +312,6 @@ package FallingPlatformsPackage {
 		return parent::autoAdminCheck(%this);
 	}
 
-	function ServerLoadSaveFile_End() {
-		parent::ServerLoadSaveFile_End();
-
-		if(!$Platforms::HasInit) {
-			gatherPlatformBricks();
-			gatherProjectileBricks();
-			PlatformAI.reset();
-		}
-
-		$Platforms::HasInit = 1;
-	}
-
 	function onServerDestroyed() {
 		%ai = PlatformAI;
 		cancel(%ai.readySchedule);
@@ -312,7 +321,17 @@ package FallingPlatformsPackage {
 		cancel(%ai.resetSchedule);
 		cancel(%ai.startSchedule);
 		%ai.delete();
+		// prevents non-dedicated servers from looping a random sound on gamemode restart
+		// A+ handling there, torque
+		if(isObject($Platforms::Music)) {
+			$Platforms::Music.delete();
+		}
+		if(isObject(BrickGroup_Platforms)) {
+			BrickGroup_Platforms.deleteAll();
+			BrickGroup_Platforms.delete();
+		}
 		deleteVariables("$Platforms::*");
+		$loadOffset = "0 0 0";
 
 		return parent::onServerDestroyed();
 	}
@@ -323,11 +342,11 @@ package FallingPlatformsPackage {
 				PlatformAI.activePlayers--;
 				if(PlatformAI.rounds > %this.personalRecord) {
 					%this.personalRecord = PlatformAI.rounds;
-					if(PlatformAI.activePlayers < 2) {
-						%this.wins++;
-					} else {
-						%this.losses++;
-					}
+				}
+				if(PlatformAI.activePlayers < 2) {
+					%this.wins++;
+				} else {
+					%this.losses++;
 				}
 			}
 		}
@@ -352,6 +371,7 @@ package FallingPlatformsPackage {
 	function MinigameSO::messageAll(%this) {}
 	function MinigameSO::centerPrintAll(%this) {}
 	function MinigameSO::bottomPrintAll(%this) {}
+	function serverCmdDropTool(%this) {}
 
 	function GunProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal) {
 		if(%col.getClassName() $= "Player") {
@@ -365,6 +385,18 @@ package FallingPlatformsPackage {
 			}
 		}
 		return parent::onCollision(%this,%obj,%col,%fade,%pos,%normal);
+	}
+
+	function PlayerPlatforms::onEnterLiquid(%data,%obj,%coverage,%type) {
+		if(isObject(%obj.client.minigame) && %obj.inGame) {
+			if(!PlatformAI.inProgress) {
+				%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
+				%obj.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2)+5);
+				%obj.setVelocity("0 0 0");
+				%obj.setDamageLevel(0);
+			}
+		}
+		return parent::onEnterLiquid(%data,%obj,%coverage,%type);
 	}
 };
 activatePackage(FallingPlatformsPackage);
