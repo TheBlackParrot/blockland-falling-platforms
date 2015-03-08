@@ -197,3 +197,24 @@ function RGBToHex(%rgb) {
 	}
 	return %hexstr;
 }
+
+function MinigameSO::centerPrintGame(%this,%msg,%duration) {
+	for(%i=0;%i<%this.numMembers;%i++) {
+		%client = %this.member[%i];
+		if(isObject(%client.player)) {
+			if(%client.player.inGame) {
+				%client.centerPrint(%msg,%duration);
+			}
+		}
+	}
+}
+function MinigameSO::playSoundGame(%this,%sound) {
+	for(%i=0;%i<%this.numMembers;%i++) {
+		%client = %this.member[%i];
+		if(isObject(%client.player)) {
+			if(%client.player.inGame) {
+				%client.playSound(%sound);
+			}
+		}
+	}
+}

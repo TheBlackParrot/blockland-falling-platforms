@@ -14,20 +14,20 @@ function warnPlatforms(%color) {
 		%row.brick.setColorFX(4);
 		%row.brick.setColorFX(0);
 	}
-	$DefaultMinigame.schedule(150,playSound,brickPlantSound);
-	$DefaultMinigame.schedule(450,playSound,brickPlantSound);
+	$DefaultMinigame.schedule(150,playSoundGame,brickPlantSound);
+	$DefaultMinigame.schedule(450,playSoundGame,brickPlantSound);
 	//%str = getWord(%colors,1+%color*2);
 	%str = getWord(%colors[name],%color);
 	if(!PlatformAI.inverseFall) {
 		//"<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ ">
-		centerPrintAll("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str,5);
+		$DefaultMinigame.centerPrintGame("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str,5);
 	} else {
-		centerPrintAll("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str @ "<br><color:ff0000><just:left>NOT<just:center>NOT<just:right>NOT",5);
-		$DefaultMinigame.playSound(errorSound);
-		$DefaultMinigame.schedule(300,playSound,errorSound);
-		$DefaultMinigame.schedule(600,playSound,errorSound);
+		$DefaultMinigame.centerPrintGame("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str @ "<br><color:ff0000><just:left>NOT<just:center>NOT<just:right>NOT",5);
+		$DefaultMinigame.playSoundGame(errorSound);
+		$DefaultMinigame.schedule(300,playSoundGame,errorSound);
+		$DefaultMinigame.schedule(600,playSoundGame,errorSound);
 	}
-	$DefaultMinigame.playSound(color_notif);
+	$DefaultMinigame.playSoundGame(color_notif);
 }
 
 function breakPlatforms(%color) {
@@ -45,7 +45,7 @@ function breakPlatforms(%color) {
 			}
 		}
 	}
-	$DefaultMinigame.playSound("fall" @ getRandom(1,13));
+	$DefaultMinigame.playSoundGame("fall" @ getRandom(1,13));
 }
 
 function warnPracticePlatforms(%color) {
