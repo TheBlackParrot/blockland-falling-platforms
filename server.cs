@@ -224,7 +224,7 @@ function TipBotLoop(%line) {
 
 	%str = strReplace($Platforms::Tip[%line],"%%LAYOUTS",PlatformLayouts.getCount());
 
-	messageAll('',"\c1Tip:\c6" SPC $Platforms::Tip[%line]);
+	messageAll('',"\c1Tip:\c6" SPC %str);
 }
 if(!$Platforms::TipBotSched) {
 	TipBotLoop(0);

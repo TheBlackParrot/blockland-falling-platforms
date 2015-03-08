@@ -170,6 +170,8 @@ function PlatformAI::doSpecialRound(%this,%type) {
 	cancel(%this.gameSchedule);
 	messageAll('',"\c4AI: \c6Ooooh, a special round!");
 
+	%type = 1;
+
 	switch(%type) {
 		case 1:
 			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Pay attention! Avoid the selected bricks!",5);
@@ -188,15 +190,15 @@ function PlatformAI::doSpecialRound(%this,%type) {
 				%brick.selected = 1;
 
 				%brick = %brick.brick;
-				%brick.schedule(%i*50,playSound,brickPlantSound);
+				%brick.schedule(%i*33,playSound,brickPlantSound);
 
 				%old_color = %brick.colorID;
-				%brick.schedule(%i*50,setColor,59);
-				%brick.schedule(2000+(%amount*50),fakeKillBrick,"0 0 0",2);
-				%brick.schedule(2000+(%amount*50),setColor,%old_color);
+				%brick.schedule(%i*33,setColor,59);
+				%brick.schedule(2000+(%amount*33),fakeKillBrick,"0 0 0",3);
+				%brick.schedule(2000+(%amount*33),setColor,%old_color);
 			}
-			$DefaultMinigame.schedule(2000+(%amount*50),playSound,"fall" @ getRandom(1,13));
-			%this.specialEndSchedule = %this.schedule(8000+(%i*50)+(%amount*50)-((6-mFloor(PlatformAI.getDelayReduction()/1000))*1000),gameLoop);
+			$DefaultMinigame.schedule(2000+(%amount*33),playSound,"fall" @ getRandom(1,13));
+			%this.specialEndSchedule = %this.schedule(8000+(%amount*33),gameLoop);
 		case 2:
 			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Look out!",5);
 			%amount = mCeil(%this.rounds/4);
