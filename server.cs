@@ -354,10 +354,12 @@ package FallingPlatformsPackage {
 				if(PlatformAI.rounds > %this.personalRecord) {
 					%this.personalRecord = PlatformAI.rounds;
 				}
-				if(PlatformAI.activePlayers < 2) {
-					%this.wins++;
-				} else {
-					%this.losses++;
+				if(PlatformAI.players > 1) {
+					if(PlatformAI.activePlayers < 2) {
+						%this.wins++;
+					} else {
+						%this.losses++;
+					}
 				}
 			}
 		}
