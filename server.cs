@@ -158,7 +158,7 @@ function checkOnDeath() {
 		messageAll('',"\c4AI: \c6" @ %count SPC "players remain!");
 		switch(%count) {
 			case 1:
-				if(%ai.rounds > 7) {
+				if(%ai.rounds > 7 && %ai.players > 2) {
 					%player[0].score += 1000+mPow(PlatformAI.players,3);
 					%player[0].totalscore += 100+(PlatformAI.players*2);
 					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a" SPC 1000+mPow(PlatformAI.players,3) SPC "ticket bonus!");
@@ -342,6 +342,7 @@ package FallingPlatformsPackage {
 				PlatformAI.activePlayers--;
 				if(!PlatformAI.inProgress) {
 					PlatformAI.players--;
+					return parent::onDeath(%this,%obj,%killer,%type,%area);
 				}
 				if(PlatformAI.rounds > %this.personalRecord) {
 					%this.personalRecord = PlatformAI.rounds;

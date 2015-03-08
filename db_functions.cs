@@ -1,6 +1,6 @@
 if(!$Mining::HasInit) {
 	if(isObject(PlatformPracticeBricks)) {
-		PlatformBricks.clear();
+		PlatformPracticeBricks.clear();
 	} else {
 		new SimSet(PlatformPracticeBricks) {
 			initTime = getSimTime();
