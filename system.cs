@@ -172,7 +172,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 
 	switch(%type) {
 		case 1:
-			centerPrintAll("<font:Impact:36>\c6Pay attention! Avoid the selected bricks!",5);
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Pay attention! Avoid the selected bricks!",5);
 			%amount = getRandom(mFloor(PlatformBricks.getCount()/100)*2,mFloor(PlatformBricks.getCount()/100)*4)*%this.rounds;
 			if(%amount > mFloor(PlatformBricks.getCount()/1.1)) {
 				%amount = mFloor(PlatformBricks.getCount()/1.1);
@@ -198,7 +198,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 			$DefaultMinigame.schedule(2000+(%amount*50),playSound,"fall" @ getRandom(1,13));
 			%this.specialEndSchedule = %this.schedule(8000+(%i*50)+(%amount*50)-((6-mFloor(PlatformAI.getDelayReduction()/1000))*1000),gameLoop);
 		case 2:
-			centerPrintAll("<font:Impact:36>\c6Look out!",5);
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Look out!",5);
 			%amount = mCeil(%this.rounds/4);
 			for(%i=0;%i<%amount;%i++) {
 				%rand = getRandom(1,4);
@@ -210,8 +210,8 @@ function PlatformAI::doSpecialRound(%this,%type) {
 			%colors[num] = getPlatformColorTypes("numbers");
 			%colors[names] = getPlatformColorTypes("names");
 
-			centerPrintAll("<font:Impact:36>\c6Memorize the colors!");
-			schedule(5000,0,centerPrintAll,"<font:Impact:36>\c6Remember where <color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ ">" @ getWord(%colors[names],%color) SPC "<color:ffffff>is!",10);
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Memorize the colors!");
+			$DefaultMinigame.schedule(5000,centerPrintGame,"<font:Impact:36>\c6Remember where <color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ ">" @ getWord(%colors[names],%color) SPC "<color:ffffff>is!",10);
 			for(%i=0;%i<PlatformBricks.getCount();%i++) {
 				%row = PlatformBricks.getObject(%i);
 				%brick = %row.brick;
@@ -225,7 +225,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 			$DefaultMinigame.schedule(16000,playSound,"fall" @ getRandom(1,13));
 			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
 		case 4:
-			centerPrintAll("<font:Impact:36>\c6Jump!",5);
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Jump!",5);
 			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
 				%client = $DefaultMinigame.member[%i];
 				if(isObject(%client.player)) {
@@ -237,7 +237,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 			}
 			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
 		case 5:
-			centerPrintAll("<font:Impact:36>\c6Click the bricks, break the plates from under your foes!",3);
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Click the bricks, break the plates from under your foes!",3);
 			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
 				%client = $DefaultMinigame.member[%i];
 				if(isObject(%client.player)) {
@@ -249,7 +249,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 			}
 			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
 		case 6:
-			centerPrintAll("<font:Impact:36>\c6PUSHBROOMS",3);
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6PUSHBROOMS",3);
 			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
 				%client = $DefaultMinigame.member[%i];
 				if(isObject(%client.player)) {
