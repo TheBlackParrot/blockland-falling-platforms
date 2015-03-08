@@ -57,6 +57,7 @@ package FallingPlatformsLayoutPackage {
 			}
 			$Platforms::HasInit = 1;
 			// going to lag initially, but the practice room is forever a square so we shouldn't have to worry here.
+			// rocket bricks are loaded with the outer shell, might as well do them here.
 			for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
 				%brick = BrickGroup_888888.getObject(%i);
 				if(%brick.getName() $= "_practice_plate") {
@@ -65,6 +66,34 @@ package FallingPlatformsLayoutPackage {
 						changed = 0;
 					};
 					PlatformPracticeBricks.add(%obj);
+				}
+				if(%brick.getName() $= "_rocket_1") {
+					%obj = new ScriptObject(RocketBrick) {
+						brick = %brick;
+						side = 1;
+					};
+					RocketBricks.add(%obj);
+				}
+				if(%brick.getName() $= "_rocket_2") {
+					%obj = new ScriptObject(RocketBrick) {
+						brick = %brick;
+						side = 2;
+					};
+					RocketBricks.add(%obj);
+				}
+				if(%brick.getName() $= "_rocket_3") {
+					%obj = new ScriptObject(RocketBrick) {
+						brick = %brick;
+						side = 3;
+					};
+					RocketBricks.add(%obj);
+				}
+				if(%brick.getName() $= "_rocket_4") {
+					%obj = new ScriptObject(RocketBrick) {
+						brick = %brick;
+						side = 4;
+					};
+					RocketBricks.add(%obj);
 				}
 			}
 			return;

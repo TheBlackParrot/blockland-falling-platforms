@@ -6,6 +6,13 @@ if(!$Mining::HasInit) {
 			initTime = getSimTime();
 		};
 	}
+	if(isObject(RocketBricks)) {
+		RocketBricks.clear();
+	} else {
+		new SimSet(RocketBricks) {
+			initTime = getSimTime();
+		};
+	}
 }
 
 function gatherPlatformBricks() {

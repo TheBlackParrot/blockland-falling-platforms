@@ -106,12 +106,11 @@ function PlatformAI::gameLoop(%this) {
 	if(!getRandom(0,6) && %this.rounds >= 7) {
 		%this.specialRound = 1;
 		if(%this.activePlayers > 1) {
-			%rand = getRandom(1,6);
-			%max = 6;
-			//%this.doSpecialRound(3);
+			%max = 7;
+			%rand = getRandom(1,%max);
 		} else {
-			%rand = getRandom(1,4);
-			%max = 4;
+			%max = 5;
+			%rand = getRandom(1,%max);
 		}
 		if(!ProjectileBricks.getCount()) {
 			while(%rand == 2) {
@@ -169,8 +168,6 @@ function PlatformAI::doSpecialRound(%this,%type) {
 	cancel(%this.breakSchedule);
 	cancel(%this.gameSchedule);
 	messageAll('',"\c4AI: \c6Ooooh, a special round!");
-
-	%type = 1;
 
 	switch(%type) {
 		case 1:
@@ -239,6 +236,11 @@ function PlatformAI::doSpecialRound(%this,%type) {
 			}
 			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
 		case 5:
+			%delay = (mCeil(%this.rounds/1.5)*300) + 6000;
+			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Watch out from above!",5);
+			fireRocketProjectiles();
+			%this.specialEndSchedule = %this.schedule(%delay,gameLoop);
+		case 6:
 			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Click the bricks, break the plates from under your foes!",3);
 			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
 				%client = $DefaultMinigame.member[%i];
@@ -250,7 +252,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 				}
 			}
 			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
-		case 6:
+		case 7:
 			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6PUSHBROOMS",3);
 			for(%i=0;%i<$DefaultMinigame.numMembers;%i++) {
 				%client = $DefaultMinigame.member[%i];
@@ -503,6 +505,33 @@ function fireProjectiles(%which) {
 			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",1,"0 0 0",-1);
 			%brick.spawnProjectile(%vec,GunProjectile,"0 0 0",1,"0 0 0",-1);
 		}
+	}
+}
+
+function fireRocketProjectiles(%which) {
+	%amount = mCeil(PlatformAI.rounds/1.5);
+	while(%amount > 0 && PlatformAI.inProgress) {
+		%i++;
+		if(%i >= RocketBricks.getCount()) {
+			%i = 0;
+		}
+
+		%amount--;
+		
+		%row = RocketBricks.getObject(%i);
+		%brick = %row.brick;
+
+		switch(%row.side) {
+			case 1:
+				%vec = "20 -20 0" TAB "10 -10 -20";
+			case 2:
+				%vec = "20 20 0" TAB "10 10 -20";
+			case 3:
+				%vec = "-20 20 0" TAB "-10 10 -20";
+			case 4:
+				%vec = "-20 -20 0" TAB "-10 -10 -20";
+		}
+		%brick.schedule(%amount*300,spawnProjectile,getField(%vec,0),GravityRocketProjectile,getField(%vec,1),1,"0 0 0",-1);
 	}
 }
 
