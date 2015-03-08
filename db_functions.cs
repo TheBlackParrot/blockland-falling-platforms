@@ -189,6 +189,7 @@ function gatherTipBotLines() {
 		if(getSubStr(%line,0,2) $= "//") {
 			continue;
 		}
+
 		$Platforms::Tip[%line_count] = %line;
 		%line_count++;
 	}
