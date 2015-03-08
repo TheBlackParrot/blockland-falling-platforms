@@ -28,6 +28,11 @@ function serverCmdBet(%this,%amount,%target_ask) {
 		return;
 	}
 
+	if(getSimTime() - %ai.betsStartedAt >= 10000) {
+		messageClient(%this,'',"\c6You must bet within 10 seconds of bets called to start.");
+		return;
+	}
+
 	if(%this.bl_id == %target_ask) {
 		messageClient(%this,'',"\c6You cannot bet on yourself.");
 		return;
