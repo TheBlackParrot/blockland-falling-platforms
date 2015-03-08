@@ -18,8 +18,12 @@ function PlatformAI::getColorAmount(%this) {
 	return %amount;
 }
 
-function PlatformAI::getDelayReduction(%this) {
-	%amount = (%this.rounds-1)*150;
+function PlatformAI::getDelayReduction(%this,%round) {
+	if(!%round) {
+		%amount = (%this.rounds-1)*150;
+	} else {
+		%amount = (%round-1)*150;
+	}
 	// really having to compensate for recent player changes
 	// holy crap
 	if(%amount > 3450) {
@@ -363,7 +367,6 @@ function PlatformAI::readyGame(%this) {
 		return;
 	}
 	%this.roundInitTime = getSimTime();
-	%this.players = %this.activePlayers = %count;
 	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
 		%brick = BrickGroup_888888.getObject(%i);
 		if(%brick.getName() $= "_spawn_teleport") {
@@ -500,4 +503,17 @@ function PlatformAI::pregameLoop(%this) {
 	%this.pregameSchedule = %this.schedule(2000,pregameLoop);
 
 	randomizePlatformBricks(getRandom(2,getWordCount(getPlatformColorTypes("numbers"))));
+}
+
+function PlatformAI::practiceLoop(%this,%round) {
+	cancel(%this.practiceSched);
+	if(%round >= 4) {
+		%round = 0;
+		randomizePracticePlatformBricks(6);
+	}
+	%this.practiceSched = %this.schedule(14200-(%this.getDelayReduction(17)*2),practiceLoop,%round+1);
+
+	%chosen_color = getRandom(0,5);
+	%this.practiceWarnSchedule = schedule(1500-%this.getDelayReduction(17)/9-1000,0,warnPracticePlatforms,%chosen_color);
+	%this.practiceBreakSchedule = schedule(5500-%this.getDelayReduction(17)-1000,0,breakPracticePlatforms,%chosen_color);
 }

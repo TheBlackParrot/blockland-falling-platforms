@@ -1,3 +1,13 @@
+if(!$Mining::HasInit) {
+	if(isObject(PlatformPracticeBricks)) {
+		PlatformBricks.clear();
+	} else {
+		new SimSet(PlatformPracticeBricks) {
+			initTime = getSimTime();
+		};
+	}
+}
+
 function gatherPlatformBricks() {
 	if(isObject(PlatformBricks)) {
 		PlatformBricks.clear();
@@ -96,6 +106,40 @@ function randomizePlatformBricks(%amount) {
 
 	for(%i=0;%i<%count;%i++) {
 		%row = PlatformBricks.getObject(%i);
+		if(!%row.changed) {
+			%color = getRandom(0,%amount-1);
+			%row.brick.setColor(getWord(%colors,%color));
+			%row.color = %color;
+		}
+		%row.changed = 0;
+	}
+
+	//talk("Using" SPC %amount SPC "colors with" SPC %count SPC "platform bricks returns" SPC %per_brick SPC "bricks per color." SPC %remainder SPC "were left over.");
+}
+
+function randomizePracticePlatformBricks(%amount) { 
+	%colors = getPlatformColorTypes("numbers");
+	if(%amount > getWordCount(%colors)) {
+		%amount = getWordCount(%colors);
+	}
+	%count = PlatformPracticeBricks.getCount();
+	%per_brick = mFloor(%count / %amount);
+	%remainder = %count - (%per_brick*%amount);
+
+	for(%i=0;%i<%amount;%i++) {
+		for(%j=0;%j<%per_brick;%j++) {
+			%row = PlatformPracticeBricks.getObject(getRandom(0,%count-1));
+			while(%row.changed) {
+				%row = PlatformPracticeBricks.getObject(getRandom(0,%count-1));
+			}
+			%row.changed = 1;
+			%row.brick.setColor(getWord(%colors,%i));
+			%row.color = %i;
+		}
+	}
+
+	for(%i=0;%i<%count;%i++) {
+		%row = PlatformPracticeBricks.getObject(%i);
 		if(!%row.changed) {
 			%color = getRandom(0,%amount-1);
 			%row.brick.setColor(getWord(%colors,%color));

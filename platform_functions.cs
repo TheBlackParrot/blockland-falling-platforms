@@ -1,5 +1,4 @@
 function warnPlatforms(%color) {
-	//%colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange";
 	%colors[num] = getPlatformColorTypes("numbers");
 	%colors[name] = getPlatformColorTypes("names");
 	%color_brick = getWord(%colors[num],%color-1);
@@ -47,4 +46,31 @@ function breakPlatforms(%color) {
 		}
 	}
 	$DefaultMinigame.playSound("fall" @ getRandom(1,13));
+}
+
+function warnPracticePlatforms(%color) {
+	%colors[num] = getPlatformColorTypes("numbers");
+	%color_brick = getWord(%colors[num],%color-1);
+	%count = PlatformPracticeBricks.getCount();
+	for(%i=0;%i<%count;%i++) {
+		%row = PlatformPracticeBricks.getObject(%i);
+		if(%row.color == %color) {
+			%row.brick.schedule(150,setColorFX,3);
+			%row.brick.schedule(300,setColorFX,0);
+			%row.brick.schedule(450,setColorFX,3);
+			%row.brick.schedule(600,setColorFX,0);
+		}
+		%row.brick.setColorFX(4);
+		%row.brick.setColorFX(0);
+	}
+}
+function breakPracticePlatforms(%color) {
+	%count = PlatformPracticeBricks.getCount();
+	for(%i=0;%i<%count;%i++) {
+		%row = PlatformPracticeBricks.getObject(%i);
+		%row.brick.setColorFX(0);
+		if(%row.color != %color) {
+			%row.brick.disappear(6-mFloor(PlatformAI.getDelayReduction(17)/1000));
+		}
+	}
 }

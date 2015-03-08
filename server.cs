@@ -29,6 +29,8 @@ exec("./leaderboard.cs");
 // might throw off bots initially
 if(!$Platforms::ChangedLoadOffset) {
 	$loadOffset = getRandom(-1000,1000) SPC getRandom(-1000,1000) SPC 0;
+	// putting this here, don't mind meee
+	PlatformAI.practiceLoop();
 }
 $Platforms::ChangedLoadOffset = 1;
 
@@ -283,6 +285,8 @@ package FallingPlatformsPackage {
 				if(!%player.inGame && isObject(%player.client.minigame)) {
 					%player.inGame = 1;
 					messageAll('',"\c3" @ %player.client.name SPC "\c5has joined the game!");
+					PlatformAI.players++;
+					PlatformAI.activePlayers++;
 				}
 			} else {
 				if(!%player.inGame) {
@@ -336,6 +340,9 @@ package FallingPlatformsPackage {
 		if(isObject(%this.player)) {
 			if(%this.player.inGame) {
 				PlatformAI.activePlayers--;
+				if(!PlatformAI.inProgress) {
+					PlatformAI.players--;
+				}
 				if(PlatformAI.rounds > %this.personalRecord) {
 					%this.personalRecord = PlatformAI.rounds;
 				}

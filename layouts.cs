@@ -56,6 +56,17 @@ package FallingPlatformsLayoutPackage {
 				exec("config/server/Platforms/leaderboard.cs");
 			}
 			$Platforms::HasInit = 1;
+			// going to lag initially, but the practice room is forever a square so we shouldn't have to worry here.
+			for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
+				%brick = BrickGroup_888888.getObject(%i);
+				if(%brick.getName() $= "_practice_plate") {
+					%obj = new ScriptObject(PlatformBrick) {
+						brick = %brick;
+						changed = 0;
+					};
+					PlatformPracticeBricks.add(%obj);
+				}
+			}
 			return;
 		}
 		if(PlatformAI.loadingLayout) {
