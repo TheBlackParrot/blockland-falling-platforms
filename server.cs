@@ -57,6 +57,7 @@ datablock AudioProfile(color_notif:fall1) { filename = "./sounds/color.wav"; };
 AudioMusicLooping3d.is3d = 0;
 AudioMusicLooping3d.referenceDistance = 999999;
 AudioMusicLooping3d.maxDistance = 999999;
+PushbroomProjectile.impactImpulse = 2600;
 
 $Platforms::Colors = "0 red 3 blue 1 yellow 2 green 8 black 4 white 17 purple 14 orange 28 cyan 24 pink 7 gray 43 brown 10 teal 26 lavender 38 tan 12 lime";
 
