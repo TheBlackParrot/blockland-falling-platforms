@@ -265,6 +265,9 @@ package FallingPlatformsPackage {
 		if(%this.getName() $= "_dm_room_outside") {
 			%player.canBeKilled = 0;
 		}
+		if(%this.getName() $= "_practice_plate") {
+			%player.changeDatablock(PlayerPlatforms);
+		}
 
 		if(%this.getName() $= "_spawn_teleport") {
 			if(%this.canTeleport) {

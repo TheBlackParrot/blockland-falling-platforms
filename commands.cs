@@ -194,6 +194,9 @@ function serverCmdDMRoom(%this) {
 	}
 	%brick = "_dm_room_outside";
 	%this.player.setTransform(%brick.getPosition());
+	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.clearTools();
+	%this.player.setVelocity("0 0 0");
 }
 function serverCmdShop(%this) {
 	if(!isObject(%this.player)) {
@@ -204,6 +207,9 @@ function serverCmdShop(%this) {
 	}
 	%brick = "_hat_shop_spot";
 	%this.player.setTransform(%brick.getPosition());
+	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.clearTools();
+	%this.player.setVelocity("0 0 0");
 }
 function serverCmdLeaderboard(%this) {
 	if(!isObject(%this.player)) {
@@ -220,6 +226,22 @@ function serverCmdLeaderboard(%this) {
 			break;
 		}
 	}
+	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.clearTools();
+	%this.player.setVelocity("0 0 0");
+}
+function serverCmdPractice(%this) {
+	if(!isObject(%this.player)) {
+		return;
+	}
+	if(%this.player.inGame) {
+		return;
+	}
+	%brick = "_practice_room_spot";
+	%this.player.setTransform(%brick.getPosition());
+	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.clearTools();
+	%this.player.setVelocity("0 0 0");
 }
 function serverCmdAlive(%this) {
 	if(getSimTime() - %this.lastalivecmd <= 1000) {
