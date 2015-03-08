@@ -433,6 +433,12 @@ function PlatformAI::doBets(%this,%winner) {
 	for(%i=0;%i<%mini.numMembers;%i++) {
 		%client = %mini.member[%i];
 		if(%client.betContributed[player] !$= "") {
+			if(%this.pot[0,amount] == 500 || %this.pot[1,amount] == 500) {
+				%client.score += %client.betContributed[amount];
+				messageClient(%client,'',"\c6Your bet was refunded since no one has bet on the other player.");
+				%client.savePlatformsGame();
+				continue;
+			}
 			if(%winner == %client.betContributed[player]) {
 				%old_score = %client.score;
 				//shouldn't have to worry about this anymore since we're checking everyone each time a valid bet command is done
