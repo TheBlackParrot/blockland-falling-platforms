@@ -28,8 +28,8 @@ function serverCmdBet(%this,%amount,%target_ask) {
 		return;
 	}
 
-	if(getSimTime() - %ai.betsStartedAt >= 10000) {
-		messageClient(%this,'',"\c6You must bet within 10 seconds of bets called to start.");
+	if(getSimTime() - %ai.betsStartedAt >= 17000) {
+		messageClient(%this,'',"\c6You must bet within 17 seconds of bets called to start.");
 		return;
 	}
 
@@ -199,7 +199,7 @@ function serverCmdDMRoom(%this) {
 	}
 	%brick = "_dm_room_outside";
 	%this.player.setTransform(%brick.getPosition());
-	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
 }
@@ -212,7 +212,7 @@ function serverCmdShop(%this) {
 	}
 	%brick = "_hat_shop_spot";
 	%this.player.setTransform(%brick.getPosition());
-	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
 }
@@ -231,7 +231,7 @@ function serverCmdLeaderboard(%this) {
 			break;
 		}
 	}
-	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
 }
@@ -244,7 +244,7 @@ function serverCmdPractice(%this) {
 	}
 	%brick = "_practice_room_spot";
 	%this.player.setTransform(%brick.getPosition());
-	%this.player.changeDatablock(PlayerStandardArmor);
+	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
 }

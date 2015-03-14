@@ -110,3 +110,16 @@ package FallingPlatformsLayoutPackage {
 	}
 };
 activatePackage(FallingPlatformsLayoutPackage);
+
+function resetPracticeBricks() {
+	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {
+		%brick = BrickGroup_888888.getObject(%i);
+		if(%brick.getName() $= "_practice_plate") {
+			%obj = new ScriptObject(PlatformBrick) {
+				brick = %brick;
+				changed = 0;
+			};
+			PlatformPracticeBricks.add(%obj);
+		}
+	}
+}

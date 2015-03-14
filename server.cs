@@ -168,7 +168,7 @@ function checkOnDeath() {
 				}
 			case 2:
 				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "(" @ %player[0].bl_id @ ") and" SPC %player[1].name SPC "(" @ %player[1].bl_id @ ")! Who will win?");
-				messageAll('',"\c4AI: \c6Place your bets! See /help for syntax on /bet, and be sure to use BL_ID's! 500 tickets has been placed on the house. \c3You have 10 seconds to place a bet.");
+				messageAll('',"\c4AI: \c6Place your bets! See /help for syntax on /bet, and be sure to use BL_ID's! 500 tickets has been placed on the house. \c3You have 17 seconds to place a bet.");
 				%ai.canBet = 1;
 				%ai.betsStartedAt = getSimTime();
 				%count_b = 0;
