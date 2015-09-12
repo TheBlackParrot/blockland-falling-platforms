@@ -37,6 +37,7 @@ function GameConnection::savePlatformsGame(%this) {
 	%file.writeLine("general" TAB "wins" TAB %this.wins);
 	%file.writeLine("general" TAB "losses" TAB %this.losses);
 	%file.writeLine("general" TAB "ownedItems" TAB %this.ownedItems);
+	%file.writeLine("general" TAB "achievements" TAB %this.achievements);
 
 	%file.writeLine("date" TAB getDateTime());
 

@@ -144,7 +144,8 @@ function endSlots(%client) {
 	%eq = isSlotDigitsEqual();
 	switch(%eq) {
 		case 2:
-			messageAll('MsgAdminForce', "\c3" @ %client.name SPC "\c5JUST WON THE JACKPOT!");
+			messageAll('MsgAdminForce', "\c3" @ %client.name SPC "\c5JUST WON THE JACKPOT! \c3(" @ $Platforms::SlotsJackpot SPC "tickets)");
+			%client.awardAchievement("A0A");
 			
 			%client.score += $Platforms::SlotsJackpot;
 			$Platforms::SlotsJackpot = 0;

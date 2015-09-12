@@ -21,6 +21,15 @@ function addToLeaderboard(%client) {
 	}
 
 	%list.sortNumerical(1, 0);
+
+	switch(%list.getRowNumByID(%client.bl_id)) {
+		case 0:
+			%client.awardAchievement("A07");
+		case 1:
+			%client.awardAchievement("A08");
+		case 2:
+			%client.awardAchievement("A09");
+	}
 }
 
 function PlatformsLeaderboard::saveLeaderboard(%this) {

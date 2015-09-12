@@ -27,6 +27,7 @@ exec("./support.cs");
 exec("./leaderboard.cs");
 loadLeaderboard();
 exec("./events.cs");
+exec("./achievements.cs");
 
 // might throw off bots initially
 if(!$Platforms::ChangedLoadOffset) {
@@ -318,7 +319,7 @@ package FallingPlatformsPackage {
 		if(%this.original_prefix $= "") {
 			%this.original_prefix = %this.clanPrefix;
 		}
-		
+
 		return parent::autoAdminCheck(%this);
 	}
 
@@ -358,10 +359,26 @@ package FallingPlatformsPackage {
 					%this.personalRecord = PlatformAI.rounds;
 				}
 				if(PlatformAI.players > 1) {
+					if(PlatformAI.activePlayers == 3) { %this.awardAchievement("A03"); }
+					if(PlatformAI.activePlayers == 2) { %this.awardAchievement("A02"); }
+
 					if(PlatformAI.activePlayers < 2) {
+						%this.awardAchievement("A01");
 						%this.wins++;
 					} else {
 						%this.losses++;
+					}
+				}
+				
+				if(PlatformAI.rounds < 5) { %this.awardAchievement("A04"); }
+				if(PlatformAI.rounds >= 60) { %this.awardAchievement("A05"); }
+
+				if(isObject(%obj)) {
+					switch$(%obj.getDatablock().getName()) {
+						case "gravityRocketProjectile":
+							%this.awardAchievement("A06");
+						case "GunProjectile":
+							%this.awardAchievement("A0C");
 					}
 				}
 			}

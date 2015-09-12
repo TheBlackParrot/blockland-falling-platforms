@@ -49,6 +49,7 @@ function PlatformAI::gameLoop(%this) {
 			if(isObject(%player)) {
 				if(%player.inGame) {
 					messageClient(%player.client,'',"\c6You were killed to keep the game moving. You can try to beat the record if 10 or less players are playing.");
+					%player.client.awardAchievement("A0B");
 					%this.stopGame();
 					if(PlatformAI.rounds > %player.client.personalRecord) {
 						%player.client.personalRecord = PlatformAI.rounds;
@@ -69,6 +70,7 @@ function PlatformAI::gameLoop(%this) {
 				%player.inGame = 0;
 				%player.kill();
 				messageClient(%player.client,'',"\c6You were killed via cheat prevention. Please make sure you touch a plate at least every 30 seconds.");
+				%player.client.awardAchievement("A0D");
 			}
 			if(%player.inGame) {
 				%player[%count] = %player.client;
@@ -365,6 +367,7 @@ function PlatformAI::readyGame(%this) {
 		%player = ClientGroup.getObject(%i).player;
 		if(isObject(%player)) {
 			if(%player.inGame) {
+				%soul = %player.client;
 				%count++;
 			}
 		}
@@ -388,6 +391,10 @@ function PlatformAI::readyGame(%this) {
 	messageAll('',"\c4AI: \c6Let's begin! Approximately" SPC %percentage @ "% [" @ %count @ "/" @ $DefaultMinigame.numMembers @ "] of the server is playing.");
 	%this.gamesPlayed++;
 	%this.startSchedule = %this.schedule(5000,gameLoop);
+
+	if(%count == 1) {
+		%soul.awardAchievement("A0E");
+	}
 }
 
 $Platforms::BetPercentageThreshold = 12;
