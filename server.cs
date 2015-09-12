@@ -22,9 +22,11 @@ exec("./platform_functions.cs");
 exec("./system.cs");
 exec("./saving.cs");
 exec("./commands.cs");
-exec("./shop.cs");
+//exec("./shop.cs"); (deprecated)
 exec("./support.cs");
 exec("./leaderboard.cs");
+loadLeaderboard();
+exec("./events.cs");
 
 // might throw off bots initially
 if(!$Platforms::ChangedLoadOffset) {
@@ -316,6 +318,7 @@ package FallingPlatformsPackage {
 		if(%this.original_prefix $= "") {
 			%this.original_prefix = %this.clanPrefix;
 		}
+		addToLeaderboard(%this);
 		return parent::autoAdminCheck(%this);
 	}
 

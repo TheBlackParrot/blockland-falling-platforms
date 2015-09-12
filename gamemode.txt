@@ -53,6 +53,33 @@ ADDON Script_Eval
 
 ADDON Player_No_Jet
 
+ADDON Support_Instruments
+ADDON Instrument_Accordion
+ADDON Instrument_Banjo
+ADDON Instrument_Bass
+ADDON Instrument_Brass
+ADDON Instrument_Clarinet
+ADDON Instrument_Drums
+ADDON Instrument_Drums808
+ADDON Instrument_ElectricBass
+ADDON Instrument_ElectricGuitar
+ADDON Instrument_Flute
+ADDON Instrument_Gameboy
+ADDON Instrument_Guitar
+ADDON Instrument_Harmonica
+ADDON Instrument_Harpsichord
+ADDON Instrument_Keytar
+ADDON Instrument_Marimba
+ADDON Instrument_Melodica
+ADDON Instrument_Microphone
+ADDON Instrument_Pack_HipHop
+ADDON Instrument_Piano
+ADDON Instrument_Sawtooth
+ADDON Instrument_Saxophone
+ADDON Instrument_Sitar
+ADDON Instrument_Trumpet
+ADDON Instrument_Violin
+
 //music
 
 //environment

@@ -1,4 +1,3 @@
-This server is hosted by <a:blocknet.us>BlockNet!</a>
 To join the game, you can use the teleporters in each corner, or use the /join command.
 Try to be the last player alive! You get more tickets when more players have failed.
 When it says to jump, keep jumping!
@@ -10,3 +9,6 @@ During remember rounds, try finding a cluster of different colors and memorize t
 You move faster and jump higher! Try taking advantage of it.
 Waiting for the next game to start? Try some of the arcade games and different rooms!
 Try not to stand on players' heads for too long, cheat prevention will kick in and kill you.
+<color:ff7700>Join the Blockland Teamspeak! <color:ff00ff>blockland.teamspeak3.com
+<color:ff0000>I REALIZE INSTRUMENTS ARE CURRENTLY BROKEN (as of Fri., 9/11). Talking to Tezuni about it later today. (thank him for hosting)
+<color:ff0000>I AM NOT DONE WITH THE UPDATES! <color:ffffff>I haven't added in hat prizes for winning rounds nor achievements.

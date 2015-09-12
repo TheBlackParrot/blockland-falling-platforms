@@ -32,16 +32,26 @@ function warnPlatforms(%color) {
 
 function breakPlatforms(%color) {
 	%count = PlatformBricks.getCount();
+	%rand = getRandom(0, 3);
 	for(%i=0;%i<%count;%i++) {
 		%row = PlatformBricks.getObject(%i);
 		%row.brick.setColorFX(0);
+
 		if(!PlatformAI.inverseFall) {
 			if(%row.color != %color) {
-				%row.brick.fakeKillBrick("0 0 0",6-mFloor(PlatformAI.getDelayReduction()/1000));
+				if(!%rand) {
+					%row.brick.fakeKillBrick(getRandom(-50, 50) SPC getRandom(-50, 50) SPC getRandom(-50, 50), 6-mFloor(PlatformAI.getDelayReduction()/1000));
+				} else {
+					%row.brick.fakeKillBrick("0 0 0",6-mFloor(PlatformAI.getDelayReduction()/1000));
+				}
 			}
 		} else {
 			if(%row.color == %color) {
-				%row.brick.fakeKillBrick("0 0 0",6-mFloor(PlatformAI.getDelayReduction()/1000));
+				if(!%rand) {
+					%row.brick.fakeKillBrick(getRandom(-50, 50) SPC getRandom(-50, 50) SPC getRandom(-50, 50), 6-mFloor(PlatformAI.getDelayReduction()/1000));
+				} else {
+					%row.brick.fakeKillBrick("0 0 0",6-mFloor(PlatformAI.getDelayReduction()/1000));
+				}
 			}
 		}
 	}

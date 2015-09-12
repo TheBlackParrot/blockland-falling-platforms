@@ -4,72 +4,69 @@ function clearLeaderboardBricks() {
 		%brick.setPrintText("",1);
 	}
 }
+
 function addToLeaderboard(%client) {
-	for(%i=1;%i<=26;%i++) {
-		if(%client.name $= $Platforms::Leaderboard[%i,name]) {
-			$Platforms::Leaderboard[%i,amount] = %client.totalscore || 0;
-			%player_found = 1;
-		}
-		if($Platforms::Leaderboard[%i,name] $= "") {
-			if(!%player_found) {
-				$Platforms::Leaderboard[%i,name] = %client.name;
-				$Platforms::Leaderboard[%i,amount] = %client.totalscore || 0;
-				%spots = %i;
-			} else {
-				%spots = %i-1;
-			}
-			break;
-		}
+	// $Platforms::Leaderboard[pos,[name,amount]]
+	if(!isObject(PlatformsLeaderboard)) {
+		// awaiting the day to see http://www.garagegames.com/community/resources/view/4711 added
+		new GuiTextListCtrl(PlatformsLeaderboard);
 	}
-	if(!%spots) {
-		%spots = 27;
-		if(!%player_found) {
-			$Platforms::Leaderboard[27,name] = %client.name;
-			$Platforms::Leaderboard[27,amount] = %client.totalscore;
-		}
-	}
-	for(%i=1;%i<=%spots;%i++) {
-		for(%j=1;%j<=%spots;%j++) {
-			if(!%selected[%j]) {
-				if(%highest[%i,amount] <= $Platforms::Leaderboard[%j,amount]) {
-					%highest[%i,amount] = $Platforms::Leaderboard[%j,amount];
-					%highest[%i,name] = $Platforms::Leaderboard[%j,name];
-					%selected_spot = %j;
-				}
-			}
-		}
-		%selected[%selected_spot] = 1;
-	}
-	for(%i=1;%i<=%spots;%i++) {
-		$Platforms::Leaderboard[%i,amount] = %highest[%i,amount];
-		$Platforms::Leaderboard[%i,name] = %highest[%i,name];
-		if(%i<27) {
-			%spaces = "..........................";
-			%brick = "_leaderboard_" @ %i;
 
-			%potential_target = findclientbyname($Platforms::Leaderboard[%i,name]);
-			if(isObject(%potential_target)) {
-				%potential_target.clanPosition = "\c7[\c2" @ getPositionString(%i)  @ "\c7]";
-				%potential_target.clanPrefix = %potential_target.clanPosition SPC %potential_target.original_prefix;
-			}
-
-			if(strLen(%i) < 2) {
-				%pos = "0" @ %i;
-			} else {
-				%pos = %i;
-			}
-			%name = getSubStr($Platforms::Leaderboard[%i,name],0,26);
-			%score = getSubStr(%spaces,0,strLen(%spaces)-strLen(%name)) @ getSubStr("..........",0,10-strLen($Platforms::Leaderboard[%i,amount])) @ $Platforms::Leaderboard[%i,amount];
-			%brick.setPrintText(%pos SPC %name @ %score,1);
-		} else {
-			%potential_target = findclientbyname($Platforms::Leaderboard[27,name]);
-			if(isObject(%potential_target)) {
-				%potential_target.clanPrefix = %potential_target.original_prefix;
-			}
-		}
+	%list = PlatformsLeaderboard;
+	%data = %list.getRowTextByID(%client.bl_id);
+	if(%data $= "") {
+		%list.addRow(%client.bl_id, %client.name @ "\t" @ (%client.totalscore || 0) @ "\t" @ %client.bl_id);
+	} else {
+		%list.setRowByID(%client.bl_id, %client.name @ "\t" @ (%client.totalscore || 0) @ "\t" @ %client.bl_id);
 	}
-	$Platforms::Leaderboard[27,name] = "";
-	$Platforms::Leaderboard[27,amount] = 0;
+
+	%list.sortNumerical(1, 0);
+}
+
+function PlatformsLeaderboard::saveLeaderboard(%this) {
+	%filename = "config/server/Platforms/leaderboard.db";
+
+	%file = new FileObject();
+	%file.openForWrite(%filename);
+
+	for(%i=0;%i<%this.rowCount();%i++) {
+		%file.writeLine(%this.getRowText(%i));
+	}
+
+	%file.close();
+	%file.delete();
+}
+
+function loadLeaderboard(%this) {
+	if(isObject(PlatformsLeaderboard)) {
+		return;
+	} else {
+		new GuiTextListCtrl(PlatformsLeaderboard);
+	}
+
+	%filename = "config/server/Platforms/leaderboard.db";
+
+	%file = new FileObject();
+	%file.openForRead(%filename);
+
+	%list = PlatformsLeaderboard;
+
+	while(!%file.isEOF()) {
+		%line = %file.readLine();
+
+		%id = getField(%line, 2);
+		%score = getField(%line, 1);
+		if(%id $= "" || %score $= "") {
+			continue;
+		}
+
+		%list.addRow(%id, %line);
+	}
+
+	%file.close();
+	%file.delete();
+
+	%list.sortNumerical(1, 0);
 }
 
 package PlatformsLeaderboardPackage {
@@ -81,6 +78,7 @@ package PlatformsLeaderboardPackage {
 			return parent::onDeath(%this,%obj,%killer,%type,%area);
 		}
 		addToLeaderboard(%this);
+		%this.clanPrefix = "\c7[\c5" @ getPositionString(PlatformsLeaderboard.getRowNumByID(%this.bl_id)+1) @ "\c7]" SPC %this.original_prefix;
 		return parent::onDeath(%this,%obj,%killer,%type,%area);
 	}
 };

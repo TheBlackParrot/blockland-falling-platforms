@@ -14,7 +14,7 @@ function GameConnection::loadPlatformsSave(%this) {
 				if(%arg2 $= "") {
 					return;
 				}
-				eval("%this." @ %arg1 @ " = " @ %arg2 @ ";");
+				eval("%this." @ %arg1 @ " = \"" @ %arg2 @ "\";");
 			case "date":
 				%date = %arg1;
 		}
@@ -35,6 +35,7 @@ function GameConnection::savePlatformsGame(%this) {
 	%file.writeLine("general" TAB "personalRecord" TAB %this.personalRecord);
 	%file.writeLine("general" TAB "wins" TAB %this.wins);
 	%file.writeLine("general" TAB "losses" TAB %this.losses);
+	%file.writeLine("general" TAB "ownedItems" TAB %this.ownedItems);
 
 	%file.writeLine("date" TAB getDateTime());
 

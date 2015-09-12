@@ -1,0 +1,40 @@
+Inst_Accordian	Accordian	80000	I00	AccordianItem
+Inst_Banjo	Banjo	30000	I01	BanjoItem
+Inst_Clarinet	Clarinet	45000	I02	ClarinetItem
+Inst_DM	Drum Machine	120000	I03	DrumsItem
+Inst_DS	Drum Sticks	30000	I04	DrumSticksItem
+Inst_E_Bass	Electric Bass	60000	I05	ElectricBassItem
+Inst_E_Guitar	Electric Guitar	100000	I06	ElectricGuitarItem
+Inst_Flute	Flute	25000	I07	FluteItem
+Inst_GB	Gameboy	80000	I08	GameboyItem
+Inst_Guitar	Guitar	60000	I09	GuitarItem
+Inst_Harmonica	Harmonica	50000	I0A	HarmonicaItem
+Inst_Marimba	Marimba	60000	I0B	MarimbaItem
+Inst_Melodica	Melodica	40000	I0C	MelodicaItem
+Inst_Mic	Microphone	100000	I0D	MicrophoneItem
+Inst_Sax	Saxophone	120000	I0E	SaxophoneItem
+Inst_Sitar	Sitar	90000	I0F	SitarItem
+Inst_SUB	Stand-Up Bass	100000	I10	BassItem
+Inst_Trumpet	Trumpet	70000	I11	TrumpetItem
+Inst_Violin	Violin	35000	I12	ViolinItem
+Inst_Keytar	Keytar	2500000	IR0	KeytarItem
+Hat_PapBag	Paper Bag Hat	12500	H00	PaperBag
+Hat_Plunger	Plunger Hat	17500	H01	Plunger
+Hat_Royal	Royal Crown	500000	HR09	Royal
+Hat_Samuri	Samuri Hat	75000	H03	Samuri
+Hat_Sock	Sock Hat	20000	H04	Sock
+Hat_TheLaw	THE LAW	85000	H05	TheLaw
+Hat_TV	Television Hat	250000	HR00	TV
+Hat_Gasmask	Gas Mask	175000	HR01	Gasmask
+Hat_Glow	Glow	275000	HR02	Glow
+Hat_Gold_TH	Golden Tophat	2500000	HR03	GoldenTophat
+Hat_Headcrab	Headcrab	300000	HR04	Headcrab
+Hat_ImpHair	Important Hair	60000	H06	ImportantHair
+Hat_DemHood	Demon Hood	75000	H07	DemonHood
+Hat_Doge	Doge Hat	150000	HR05	Doge
+Hat_Eyeball	Eye Hat	60000	H08	Eyeball
+Hat_F_Tophat	Fancy Tophat	1000000	HR06	FancyTophat
+Hat_Fox	Fox	90000	H09	Fox
+Hat_Alien	Alien Hat	125000	HR07	Alien
+Hat_BigHead	Big Head	40000	H0A	BigHead
+Hat_CF	Captain Falcon Helmet	350000	HR08	CaptainFalcon

@@ -1,3 +1,6 @@
+// DEPRECATED SEPTEMBER 11TH, 2015
+// SEE events.cs
+
 //HatMod_addHat(%client,%bl_id,%hat,%amount)
 //unneeded arguments, hooray
 function initHatDB() {

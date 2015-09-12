@@ -6,8 +6,10 @@ function serverCmdHelp(%this) {
 	messageClient(%this,'',"\c3/alive \c6-- See who's still alive at a quick glance.");
 	messageClient(%this,'',"\c3/dmroom \c6-- Teleport to the DM Room.");
 	messageClient(%this,'',"\c3/shop \c6-- Teleport to the Shop.");
-	messageClient(%this,'',"\c3/leaderboard \c6-- Teleport to the Leaderboard.");
+	messageClient(%this,'',"\c3/leaderboard \c6-- View the leaderboard.");
 	messageClient(%this,'',"\c3/join \c6-- Join the game quickly, although teleporters are radical.");
+	messageClient(%this,'',"\c3/inst \c5[instrument] \c6-- Bought an instrument? Obtain it through this command, or leave it blank to see what you own.");
+	messageClient(%this,'',"\c3/setSlotBet \c5[amount] \c6-- Set your bet amount when playing slots.");
 }
 
 function serverCmdBet(%this,%amount,%target_ask) {
@@ -28,8 +30,8 @@ function serverCmdBet(%this,%amount,%target_ask) {
 		return;
 	}
 
-	if(getSimTime() - %ai.betsStartedAt >= 17000) {
-		messageClient(%this,'',"\c6You must bet within 17 seconds of bets called to start.");
+	if(getSimTime() - %ai.betsStartedAt >= 22000) {
+		messageClient(%this,'',"\c6You must bet within 22 seconds of bets called to start.");
 		return;
 	}
 
@@ -217,23 +219,25 @@ function serverCmdShop(%this) {
 	%this.player.setVelocity("0 0 0");
 }
 function serverCmdLeaderboard(%this) {
-	if(!isObject(%this.player)) {
+	if(!isObject(PlatformsLeaderboard)) {
 		return;
 	}
-	if(%this.player.inGame) {
-		return;
+	%list = PlatformsLeaderboard;
+
+	%count = %list.rowCount();
+	if(%count > 15) {
+		%count = 15;
 	}
-	%brick = "_leaderboard_spot";
-	%this.player.setTransform(%brick.getPosition());
-	for(%i=1;%i<=26;%i++) {
-		if(%this.name $= $Platforms::Leaderboard[%i,name]) {
-			messageClient(%this,'',"\c6You are in\c3" SPC getPositionString(%i) SPC "place.");
-			break;
+
+	for(%i=0;%i<%count;%i++) {
+		%row = %list.getRowText(%i);
+		if(getField(%row, 1) $= "" || getField(%row, 2) $= "") {
+			PlatformsLeaderboard.removeRow(%i);
+			%i--;
+			continue;
 		}
+		messageClient(%this, '', "\c3" @ %i+1 @ ". \c6" @ getField(%row, 0) SPC "-\c4" SPC getField(%row, 1));
 	}
-	%this.player.changeDatablock(PlayerNoJet);
-	%this.player.clearTools();
-	%this.player.setVelocity("0 0 0");
 }
 function serverCmdPractice(%this) {
 	if(!isObject(%this.player)) {
@@ -280,4 +284,52 @@ function serverCmdJoin(%this) {
 	%this.player.setPlayerScale("1 1 1");
 	%this.player.clearTools();
 	%this.player.changeDatablock(PlayerPlatforms);
+}
+
+function serverCmdInst(%client, %inst, %inst2) {
+	%player = %client.player;
+	if(!isObject(%player)) {
+		return;
+	}
+
+	// fuck Electrk
+	// %inst = strReplace(%inst, "Electric", "Electrk");
+
+	//messageClient(findClientByName("theb"), '', %inst SPC %inst2);
+	%full = trim(%inst SPC %inst2);
+
+	for(%i=0;%i<$Platforms::ShopItems;%i++) {
+		%row = $Platforms::Shop[%i];
+		if(%full !$= "") {
+			//messageClient(findClientByName("theb"), '', getWordCount(getField(%row, 1)));
+			if(getField(%row, 1) $= %full) {
+				break;
+			}
+		} else {
+			if(stripos(%client.ownedItems, getField(%row, 3)) != -1 && getSubStr(getField(%row, 3), 0, 1) $= "I") {
+				messageClient(%client, '', "\c6" @ getField(%row, 1));
+			}
+		}
+	}
+
+	if(%inst $= "") {
+		return;
+	}
+
+	%id = getField(%row, 3);
+	//messageClient(findClientByName("theb"), '', %id);
+	%itemName = getField(%row, 4);
+
+	if(stripos(%client.ownedItems, %id) != -1) {
+		%item = %itemName.getID();
+		%slot = 4;
+		%oldTool = %player.tool[%slot];
+		%player.tool[%slot] = %item;
+		messageClient(%player.client, 'MsgItemPickup', '', %slot, %item);
+		if(%oldTool <= 0) {
+			%player.weaponCount++;
+		}
+	} else {
+		messageClient(%client, '', "\c0You do not own this instrument.");
+	}
 }

@@ -297,7 +297,7 @@ function PlatformAI::stopGame(%this) {
 		messageAll('',"\c4AI: \c6Good game!");
 		%this.canBet = 0;
 		// blockland for some reason can't accept "if(!%this.gamesPlayed % 5) {", so
-		if(%this.gamesPlayed % 5 == 0) {
+		if(%this.gamesPlayed % 3 == 0) {
 			schedule(3000,0,loadLayout);
 		} else {
 			%this.resetSchedule = %this.schedule(3000,reset);
@@ -351,7 +351,10 @@ function PlatformAI::reset(%this) {
 	}
 
 	messageAll('',"\c4AI: \c6A new game is about to start! Use the corner teleporters to join in.");
-	export("$Platforms::Leaderboard*","config/server/Platforms/leaderboard.cs",0);
+	//export("$Platforms::Leaderboard*","config/server/Platforms/leaderboard.cs",0);
+	if(isObject(PlatformsLeaderboard)) {
+		PlatformsLeaderboard.saveLeaderboard();
+	}
 	%this.pregameLoop();
 	%this.readySchedule = %this.schedule(30000,readyGame);
 }
@@ -381,7 +384,7 @@ function PlatformAI::readyGame(%this) {
 		}
 	}
 	%percentage = mCeil((%count/$DefaultMinigame.numMembers)*1000)/10;
-	messageAll('',"\c4AI: \c6Let's begin! Approximately" SPC %percentage @ "% of the server is playing.");
+	messageAll('',"\c4AI: \c6Let's begin! Approximately" SPC %percentage @ "% [" @ %count @ "/" @ $DefaultMinigame.numMembers @ "] of the server is playing.");
 	%this.gamesPlayed++;
 	%this.startSchedule = %this.schedule(5000,gameLoop);
 }
