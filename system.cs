@@ -20,9 +20,9 @@ function PlatformAI::getColorAmount(%this) {
 
 function PlatformAI::getDelayReduction(%this,%round) {
 	if(!%round) {
-		%amount = (%this.rounds-1)*150;
+		%amount = (%this.rounds-1)*200;
 	} else {
-		%amount = (%round-1)*150;
+		%amount = (%round-1)*200;
 	}
 	// really having to compensate for recent player changes
 	// holy crap
@@ -34,7 +34,7 @@ function PlatformAI::getDelayReduction(%this,%round) {
 
 function PlatformAI::gameLoop(%this) {
 	cancel(%this.gameSchedule);
-	%this.gameSchedule = %this.schedule(14200-(%this.getDelayReduction()*2),gameLoop);
+	%this.gameSchedule = %this.schedule(14200-(%this.getDelayReduction()*2.1),gameLoop);
 
 	%this.specialRound = 0;
 	%this.rounds++;
@@ -152,7 +152,7 @@ function PlatformAI::gameLoop(%this) {
 	%this.oldColorAmount = %color_amount;
 
 	if(!%this.specialRound) {
-		%this.warnSchedule = schedule(1500-%this.getDelayReduction()/9-%delay_reduction,0,warnPlatforms,%chosen_color);
+		%this.warnSchedule = schedule(1500-%this.getDelayReduction()/7-%delay_reduction,0,warnPlatforms,%chosen_color);
 		%this.breakSchedule = schedule(5500-%this.getDelayReduction()-%delay_reduction,0,breakPlatforms,%chosen_color);
 	}
 }
@@ -338,6 +338,7 @@ function PlatformAI::reset(%this) {
 		}
 		%client.betContributed[amount] = 0;
 		%client.betContributed[player] = "";
+		addToLeaderboard(%client);
 	}
 
 	for(%i=0;%i<BrickGroup_888888.getCount();%i++) {

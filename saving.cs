@@ -24,6 +24,7 @@ function GameConnection::loadPlatformsSave(%this) {
 	%file.delete();
 
 	messageClient(%this,'',"\c6Your save from\c3" SPC %date SPC "\c6has been loaded successfully.");
+	addToLeaderboard(%this);
 }
 
 function GameConnection::savePlatformsGame(%this) {

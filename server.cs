@@ -318,7 +318,7 @@ package FallingPlatformsPackage {
 		if(%this.original_prefix $= "") {
 			%this.original_prefix = %this.clanPrefix;
 		}
-		addToLeaderboard(%this);
+		
 		return parent::autoAdminCheck(%this);
 	}
 
@@ -413,6 +413,16 @@ package FallingPlatformsPackage {
 			}
 		}
 		return parent::onEnterLiquid(%data,%obj,%coverage,%type);
+	}
+
+	function serverCmdMessageSent(%client, %msg) {
+		%row = PlatformsLeaderboard.getRowNumByID(%client.bl_id);
+		if(%row == -1) {
+			return parent::serverCmdMessageSent(%client, %msg);
+		}
+
+		%client.clanPrefix = "\c7[\c5" @ getPositionString(%row+1) @ "\c7]" SPC %client.original_prefix;
+		return parent::serverCmdMessageSent(%client, %msg);
 	}
 };
 activatePackage(FallingPlatformsPackage);

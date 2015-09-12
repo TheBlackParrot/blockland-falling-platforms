@@ -1,4 +1,4 @@
-if(!$Mining::HasInit) {
+if(!$Platforms::HasInit) {
 	if(isObject(PlatformPracticeBricks)) {
 		PlatformPracticeBricks.clear();
 	} else {
