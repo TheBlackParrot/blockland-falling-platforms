@@ -1,18 +1,18 @@
-A01	A Winner Is You	Friend
-A02	Close, But No Cigar	
-A03	Honorable Mention	
-A04	It's Deadly	TheCone
-A05	Actually a Robot	Divine
-A06	Allahu Akbar	BoomBoy
-A07	Too Much Time Wasted	FirstPrize
-A08	Lots of Time Wasted	SecondTries
-A09	Some Time Wasted	ThirdPlace
-A0A	JACKPOT	StarShades
-AH0	Spooky Spooky	Mummy
-AH1	Jingle Bells	Santa
-AH2	The Earth is 1776 Years Old	Topper
-AH3	Orbited	Festive
-A0B	Wrath of the Autokill	Power
-A0C	Trypophobia	Police
-A0D	Cheater	Outlaw
-A0E	Tumbleweed	
+A01	A Winner Is You	Friend	Be the last person standing in a game
+A02	Close, But No Cigar		Be the second to last person standing in a game
+A03	Honorable Mention		Be the third to last person standing in a game
+A04	It's Deadly	TheCone	Die in the liquid before round 5
+A05	Actually a Robot	Divine	Survive past round 60
+A06	Allahu Akbar	BoomBoy	Die from rockets during the "Look out above!" special round
+A07	Too Much Time Wasted	FirstPrize	Obtain 1st on the leaderboard
+A08	Lots of Time Wasted	SecondTries	Obtain 2nd on the leaderboard
+A09	Some Time Wasted	ThirdPlace	Obtain 3rd on the leaderboard
+A0A	JACKPOT	StarShades	Win the jackpot on the slot machine
+AH0	Spooky Spooky	Mummy	Join a game on October 31st
+AH1	Jingle Bells	Santa	Join a game on December 25th
+AH2	The Earth is 1776 Years Old	Topper	Join a game on July 4th
+AH3	Orbited	Festive	Join a game on January 1st
+A0B	Wrath of the Autokill	Power	Be autokilled
+A0C	Trypophobia	Police	Die from bullets during the "Look out!" special round
+A0D	Cheater	Outlaw	Trigger the cheat autokiller
+A0E	Tumbleweed		Play a game by yourself

@@ -2,6 +2,8 @@ function gatherAchievements() {
 	%file = new FileObject();
 	%file.openForRead("Add-Ons/Gamemode_Falling_Platforms/achievements/achievements.db");
 
+	$Platforms::Achievements = "";
+	
 	while(!%file.isEOF()) {
 		%line = %file.readLine();
 

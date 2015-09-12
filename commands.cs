@@ -10,6 +10,7 @@ function serverCmdHelp(%this) {
 	messageClient(%this,'',"\c3/join \c6-- Join the game quickly, although teleporters are radical.");
 	messageClient(%this,'',"\c3/inst \c5[instrument] \c6-- Bought an instrument? Obtain it through this command, or leave it blank to see what you own.");
 	messageClient(%this,'',"\c3/setSlotBet \c5[amount] \c6-- Set your bet amount when playing slots.");
+	messageClient(%this,'',"\c3/achievements \c6-- View your achievements.");
 }
 
 function serverCmdBet(%this,%amount,%target_ask) {
@@ -353,5 +354,17 @@ function serverCmdInst(%client, %inst, %inst2) {
 		}
 	} else {
 		messageClient(%client, '', "\c0You do not own this instrument.");
+	}
+}
+
+function serverCmdAchievements(%client) {
+	for(%i=0;%i<getWordCount($Platforms::Achievements);%i++) {
+		%id = getWord($Platforms::Achievements, %i);
+		
+		if(stripos(%client.achievements, %id) != -1) {
+			messageClient(%client, '', "\c2" @ getField($Platforms::Achievement[%id], 1) SPC "\c6--" SPC getField($Platforms::Achievement[%id], 3));
+		} else {
+			messageClient(%client, '', "\c7" @ getField($Platforms::Achievement[%id], 1));
+		}
 	}
 }
