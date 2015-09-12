@@ -364,6 +364,11 @@ package FallingPlatformsPackage {
 
 					if(PlatformAI.activePlayers < 2) {
 						%this.awardAchievement("A01");
+
+						%hat = HatMod_getRandomHat();
+						HatMod_addHat(%this, %this.bl_id, %hat, 1);
+						messageClient(%this, '', "\c6You have received the\c3" SPC %hat SPC "\c6hat for winning.");
+						
 						%this.wins++;
 					} else {
 						%this.losses++;

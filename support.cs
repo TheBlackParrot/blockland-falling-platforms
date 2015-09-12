@@ -218,3 +218,22 @@ function MinigameSO::playSoundGame(%this,%sound) {
 		}
 	}
 }
+
+package PlatformsHatMods {
+	function HatMod_getRandomHat() {
+		for(%i=0;%i<getWordCount($Platforms::Achievements);%i++) {
+			%id = getWord($Platforms::Achievements, %i);
+			%invalid = trim(getField($Platforms::Achievement[%id], 2) SPC %invalid);
+		}
+		for(%i=0;%i<$Platforms::ShopItems;%i++) {
+			%invalid = trim(getField($Platforms::Shop[%i], 4) SPC %invalid);
+		}
+
+		%name = HatMod_HatSet.getObject(getRandom(0, HatMod_HatSet.getCount()-1)).hatName;
+		while(stripos(%invalid, %name) != -1) {
+			%name = HatMod_HatSet.getObject(getRandom(0, HatMod_HatSet.getCount()-1)).hatName;
+		}
+		return %name;
+	}
+};
+activatePackage(PlatformsHatMods);
