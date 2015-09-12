@@ -238,6 +238,28 @@ function serverCmdLeaderboard(%this) {
 		}
 		messageClient(%this, '', "\c3" @ %i+1 @ ". \c6" @ getField(%row, 0) SPC "-\c4" SPC getField(%row, 1));
 	}
+
+	messageClient(%this, '', "\c6--------");
+
+	%pos = %list.getRowNumByID(%this.bl_id);
+	for(%i=(%pos-2);%i<(%pos+2);%i++) {
+		if(%i < 0 || %i > %list.rowCount) {
+			continue;
+		}
+
+		%row = %list.getRowText(%i);
+		if(getField(%row, 1) $= "" || getField(%row, 2) $= "") {
+			PlatformsLeaderboard.removeRow(%i);
+			%i--;
+			continue;
+		}
+
+		if(%pos == %i) {
+			messageClient(%this, '', "\c3" @ %i+1 @ ". \c2" @ getField(%row, 0) SPC "-\c5" SPC getField(%row, 1));
+		} else {
+			messageClient(%this, '', "\c3" @ %i+1 @ ". \c6" @ getField(%row, 0) SPC "-\c5" SPC getField(%row, 1));
+		}
+	}
 }
 function serverCmdPractice(%this) {
 	if(!isObject(%this.player)) {
