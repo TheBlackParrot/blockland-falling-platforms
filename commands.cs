@@ -225,6 +225,11 @@ function serverCmdLeaderboard(%this) {
 	}
 	%list = PlatformsLeaderboard;
 
+	if(getSimTime() - %this.lastleadcmd <= 1000) {
+		return;
+	}
+	%this.lastleadcmd = getSimTime();
+
 	%count = %list.rowCount();
 	if(%count > 15) {
 		%count = 15;
@@ -244,7 +249,7 @@ function serverCmdLeaderboard(%this) {
 
 	%pos = %list.getRowNumByID(%this.bl_id);
 	for(%i=(%pos-2);%i<(%pos+2);%i++) {
-		if(%i < 0 || %i > %list.rowCount) {
+		if(%i < 0 || %i > %list.rowCount()) {
 			continue;
 		}
 
@@ -303,7 +308,7 @@ function serverCmdJoin(%this) {
 	}
 	%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
 	%this.player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
-	%this.player.setVelocity("0 0 0");
+	%this.player.schedule(5, setVelocity, "0 0 0");
 	%this.player.setPlayerScale("1 1 1");
 	%this.player.clearTools();
 	%this.player.changeDatablock(PlayerPlatforms);

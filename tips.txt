@@ -10,5 +10,5 @@ You move faster and jump higher! Try taking advantage of it.
 Waiting for the next game to start? Try some of the arcade games and different rooms!
 Try not to stand on players' heads for too long, cheat prevention will kick in and kill you.
 <color:ff7700>Join the Blockland Teamspeak! <color:ff00ff>blockland.teamspeak3.com
-<color:ff0000>INSTRUMENTS HAVE BEEN FIXED! :D
-<color:ff0000>I AM NOT DONE WITH THE UPDATES! <color:ffffff>I haven't added in hat prizes for winning rounds nor achievements.
+<color:ff7700>Server space donated by Tezuni!
+<color:ff0000>See the <a:github.com/TheBlackParrot/blockland-falling-platforms/issues>issue tracker</a> for known bugs.

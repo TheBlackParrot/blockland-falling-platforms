@@ -280,7 +280,7 @@ package FallingPlatformsPackage {
 			if(%this.canTeleport) {
 				%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
 				%player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
-				%player.setVelocity("0 0 0");
+				%player.schedule(5, setVelocity, "0 0 0");
 				%player.setPlayerScale("1 1 1");
 				%player.clearTools();
 				%player.changeDatablock(PlayerPlatforms);
