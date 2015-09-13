@@ -550,7 +550,9 @@ function PlatformAI::pregameLoop(%this) {
 	cancel(%this.pregameSchedule);
 	%this.pregameSchedule = %this.schedule(2000,pregameLoop);
 
-	randomizePlatformBricks(getRandom(2,getWordCount(getPlatformColorTypes("numbers"))));
+	if($DefaultMinigame.numMembers > 0) {
+		randomizePlatformBricks(getRandom(2,getWordCount(getPlatformColorTypes("numbers"))));
+	}
 }
 
 function PlatformAI::practiceLoop(%this,%round) {
