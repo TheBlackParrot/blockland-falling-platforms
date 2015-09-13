@@ -8,7 +8,12 @@ function GameConnection::itemInfo(%this, %item) {
 	%cost = getField($Platforms::Shop[%item], 2);
 	// %id = getField($Platforms::Shop[%item], 3);
 
-	messageClient(%this, '', "\c3The" SPC %name SPC "\c6costs\c5" SPC %cost SPC "tickets. \c6You need\c5" SPC %cost - %this.score SPC "more tickets \c6to purchase this item.");
+	%playerCost = %cost - %this.score;
+	if(%playerCost > 0) {
+		messageClient(%this, '', "\c3The" SPC %name SPC "\c6costs\c5" SPC %cost SPC "tickets. \c6You need\c5" SPC %cost - %this.score SPC "more tickets \c6to purchase this item.");
+	} else {
+		messageClient(%this, '', "\c3The" SPC %name SPC "\c6costs\c5" SPC %cost SPC "tickets. \c6You have enough tickets to purchase this item.");
+	}
 }
 
 function GameConnection::purchaseItem(%this, %item) {

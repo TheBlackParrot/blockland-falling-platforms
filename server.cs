@@ -448,3 +448,6 @@ package FallingPlatformsPackage {
 	}
 };
 activatePackage(FallingPlatformsPackage);
+
+$Platforms::Version = "0.9.3-3";
+talk("Executed Falling Platforms v" @ $Platforms::Version);

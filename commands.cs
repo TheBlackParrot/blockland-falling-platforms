@@ -248,7 +248,7 @@ function serverCmdLeaderboard(%this) {
 	messageClient(%this, '', "\c6--------");
 
 	%pos = %list.getRowNumByID(%this.bl_id);
-	for(%i=(%pos-2);%i<(%pos+2);%i++) {
+	for(%i=(%pos-2);%i<=(%pos+2);%i++) {
 		if(%i < 0 || %i > %list.rowCount()) {
 			continue;
 		}
