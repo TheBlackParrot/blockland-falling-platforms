@@ -243,7 +243,11 @@ function Player::joinGame(%this) {
 	%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
 	%this.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
 	%this.schedule(5, setVelocity, "0 0 0");
-	%this.setPlayerScale("1 1 1");
+	if(PlatformAI.gameModifier == 2) {
+		%this.setPlayerScale("2 2 2");
+	} else {
+		%this.setPlayerScale("1 1 1");
+	}
 	%this.clearTools();
 	if(PlatformAI.gameModifier == 1) {
 		%this.changeDatablock(HorseArmor);
@@ -459,5 +463,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.0-2";
+$Platforms::Version = "0.10.1-1";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
