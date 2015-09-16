@@ -170,6 +170,11 @@ function serverCmdCamera(%this) {
 }
 
 function serverCmdDonate(%this,%target,%amount) {
+	if(getSimTime() - %this.lastdoncmd <= 1000) {
+		return;
+	}
+	%this.lastdoncmd = getSimTime();
+
 	if(%amount > %this.score) {
 		messageClient(%this,'',"\c6You can't donate more tickets than you have!");
 		return;

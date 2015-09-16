@@ -168,6 +168,12 @@ function checkOnDeath() {
 					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a" SPC 1000+mPow(PlatformAI.players,3) SPC "ticket bonus!");
 					%ai.canBet = 0;
 					%ai.doBets(%player[0].player);
+
+					%player[0].awardAchievement("A01");
+
+					%hat = HatMod_getRandomHat();
+					HatMod_addHat(%player[0], %player[0].bl_id, %hat, 1);
+					messageClient(%player[0], '', "\c6You have received the\c3" SPC %hat SPC "\c6hat for winning.");
 				}
 			case 2:
 				messageAll('',"\c4AI: \c6It's a showdown between" SPC %player[0].name SPC "(" @ %player[0].bl_id @ ") and" SPC %player[1].name SPC "(" @ %player[1].bl_id @ ")! Who will win?");
@@ -320,6 +326,8 @@ package FallingPlatformsPackage {
 			%this.original_prefix = %this.clanPrefix;
 		}
 
+		messageClient(%this, '', "\c5Version" SPC $Platforms::Version);
+
 		return parent::autoAdminCheck(%this);
 	}
 
@@ -359,16 +367,10 @@ package FallingPlatformsPackage {
 					%this.personalRecord = PlatformAI.rounds;
 				}
 				if(PlatformAI.players > 1) {
-					if(PlatformAI.activePlayers == 3) { %this.awardAchievement("A03"); }
-					if(PlatformAI.activePlayers == 2) { %this.awardAchievement("A02"); }
+					if(PlatformAI.activePlayers == 2) { %this.awardAchievement("A03"); }
+					if(PlatformAI.activePlayers == 1) { %this.awardAchievement("A02"); }
 
 					if(PlatformAI.activePlayers < 2) {
-						%this.awardAchievement("A01");
-
-						%hat = HatMod_getRandomHat();
-						HatMod_addHat(%this, %this.bl_id, %hat, 1);
-						messageClient(%this, '', "\c6You have received the\c3" SPC %hat SPC "\c6hat for winning.");
-						
 						%this.wins++;
 					} else {
 						%this.losses++;
@@ -449,5 +451,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.9.3-4";
+$Platforms::Version = "0.9.3-7";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
