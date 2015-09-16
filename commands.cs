@@ -311,12 +311,8 @@ function serverCmdJoin(%this) {
 	if(PlatformAI.inProgress) {
 		return;
 	}
-	%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
-	%this.player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
-	%this.player.schedule(5, setVelocity, "0 0 0");
-	%this.player.setPlayerScale("1 1 1");
-	%this.player.clearTools();
-	%this.player.changeDatablock(PlayerPlatforms);
+
+	%this.player.joinGame();
 }
 
 function serverCmdInst(%client, %inst, %inst2) {

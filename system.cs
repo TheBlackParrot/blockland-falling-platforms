@@ -330,6 +330,13 @@ function PlatformAI::reset(%this) {
 	cancel(%this.resetSchedule);
 	cancel(%this.startSchedule);
 
+	if(!getRandom(0, 5)) {
+		%this.gameModifier = 1; //for now
+		messageAll('', "\c4AI: \c6It's a special game!");
+	} else {
+		%this.gameModifier = 0;
+	}
+
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
 		%client = ClientGroup.getObject(%i);
 		%player = %client.player;

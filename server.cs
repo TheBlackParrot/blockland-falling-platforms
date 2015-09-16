@@ -239,6 +239,19 @@ if(!$Platforms::TipBotSched) {
 	TipBotLoop(0);
 }
 
+function Player::joinGame(%this) {
+	%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
+	%this.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
+	%this.schedule(5, setVelocity, "0 0 0");
+	%this.setPlayerScale("1 1 1");
+	%this.clearTools();
+	if(PlatformAI.gameModifier == 1) {
+		%this.changeDatablock(HorseArmor);
+	} else {
+		%this.changeDatablock(PlayerPlatforms);
+	}
+}
+
 package FallingPlatformsPackage {
 	function fxDTSBrick::onAdd(%this) {
 		%this.enableTouch = 1;
@@ -284,12 +297,7 @@ package FallingPlatformsPackage {
 
 		if(%this.getName() $= "_spawn_teleport") {
 			if(%this.canTeleport) {
-				%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
-				%player.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2) + 5);
-				%player.schedule(5, setVelocity, "0 0 0");
-				%player.setPlayerScale("1 1 1");
-				%player.clearTools();
-				%player.changeDatablock(PlayerPlatforms);
+				%player.joinGame();
 			} else {
 				%player.client.centerPrint("\c6This is a teleporter to join the game, however it is not currently active.<br>Wait for the current game to finish first!",3);
 			}
@@ -451,5 +459,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.9.3-7";
+$Platforms::Version = "0.10.0-2";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
