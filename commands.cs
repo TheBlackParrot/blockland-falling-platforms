@@ -215,6 +215,7 @@ function serverCmdDMRoom(%this) {
 	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
+	%this.player.setPlayerScale("1 1 1");
 }
 function serverCmdShop(%this) {
 	if(!isObject(%this.player)) {
@@ -228,6 +229,7 @@ function serverCmdShop(%this) {
 	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
+	%this.player.setPlayerScale("1 1 1");
 }
 function serverCmdLeaderboard(%this) {
 	if(!isObject(PlatformsLeaderboard)) {
@@ -289,6 +291,7 @@ function serverCmdPractice(%this) {
 	%this.player.changeDatablock(PlayerNoJet);
 	%this.player.clearTools();
 	%this.player.setVelocity("0 0 0");
+	%this.player.setPlayerScale("1 1 1");
 }
 function serverCmdAlive(%this) {
 	if(getSimTime() - %this.lastalivecmd <= 1000) {
