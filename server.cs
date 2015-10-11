@@ -110,6 +110,8 @@ function initFPMusic() {
 		volume = 0.6;
 		position = $loadOffset;
 	};
+
+	$Platforms::InitMusic = 1;
 }
 if(!$Platforms::InitMusic) {
 	initFPMusic();
@@ -465,5 +467,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.1-2";
+$Platforms::Version = "0.10.1-3";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

@@ -189,6 +189,11 @@ function serverCmdDonate(%this,%target,%amount) {
 		return;
 	}
 
+	if(%target == %this) {
+		messageClient(%this, '', "\c6You can't donate to yourself!");
+		return;
+	}
+
 	%target.score += %amount;
 	messageClient(%target,'',"\c3" @ %this.name SPC "\c6has donated\c3" SPC %amount SPC "tickets \c6to you");
 	%this.score -= %amount;
