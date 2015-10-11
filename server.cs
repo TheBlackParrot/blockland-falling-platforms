@@ -449,7 +449,7 @@ package FallingPlatformsPackage {
 				%pos = PlatformBricks.getObject(getRandom(0,PlatformBricks.getCount()-1)).brick.getPosition();
 				%obj.setTransform(getWords(%pos,0,1) SPC getWord(%pos,2)+5);
 				%obj.setVelocity("0 0 0");
-				%obj.setDamageLevel(0);
+				%obj.schedule(10, setDamageLevel, 0);
 			}
 		}
 		return parent::onEnterLiquid(%data,%obj,%coverage,%type);
@@ -467,5 +467,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.1-5";
+$Platforms::Version = "0.10.1-6";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
