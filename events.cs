@@ -105,7 +105,9 @@ function startSlots(%client) {
 	$Platforms::TempSlotsAmount = %client.slotBetAmount;
 
 	$Platforms::SlotsJackpot += %client.slotBetAmount;
-	_jackpot_amount.setPrintText(getSubStr("         ", 0, 9-strLen($Platforms::SlotsJackpot)) @ $Platforms::SlotsJackpot, 1);
+	
+	%str = mFloor($Platforms::SlotsJackpot);
+	_jackpot_amount.setPrintText(getSubStr("         ", 0, 9-strLen(%str)) @ %str, 1);
 
 	slotDig(1, %client);
 }

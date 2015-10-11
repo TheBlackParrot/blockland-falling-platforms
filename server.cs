@@ -111,7 +111,9 @@ function initFPMusic() {
 		position = $loadOffset;
 	};
 }
-initFPMusic();
+if(!$Platforms::InitMusic) {
+	initFPMusic();
+}
 
 function GameConnection::doBottomStats(%this) {
 	cancel(%this.bottomStatLoop);
@@ -463,5 +465,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.1-1";
+$Platforms::Version = "0.10.1-2";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
