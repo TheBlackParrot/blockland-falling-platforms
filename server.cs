@@ -138,7 +138,7 @@ function GameConnection::doBottomStats(%this) {
 	%winloss = (%this.wins || 0) @ ":" @ (%this.losses || 0);
 
 	//%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "  \c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]  \c3Game Time:\c6" SPC %time,2,1);
-	%this.bottomPrint("<font:Arial Bold:14>\c3Round:\c6" SPC %rounds @ "  \c3Time:\c6" SPC %time @ "<just:right>\c3W/L:\c6" SPC %winloss @ "  \c3Your Record:\c6" SPC %record SPC " \c3Tickets:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
+	%this.bottomPrint("<font:Arial Bold:14>\c3Round:\c6" SPC %rounds @ "  \c3Time:\c6" SPC %time @ "<just:right>\c3W/L:\c6" SPC %winloss @ "  \c3Your Record:\c6" SPC %record SPC " \c3Tickets:\c6" SPC mFloor(%score) @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
 }
 
 function MinigameSO::playSound(%this,%data) {
@@ -467,5 +467,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.1-3";
+$Platforms::Version = "0.10.1-4";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

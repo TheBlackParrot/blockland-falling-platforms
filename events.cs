@@ -151,7 +151,7 @@ function endSlots(%client) {
 	%eq = isSlotDigitsEqual();
 	switch(%eq) {
 		case 2:
-			messageAll('MsgAdminForce', "\c3" @ %client.name SPC "\c5JUST WON THE JACKPOT! \c3(" @ $Platforms::SlotsJackpot SPC "tickets)");
+			messageAll('MsgAdminForce', "\c3" @ %client.name SPC "\c5JUST WON THE JACKPOT! \c3(" @ mFloor($Platforms::SlotsJackpot) SPC "tickets)");
 			%client.awardAchievement("A0A");
 			
 			%client.score += $Platforms::SlotsJackpot;
@@ -166,7 +166,7 @@ function endSlots(%client) {
 
 		case 1:
 			%client.score += $Platforms::TempSlotsAmount * 2;
-			messageClient(%client, '', "\c6You won\c3" SPC $Platforms::TempSlotsAmount * 2 SPC "tickets!");
+			messageClient(%client, '', "\c6You won\c3" SPC mFloor($Platforms::TempSlotsAmount * 2) SPC "tickets!");
 			%client.playSound(Beep_Popup_Sound);
 
 			_jackpot_spin.disappear(0);
