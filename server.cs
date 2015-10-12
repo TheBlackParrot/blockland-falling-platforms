@@ -16,6 +16,8 @@ datablock PlayerData(PlayerPlatforms : PlayerStandardArmor) {
 	showEnergyBar = false;
 };
 
+HorseArmor.maxDamage = 100;
+
 exec("./db_functions.cs");
 exec("./layouts.cs");
 exec("./platform_functions.cs");
@@ -487,5 +489,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-1";
+$Platforms::Version = "0.10.4-3";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

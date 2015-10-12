@@ -126,7 +126,7 @@ function slotDig(%digit, %client) {
 	}
 
 	%brick = "_jackpot_d" @ %digit;
-	%brick.setPrint(getRandom(24, 35));
+	%brick.setPrint(getRandom(22, 35));
 
 	if(getRandom(0, 24)) {
 		%brick.playSound(brickPlantSound);
