@@ -196,7 +196,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 				%brick.schedule(2000+(%amount*33),fakeKillBrick,"0 0 0",3);
 				%brick.schedule(2000+(%amount*33),setColor,%old_color);
 			}
-			$DefaultMinigame.schedule(2000+(%amount*33),playSound,"fall" @ getRandom(1,13));
+			$DefaultMinigame.schedule(2000+(%amount*33),playSound,"fall" @ getRandom(1,30));
 			%this.specialEndSchedule = %this.schedule(8000+(%amount*33),gameLoop);
 		case 2:
 			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Look out!",5);
@@ -223,7 +223,7 @@ function PlatformAI::doSpecialRound(%this,%type) {
 				}
 				%brick.schedule(16000,setColor,%brick.oldColor);
 			}
-			$DefaultMinigame.schedule(16000,playSound,"fall" @ getRandom(1,13));
+			$DefaultMinigame.schedule(16000,playSound,"fall" @ getRandom(1,30));
 			%this.specialEndSchedule = %this.schedule(20000,gameLoop);
 		case 4:
 			$DefaultMinigame.centerPrintGame("<font:Impact:36>\c6Jump!",5);

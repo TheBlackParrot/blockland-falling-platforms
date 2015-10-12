@@ -55,7 +55,7 @@ function breakPlatforms(%color) {
 			}
 		}
 	}
-	$DefaultMinigame.playSoundGame("fall" @ getRandom(1,13));
+	$DefaultMinigame.playSoundGame("fall" @ getRandom(1,30));
 }
 
 function warnPracticePlatforms(%color) {
