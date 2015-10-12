@@ -331,7 +331,7 @@ function PlatformAI::reset(%this) {
 	cancel(%this.startSchedule);
 
 	if(!getRandom(0, 5)) {
-		%this.gameModifier = getRandom(1, 3);
+		%this.gameModifier = getRandom(1, 4);
 		//%this.gameModifier = 3;
 		messageAll('', "\c4AI: \c6It's a special game!");
 	} else {

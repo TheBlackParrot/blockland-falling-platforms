@@ -275,6 +275,9 @@ function Player::joinGame(%this) {
 	} else {
 		%this.changeDatablock(PlayerPlatforms);
 	}
+	if(PlatformAI.gameModifier == 4) {
+		%this.hideNode("ALL");
+	}
 }
 
 package FallingPlatformsPackage {
@@ -484,5 +487,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.3-1";
+$Platforms::Version = "0.10.4-1";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
