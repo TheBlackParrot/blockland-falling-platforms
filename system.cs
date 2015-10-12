@@ -331,7 +331,8 @@ function PlatformAI::reset(%this) {
 	cancel(%this.startSchedule);
 
 	if(!getRandom(0, 5)) {
-		%this.gameModifier = getRandom(1, 2); //for now
+		%this.gameModifier = getRandom(1, 3);
+		//%this.gameModifier = 3;
 		messageAll('', "\c4AI: \c6It's a special game!");
 	} else {
 		%this.gameModifier = 0;
@@ -396,6 +397,9 @@ function PlatformAI::readyGame(%this) {
 	}
 	%percentage = mCeil((%count/$DefaultMinigame.numMembers)*1000)/10;
 	messageAll('',"\c4AI: \c6Let's begin! Approximately" SPC %percentage @ "% [" @ %count @ "/" @ $DefaultMinigame.numMembers @ "] of the server is playing.");
+	if(%this.gameModifier == 3) {
+		messageAll('',"\c4AI: \c2Follow the text color!");
+	}
 	%this.gamesPlayed++;
 	%this.startSchedule = %this.schedule(5000,gameLoop);
 

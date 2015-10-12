@@ -2,22 +2,29 @@ function warnPlatforms(%color) {
 	%colors[num] = getPlatformColorTypes("numbers");
 	%colors[name] = getPlatformColorTypes("names");
 	%color_brick = getWord(%colors[num],%color-1);
-	%count = PlatformBricks.getCount();
-	for(%i=0;%i<%count;%i++) {
-		%row = PlatformBricks.getObject(%i);
-		if(%row.color == %color) {
-			%row.brick.schedule(150,setColorFX,3);
-			%row.brick.schedule(300,setColorFX,0);
-			%row.brick.schedule(450,setColorFX,3);
-			%row.brick.schedule(600,setColorFX,0);
+	if(PlatformAI.gameModifier != 3) {
+		%count = PlatformBricks.getCount();
+		for(%i=0;%i<%count;%i++) {
+			%row = PlatformBricks.getObject(%i);
+			if(%row.color == %color) {
+				%row.brick.schedule(150,setColorFX,3);
+				%row.brick.schedule(300,setColorFX,0);
+				%row.brick.schedule(450,setColorFX,3);
+				%row.brick.schedule(600,setColorFX,0);
+			}
+			%row.brick.setColorFX(4);
+			%row.brick.setColorFX(0);
 		}
-		%row.brick.setColorFX(4);
-		%row.brick.setColorFX(0);
+		$DefaultMinigame.schedule(150,playSoundGame,brickPlantSound);
+		$DefaultMinigame.schedule(450,playSoundGame,brickPlantSound);
 	}
-	$DefaultMinigame.schedule(150,playSoundGame,brickPlantSound);
-	$DefaultMinigame.schedule(450,playSoundGame,brickPlantSound);
 	//%str = getWord(%colors,1+%color*2);
-	%str = getWord(%colors[name],%color);
+	if(PlatformAI.gameModifier == 3) {
+		%str = getWord(%colors[name],getRandom(0, getWordCount(%colors[name])));
+	} else {
+		%str = getWord(%colors[name],%color);
+	}
+	
 	if(!PlatformAI.inverseFall) {
 		//"<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ ">
 		$DefaultMinigame.centerPrintGame("<color:" @ rgbToHex(getColorIDTable(getWord(%colors[num],%color))) @ "><font:Impact:36><just:left>" @ %str @ "<just:center>" @ %str @ "<just:right>" @ %str,5);
