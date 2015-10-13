@@ -175,6 +175,12 @@ function serverCmdDonate(%this,%target,%amount) {
 	}
 	%this.lastdoncmd = getSimTime();
 
+	%amount = mFloor(%amount);
+
+	if(%amount > 999999) {
+		%amount = 999999;
+	}
+
 	if(%amount > %this.score) {
 		messageClient(%this,'',"\c6You can't donate more tickets than you have!");
 		return;

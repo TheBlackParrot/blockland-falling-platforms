@@ -63,3 +63,39 @@ package PlatformsSavingPackage {
 	}
 };
 activatePackage(PlatformsSavingPackage);
+
+
+// remove in 0.10.4-6b
+function clearTicketSaves() {
+	%pattern = $Platforms::SaveDir @ "/*";
+	%filename = findFirstFile(%pattern);
+
+	%file_old = new FileObject();
+	%file_new = new FileObject();
+
+	while(isFile(%filename)) {
+		%i = 0;
+		%file_old.openForRead(%filename);
+
+		while(!%file_old.isEOF()) {
+			%line[%i] = %file.readLine();
+			if(getField(%line[%i], 1) $= "score") {
+				%line[%i] = "general" TAB "score" TAB 0;
+			}
+			%i++;
+		}
+		%file_old.close();
+
+		%file_new.openForWrite(%filename);
+		for(%j=0;%j<%i;%j++) {
+			%file_new.writeLine(%line[%j]);
+		}
+		%file_new.close();
+
+		%filename = findNextFile(%pattern);
+	}
+
+	for(%i=0;%i<ClientGroup.getCount();%i++) {
+		ClientGroup.getObject(%i).score = 0;
+	}
+}
