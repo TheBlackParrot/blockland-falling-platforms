@@ -95,6 +95,9 @@ function clearTicketSaves() {
 		%filename = findNextFile(%pattern);
 	}
 
+	%file_old.delete();
+	%file_new.delete();
+	
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
 		ClientGroup.getObject(%i).score = 0;
 	}
