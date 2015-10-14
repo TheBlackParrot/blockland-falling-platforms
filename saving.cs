@@ -65,8 +65,8 @@ package PlatformsSavingPackage {
 activatePackage(PlatformsSavingPackage);
 
 
-// remove in 0.10.4-6b
 function clearTicketSaves() {
+	talk("WIPING TICKETS.");
 	%pattern = $Platforms::SaveDir @ "/*";
 	%filename = findFirstFile(%pattern);
 
@@ -78,7 +78,7 @@ function clearTicketSaves() {
 		%file_old.openForRead(%filename);
 
 		while(!%file_old.isEOF()) {
-			%line[%i] = %file.readLine();
+			%line[%i] = %file_old.readLine();
 			if(getField(%line[%i], 1) $= "score") {
 				%line[%i] = "general" TAB "score" TAB 0;
 			}
@@ -100,5 +100,55 @@ function clearTicketSaves() {
 	
 	for(%i=0;%i<ClientGroup.getCount();%i++) {
 		ClientGroup.getObject(%i).score = 0;
+	}
+}
+
+function reimbursePlayers() {
+	talk("REIMBURSING PLAYERS.");
+	%pattern = $Platforms::SaveDir @ "/*";
+	%filename = findFirstFile(%pattern);
+
+	%file_old = new FileObject();
+	%file_new = new FileObject();
+
+	while(isFile(%filename)) {
+		%i = 0;
+		%total = 0;
+		%file_old.openForRead(%filename);
+
+		while(!%file_old.isEOF()) {
+			%line[%i] = %file_old.readLine();
+			if(getField(%line[%i], 1) $= "wins") {
+				%total += (getField(%line[%i], 2) ? getField(%line[%i], 2) : 0) * 750;
+			}
+			if(getField(%line[%i], 1) $= "losses") {
+				%total += (getField(%line[%i], 2) ? getField(%line[%i], 2) : 0) * 250;
+			}
+			for(%j=0;%j<%i;%j++) {
+				%file_new.writeLine(%line[%j]);
+			}
+			%i++;
+		}
+		for(%j=0;%j<%i;%j++) {
+			if(getField(%line[%j], 1) $= "score") {
+				%line[%j] = "general" TAB "score" TAB %total;
+			}
+		}
+		%file_old.close();
+
+		%file_new.openForWrite(%filename);
+		for(%j=0;%j<%i;%j++) {
+			%file_new.writeLine(%line[%j]);
+		}
+		%file_new.close();
+
+		%filename = findNextFile(%pattern);
+	}
+
+	%file_old.delete();
+	%file_new.delete();
+	
+	for(%i=0;%i<ClientGroup.getCount();%i++) {
+		ClientGroup.getObject(%i).loadPlatformsSave();
 	}
 }

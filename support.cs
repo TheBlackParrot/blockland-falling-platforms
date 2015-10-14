@@ -237,3 +237,9 @@ package PlatformsHatMods {
 	}
 };
 activatePackage(PlatformsHatMods);
+
+function Player::hideNodesLoop(%this) {
+	cancel(%this.hideNodeSched);
+	%this.hideNode("ALL");
+	%this.hideNodeSched = %this.schedule(1000, hideNodesLoop);
+}
