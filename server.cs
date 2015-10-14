@@ -450,6 +450,7 @@ package FallingPlatformsPackage {
 	function MinigameSO::centerPrintAll(%this) {}
 	function MinigameSO::bottomPrintAll(%this) {}
 	function serverCmdDropTool(%this) {}
+	function tacklePlayer() {}
 
 	function GunProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal) {
 		if(%col.getClassName() $= "Player") {
@@ -489,5 +490,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-8";
+$Platforms::Version = "0.10.4-9";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
