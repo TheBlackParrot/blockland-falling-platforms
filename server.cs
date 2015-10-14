@@ -489,5 +489,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-7";
+$Platforms::Version = "0.10.4-8";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

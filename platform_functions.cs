@@ -20,7 +20,11 @@ function warnPlatforms(%color) {
 	}
 	//%str = getWord(%colors,1+%color*2);
 	if(PlatformAI.gameModifier == 3) {
-		%str = getWord(%colors[name],getRandom(0, getWordCount(%colors[name])-1));
+		%rand = getRandom(0, PlatformAI.getColorAmount()-1);
+		while(%rand == %color) {
+			%rand = getRandom(0, PlatformAI.getColorAmount()-1);
+		}
+		%str = getWord(%colors[name],%rand);
 	} else {
 		%str = getWord(%colors[name],%color);
 	}
