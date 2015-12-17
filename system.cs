@@ -399,6 +399,7 @@ function PlatformAI::readyGame(%this) {
 	messageAll('',"\c4AI: \c6Let's begin! Approximately" SPC %percentage @ "% [" @ %count @ "/" @ $DefaultMinigame.numMembers @ "] of the server is playing.");
 	if(%this.gameModifier == 3) {
 		messageAll('',"\c4AI: \c2Follow the text color!");
+		centerPrintAll("<font:Impact:36>\c4Follow the text color!", 5);
 	}
 	%this.gamesPlayed++;
 	%this.startSchedule = %this.schedule(5000,gameLoop);
