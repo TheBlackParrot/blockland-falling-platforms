@@ -156,7 +156,6 @@ function endSlots(%client) {
 			
 			%client.score += $Platforms::SlotsJackpot;
 			$Platforms::SlotsJackpot = 0;
-			%client.savePlatformsGame();
 
 			$DefaultMinigame.playSound(Beep_Siren_Sound);
 			$DefaultMinigame.schedule(1500, playSound, Beep_Siren_Sound);
@@ -177,6 +176,8 @@ function endSlots(%client) {
 
 			_jackpot_spin.disappear(0);
 	}
+
+	%client.savePlatformsGame();
 }
 
 package PlatformSlotPackage {
