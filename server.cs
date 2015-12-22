@@ -359,6 +359,17 @@ package FallingPlatformsPackage {
 	}
 
 	function GameConnection::autoAdminCheck(%this) {
+		for(%i=0;%i<ClientGroup.getCount();%i++) {
+			%tmp = ClientGroup.getObject(%i);
+			if(%this.bl_id == %tmp.bl_id) {
+				%count++;
+			}
+		}
+		if(%count > 1) {
+			%this.delete("Multiclienting is not allowed on this server. Sorry for the inconvenience.");
+			return parent::autoAdminCheck(%this);
+		}
+
 		%this.doBottomStats();
 		if(%this.original_prefix $= "") {
 			%this.original_prefix = %this.clanPrefix;
@@ -490,5 +501,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-11";
+$Platforms::Version = "0.10.4-12";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
