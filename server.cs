@@ -126,7 +126,7 @@ function initFPMusic() {
 		profile = "musicData_FP" @ getRandom(0,$Platforms::MusicDataCount);
 		referenceDistance = 999999;
 		maxDistance = 999999;
-		volume = 0.6;
+		volume = 1;
 		position = $loadOffset;
 	};
 
@@ -501,5 +501,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-12";
+$Platforms::Version = "0.10.4-13";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

@@ -148,7 +148,7 @@ function serverCmdChangeMusic(%this,%which) {
 		profile = "musicData_FP" @ %which;
 		referenceDistance = 999999;
 		maxDistance = 999999;
-		volume = 0.6;
+		volume = 1;
 		position = $loadOffset;
 	};
 }
