@@ -203,7 +203,6 @@ package PlatformSlotPackage {
 			}
 		}
 
-		echo(%this, %a, %b, %c);
 		return parent::ActivateStuff(%this);
 	}
 };
