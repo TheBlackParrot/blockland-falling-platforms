@@ -419,7 +419,7 @@ package FallingPlatformsPackage {
 					if(PlatformAI.activePlayers == 2) { %this.awardAchievement("A03"); }
 					if(PlatformAI.activePlayers == 1) { %this.awardAchievement("A02"); }
 
-					if(PlatformAI.activePlayers < 2) {
+					if(PlatformAI.activePlayers < 2 && PlatformAI.activePlayers) {
 						%this.wins++;
 					} else {
 						%this.losses++;
@@ -501,5 +501,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-13";
+$Platforms::Version = "0.10.4-14";
 talk("Executed Falling Platforms v" @ $Platforms::Version);
