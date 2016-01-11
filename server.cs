@@ -130,6 +130,12 @@ function GameConnection::doBottomStats(%this) {
 
 	//%this.bottomPrint("<font:Arial Bold:16>\c3Round:\c6" SPC %rounds @ "  \c3Score:\c6" SPC %score @ "  \c3Total Score:\c6" SPC %totalscore @ "  \c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]  \c3Game Time:\c6" SPC %time,2,1);
 	%this.bottomPrint("<font:Arial Bold:14>\c3Round:\c6" SPC %rounds @ "  \c3Time:\c6" SPC %time @ "<just:right>\c3W/L:\c6" SPC %winloss @ "  \c3Your Record:\c6" SPC %record SPC " \c3Tickets:\c6" SPC mFloor(%score) @ "  \c3Total Score:\c6" SPC %totalscore @ "<br><just:center><font:Arial Bold:20>\c3Longest Survivor:\c6" SPC %highest[name] SPC "[" @ %highest[amount] @ "]",2,1);
+
+	if(isObject(%this.player)) {
+		if(%this.player.inGame) {
+			%this.timePlayed++;
+		}
+	}
 }
 
 function MinigameSO::playSound(%this,%data) {
@@ -474,13 +480,15 @@ package FallingPlatformsPackage {
 		if(%row > mFloor(%count/2)) {
 			%endCol = "255 255 255";
 			%startCol = "0 255 0";
-			%weight = mClamp(%row/(%count/2), 0, 1);
+			%weight = mClampF((%row-(%count/2))/(%count/2), 0, 1);
 
 			%col = RGBToHex(interpolateColor(%startCol, %endCol, %weight, 1));
 		} else {
 			%endCol = "0 255 0";
 			%startCol = "0 255 255";
-			%weight = mClamp((%row-(%count/2))/(%count/2), 0, 1);
+			%weight = mClampF(%row/(%count/2), 0, 1);
+
+			//talk(%weight);
 
 			%col = RGBToHex(interpolateColor(%startCol, %endCol, %weight, 1));
 		}
@@ -491,5 +499,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.6-1";
+$Platforms::Version = "0.10.7-3";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

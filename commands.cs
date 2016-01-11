@@ -11,6 +11,7 @@ function serverCmdHelp(%this) {
 	messageClient(%this,'',"\c3/inst \c5[instrument] \c6-- Bought an instrument? Obtain it through this command, or leave it blank to see what you own.");
 	messageClient(%this,'',"\c3/setSlotBet \c5[amount] \c6-- Set your bet amount when playing slots.");
 	messageClient(%this,'',"\c3/achievements \c6-- View your achievements.");
+	messageClient(%this,'',"\c3/timePlayed \c6-- View how long you have been in-game.");
 }
 
 function serverCmdBet(%this,%amount,%target_ask) {
@@ -387,4 +388,19 @@ function serverCmdAchievements(%client) {
 			messageClient(%client, '', "\c7" @ getField($Platforms::Achievement[%id], 1));
 		}
 	}
+}
+
+function serverCmdTimePlayed(%client) {
+	if(getSimTime() - %client.lasttimeplayedcmd <= 1000) {
+		return;
+	}
+	%client.lasttimeplayedcmd = getSimTime();
+
+	%secs = %client.timePlayed;
+	%mins = mFloor(%secs/60) % 60;
+	%hrs = mFloor(%secs/3600) % 24;
+	%days = mFloor(%secs/86400);
+	%timeStr = %days @ "d" SPC %hrs @ "h" SPC %mins @ "m" SPC %secs % 60 @ "s";
+
+	messageClient(%client, '', "\c6You have been playing for\c3" SPC %timeStr);
 }
