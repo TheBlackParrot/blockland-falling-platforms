@@ -494,12 +494,30 @@ package FallingPlatformsPackage {
 		if(%row == -1) {
 			return parent::serverCmdMessageSent(%client, %msg);
 		}
+		%row++;
 
-		%client.clanPrefix = "\c7[\c5" @ getPositionString(%row+1) @ "\c7]" SPC %client.original_prefix;
+		%count = PlatformsLeaderboard.rowCount();
+		%col = "FFFFFF";
+		
+		if(%row > mFloor(%count/2)) {
+			%endCol = "255 255 255";
+			%startCol = "0 255 0";
+			%weight = mClamp(%row/(%count/2), 0, 1);
+
+			%col = RGBToHex(interpolateColor(%startCol, %endCol, %weight, 1));
+		} else {
+			%endCol = "0 255 0";
+			%startCol = "0 255 255";
+			%weight = mClamp((%row-(%count/2))/(%count/2), 0, 1);
+
+			%col = RGBToHex(interpolateColor(%startCol, %endCol, %weight, 1));
+		}
+
+		%client.clanPrefix = "\c7[<color:" @ %col @ ">" @ getPositionString(%row) @ "\c7]" SPC %client.original_prefix;
 		return parent::serverCmdMessageSent(%client, %msg);
 	}
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.4-14a";
+$Platforms::Version = "0.10.5-5";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

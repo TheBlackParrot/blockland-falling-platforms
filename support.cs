@@ -243,3 +243,19 @@ function Player::hideNodesLoop(%this) {
 	%this.hideNode("ALL");
 	%this.hideNodeSched = %this.schedule(1000, hideNodesLoop);
 }
+
+function mInterpolate(%var1, %var2, %weight) {
+	return (1 - %weight) * %var1 + (%weight * %var2);
+}
+function interpolateColor(%col1, %col2, %weight, %mode) {
+	for(%i=0;%i<getWordCount(%col1);%i++) {
+		%num[1] = getWord(%col1, %i);
+		%num[2] = getWord(%col2, %i);
+		if(%mode) {
+			%str = trim(%str SPC mInterpolate(%num[1], %num[2], %weight)/255);
+		} else {
+			%str = trim(%str SPC mFloatLength(mInterpolate(%num[1], %num[2], %weight), 0));
+		}
+	}
+	return %str;
+}

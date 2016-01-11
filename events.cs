@@ -73,6 +73,8 @@ initiateShopEvents();
 
 
 function serverCmdSetSlotBet(%client, %amount) {
+	%amount = mFloor(%amount);
+	
 	if(%amount $= "" || %amount < 50) {
 		%amount = 50;
 		messageClient(%client, '', "\c0There is a minimum bet of 50 tickets.");
