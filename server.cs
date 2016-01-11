@@ -30,6 +30,7 @@ exec("./leaderboard.cs");
 loadLeaderboard();
 exec("./events.cs");
 exec("./achievements.cs");
+exec("./sounds.cs");
 
 // might throw off bots initially
 if(!$Platforms::ChangedLoadOffset) {
@@ -45,35 +46,6 @@ datablock AudioProfile(fall1)
 	description = AudioClosest3d;
 	preload = true;
 };
-datablock AudioProfile(fall2:fall1) { filename = "./sounds/fall2.wav"; };
-datablock AudioProfile(fall3:fall1) { filename = "./sounds/fall3.wav"; };
-datablock AudioProfile(fall4:fall1) { filename = "./sounds/fall4.wav"; };
-datablock AudioProfile(fall5:fall1) { filename = "./sounds/fall5.wav"; };
-datablock AudioProfile(fall6:fall1) { filename = "./sounds/fall6.wav"; };
-datablock AudioProfile(fall7:fall1) { filename = "./sounds/fall7.wav"; };
-datablock AudioProfile(fall8:fall1) { filename = "./sounds/fall8.wav"; };
-datablock AudioProfile(fall9:fall1) { filename = "./sounds/fall9.wav"; };
-datablock AudioProfile(fall10:fall1) { filename = "./sounds/fall10.wav"; };
-datablock AudioProfile(fall11:fall1) { filename = "./sounds/fall11.wav"; };
-datablock AudioProfile(fall12:fall1) { filename = "./sounds/fall12.wav"; };
-datablock AudioProfile(fall13:fall1) { filename = "./sounds/fall13.wav"; };
-datablock AudioProfile(fall14:fall1) { filename = "./sounds/fall14.wav"; };
-datablock AudioProfile(fall15:fall1) { filename = "./sounds/fall15.wav"; };
-datablock AudioProfile(fall16:fall1) { filename = "./sounds/fall16.wav"; };
-datablock AudioProfile(fall17:fall1) { filename = "./sounds/fall17.wav"; };
-datablock AudioProfile(fall18:fall1) { filename = "./sounds/fall18.wav"; };
-datablock AudioProfile(fall19:fall1) { filename = "./sounds/fall19.wav"; };
-datablock AudioProfile(fall20:fall1) { filename = "./sounds/fall20.wav"; };
-datablock AudioProfile(fall21:fall1) { filename = "./sounds/fall21.wav"; };
-datablock AudioProfile(fall22:fall1) { filename = "./sounds/fall22.wav"; };
-datablock AudioProfile(fall23:fall1) { filename = "./sounds/fall23.wav"; };
-datablock AudioProfile(fall24:fall1) { filename = "./sounds/fall24.wav"; };
-datablock AudioProfile(fall25:fall1) { filename = "./sounds/fall25.wav"; };
-datablock AudioProfile(fall26:fall1) { filename = "./sounds/fall26.wav"; };
-datablock AudioProfile(fall27:fall1) { filename = "./sounds/fall27.wav"; };
-datablock AudioProfile(fall28:fall1) { filename = "./sounds/fall28.wav"; };
-datablock AudioProfile(fall29:fall1) { filename = "./sounds/fall29.wav"; };
-datablock AudioProfile(fall30:fall1) { filename = "./sounds/fall30.wav"; };
 datablock AudioProfile(color_notif:fall1) { filename = "./sounds/color.wav"; };
 
 AudioMusicLooping3d.is3d = 0;
@@ -498,7 +470,7 @@ package FallingPlatformsPackage {
 
 		%count = PlatformsLeaderboard.rowCount();
 		%col = "FFFFFF";
-		
+
 		if(%row > mFloor(%count/2)) {
 			%endCol = "255 255 255";
 			%startCol = "0 255 0";
@@ -519,5 +491,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.5-5";
+$Platforms::Version = "0.10.6-1";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

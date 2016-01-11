@@ -66,7 +66,7 @@ function breakPlatforms(%color) {
 			}
 		}
 	}
-	$DefaultMinigame.playSoundGame("fall" @ getRandom(1,30));
+	$DefaultMinigame.playSoundGame("fall" @ getRandom(1,$Platforms::FallCount));
 }
 
 function warnPracticePlatforms(%color) {
