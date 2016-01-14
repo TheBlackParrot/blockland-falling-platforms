@@ -122,12 +122,16 @@ function serverCmdChangeMusic(%this,%which) {
 		}
 		return;
 	}
-	if(%this.score < 250) {
-		messageClient(%this,'',"\c6You need at least 250 tickets to change the music.");
+	if(%this.score < 500) {
+		messageClient(%this,'',"\c6You need at least 500 tickets to change the music.");
 		return;
 	}
 	if(getSimTime() - $Platforms::LastMusicChange < 120000) {
 		messageClient(%this,'',"\c6The music can only be changed once every 2 minutes. Please wait another\c3" SPC mFloor((($Platforms::LastMusicChange+120000)-getSimTime())/1000) SPC "second(s).");
+		return;
+	}
+	if(getSimTime() - %this.lastMusicChange < 300000) {
+		messageClient(%this,'',"\c6There is a 5 minute timeout. Please wait another\c3" SPC mFloor(((%this.lastMusicChange+300000)-getSimTime())/1000) SPC "second(s).");
 		return;
 	}
 
@@ -138,6 +142,7 @@ function serverCmdChangeMusic(%this,%which) {
 	%music_obj = "musicData_FP" @ %which;
 	$Platforms::LastMusicChange = getSimTime();
 	messageAll('',"\c3" @ %this.name SPC "\c6changed the music to\c3" SPC %music_obj.uiName);
+	%this.lastMusicChange = getSimTime();
 
 	// i would just set the profile and update it, but that's not working
 	// i bet this is why the default music bricks have a new AudioEmitter everytime it's changed

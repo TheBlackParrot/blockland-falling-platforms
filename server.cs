@@ -166,6 +166,8 @@ function checkOnDeath() {
 				if(%ai.rounds > 7 && %ai.players > 2) {
 					%player[0].score += 1000+mPow(PlatformAI.players,3);
 					%player[0].totalscore += 100+(PlatformAI.players*2);
+					%player[0].wins++;
+
 					messageAll('',"\c4AI: \c6Congratulations to" SPC %player[0].name SPC "for being the last person standing! They receive a" SPC 1000+mPow(PlatformAI.players,3) SPC "ticket bonus!");
 					%ai.canBet = 0;
 					%ai.doBets(%player[0].player);
@@ -397,9 +399,8 @@ package FallingPlatformsPackage {
 					if(PlatformAI.activePlayers == 2) { %this.awardAchievement("A03"); }
 					if(PlatformAI.activePlayers == 1) { %this.awardAchievement("A02"); }
 
-					if(PlatformAI.activePlayers < 2 && PlatformAI.activePlayers) {
-						%this.wins++;
-					} else {
+					if(PlatformAI.activePlayers <= 2 && PlatformAI.activePlayers) {
+						talk("Added a loss to" SPC %this SPC %this.name);
 						%this.losses++;
 					}
 				}
@@ -499,5 +500,5 @@ package FallingPlatformsPackage {
 };
 activatePackage(FallingPlatformsPackage);
 
-$Platforms::Version = "0.10.7-3";
+$Platforms::Version = "0.10.7-6";
 talk("Executed Falling Platforms v" @ $Platforms::Version);

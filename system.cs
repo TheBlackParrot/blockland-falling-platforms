@@ -20,14 +20,14 @@ function PlatformAI::getColorAmount(%this) {
 
 function PlatformAI::getDelayReduction(%this,%round) {
 	if(!%round) {
-		%amount = (%this.rounds-1)*200;
+		%amount = (%this.rounds-1)*210;
 	} else {
-		%amount = (%round-1)*200;
+		%amount = (%round-1)*210;
 	}
 	// really having to compensate for recent player changes
 	// holy crap
-	if(%amount > 3450) {
-		%amount = 3450;
+	if(%amount > 3470) {
+		%amount = 3470;
 	}
 	return %amount;
 }
