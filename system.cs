@@ -35,7 +35,7 @@ function PlatformAI::getDelayReduction(%this,%round) {
 function PlatformAI::gameLoop(%this) {
 	cancel(%this.gameSchedule);
 	%this.gameSchedule = %this.schedule(14100-(%this.getDelayReduction()*2.1),gameLoop);
-	talk(14150-(%this.getDelayReduction()*2.1));
+
 	%this.specialRound = 0;
 	%this.rounds++;
 
