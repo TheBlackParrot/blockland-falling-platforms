@@ -20,22 +20,22 @@ function PlatformAI::getColorAmount(%this) {
 
 function PlatformAI::getDelayReduction(%this,%round) {
 	if(!%round) {
-		%amount = (%this.rounds-1)*210;
+		%amount = (%this.rounds-1)*195;
 	} else {
-		%amount = (%round-1)*210;
+		%amount = (%round-1)*195;
 	}
 	// really having to compensate for recent player changes
 	// holy crap
-	if(%amount > 3470) {
-		%amount = 3470;
+	if(%amount > 3735) {
+		%amount = 3735;
 	}
 	return %amount;
 }
 
 function PlatformAI::gameLoop(%this) {
 	cancel(%this.gameSchedule);
-	%this.gameSchedule = %this.schedule(14200-(%this.getDelayReduction()*2.1),gameLoop);
-
+	%this.gameSchedule = %this.schedule(14100-(%this.getDelayReduction()*2.1),gameLoop);
+	talk(14150-(%this.getDelayReduction()*2.1));
 	%this.specialRound = 0;
 	%this.rounds++;
 
@@ -100,7 +100,7 @@ function PlatformAI::gameLoop(%this) {
 		%did_shuffle = 1;
 		%delay_reduction = 0;
 	}
-	if(%this.rounds % 2 && !%did_shuffle) {
+	if(%this.rounds % 3 == 1 && !%did_shuffle) {
 		randomizePlatformBricks(%color_amount);
 		%delay_reduction = 0;
 	}
@@ -154,8 +154,8 @@ function PlatformAI::gameLoop(%this) {
 	%this.oldColorAmount = %color_amount;
 
 	if(!%this.specialRound) {
-		%this.warnSchedule = schedule(1500-%this.getDelayReduction()/7-%delay_reduction,0,warnPlatforms,%chosen_color);
-		%this.breakSchedule = schedule(5500-%this.getDelayReduction()-%delay_reduction,0,breakPlatforms,%chosen_color);
+		%this.warnSchedule = schedule(1400-%this.getDelayReduction()/7-%delay_reduction,0,warnPlatforms,%chosen_color);
+		%this.breakSchedule = schedule(5400-%this.getDelayReduction()-%delay_reduction,0,breakPlatforms,%chosen_color);
 	}
 }
 
